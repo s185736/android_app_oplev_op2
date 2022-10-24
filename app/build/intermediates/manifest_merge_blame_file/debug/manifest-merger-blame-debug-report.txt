@@ -1,0 +1,108 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<!--
+3     Copyright (C) 2021 The Android Open Source Project
+4     Licensed under the Apache License, Version 2.0 (the "License");
+5     you may not use this file except in compliance with the License.
+6     You may obtain a copy of the License at
+7          http://www.apache.org/licenses/LICENSE-2.0
+8     Unless required by applicable law or agreed to in writing, software
+9     distributed under the License is distributed on an "AS IS" BASIS,
+10     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+11     See the License for the specific language governing permissions and
+12     limitations under the License.
+13-->
+14<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+15    package="com.example.app"
+16    android:versionCode="1"
+17    android:versionName="1.0" >
+18
+19    <uses-sdk
+20        android:minSdkVersion="21"
+20-->C:\Users\azmi_\Documents\Github\62550_android\android_app_oplev_op2\app\src\main\AndroidManifest.xml
+21        android:targetSdkVersion="31" />
+21-->C:\Users\azmi_\Documents\Github\62550_android\android_app_oplev_op2\app\src\main\AndroidManifest.xml
+22
+23    <application
+23-->C:\Users\azmi_\Documents\Github\62550_android\android_app_oplev_op2\app\src\main\AndroidManifest.xml:17:5-35:19
+24        android:allowBackup="true"
+24-->C:\Users\azmi_\Documents\Github\62550_android\android_app_oplev_op2\app\src\main\AndroidManifest.xml:18:9-35
+25        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+25-->[androidx.core:core:1.7.0] C:\Users\azmi_\.gradle\caches\transforms-3\5de72daa132584d99e453b37a29374bc\transformed\core-1.7.0\AndroidManifest.xml:24:18-86
+26        android:debuggable="true"
+27        android:icon="@mipmap/ic_launcher"
+27-->C:\Users\azmi_\Documents\Github\62550_android\android_app_oplev_op2\app\src\main\AndroidManifest.xml:19:9-43
+28        android:label="@string/app_name"
+28-->C:\Users\azmi_\Documents\Github\62550_android\android_app_oplev_op2\app\src\main\AndroidManifest.xml:20:9-41
+29        android:roundIcon="@mipmap/ic_launcher_round"
+29-->C:\Users\azmi_\Documents\Github\62550_android\android_app_oplev_op2\app\src\main\AndroidManifest.xml:21:9-54
+30        android:supportsRtl="true"
+30-->C:\Users\azmi_\Documents\Github\62550_android\android_app_oplev_op2\app\src\main\AndroidManifest.xml:22:9-35
+31        android:testOnly="true"
+32        android:theme="@style/Theme.Application" >
+32-->C:\Users\azmi_\Documents\Github\62550_android\android_app_oplev_op2\app\src\main\AndroidManifest.xml:23:9-49
+33        <activity
+33-->C:\Users\azmi_\Documents\Github\62550_android\android_app_oplev_op2\app\src\main\AndroidManifest.xml:24:9-34:20
+34            android:name="com.example.affirmations.MainActivity"
+34-->C:\Users\azmi_\Documents\Github\62550_android\android_app_oplev_op2\app\src\main\AndroidManifest.xml:25:13-65
+35            android:exported="true"
+35-->C:\Users\azmi_\Documents\Github\62550_android\android_app_oplev_op2\app\src\main\AndroidManifest.xml:26:13-36
+36            android:label="@string/app_name"
+36-->C:\Users\azmi_\Documents\Github\62550_android\android_app_oplev_op2\app\src\main\AndroidManifest.xml:27:13-45
+37            android:theme="@style/Theme.Application" >
+37-->C:\Users\azmi_\Documents\Github\62550_android\android_app_oplev_op2\app\src\main\AndroidManifest.xml:28:13-53
+38            <intent-filter>
+38-->C:\Users\azmi_\Documents\Github\62550_android\android_app_oplev_op2\app\src\main\AndroidManifest.xml:29:13-33:29
+39                <action android:name="android.intent.action.MAIN" />
+39-->C:\Users\azmi_\Documents\Github\62550_android\android_app_oplev_op2\app\src\main\AndroidManifest.xml:30:17-69
+39-->C:\Users\azmi_\Documents\Github\62550_android\android_app_oplev_op2\app\src\main\AndroidManifest.xml:30:25-66
+40
+41                <category android:name="android.intent.category.LAUNCHER" />
+41-->C:\Users\azmi_\Documents\Github\62550_android\android_app_oplev_op2\app\src\main\AndroidManifest.xml:32:17-77
+41-->C:\Users\azmi_\Documents\Github\62550_android\android_app_oplev_op2\app\src\main\AndroidManifest.xml:32:27-74
+42            </intent-filter>
+43        </activity>
+44        <activity
+44-->[androidx.compose.ui:ui-tooling:1.0.5] C:\Users\azmi_\.gradle\caches\transforms-3\1d89e582f00a3c80771961a148b51931\transformed\ui-tooling-1.0.5\AndroidManifest.xml:25:9-27:39
+45            android:name="androidx.compose.ui.tooling.PreviewActivity"
+45-->[androidx.compose.ui:ui-tooling:1.0.5] C:\Users\azmi_\.gradle\caches\transforms-3\1d89e582f00a3c80771961a148b51931\transformed\ui-tooling-1.0.5\AndroidManifest.xml:26:13-71
+46            android:exported="true" />
+46-->[androidx.compose.ui:ui-tooling:1.0.5] C:\Users\azmi_\.gradle\caches\transforms-3\1d89e582f00a3c80771961a148b51931\transformed\ui-tooling-1.0.5\AndroidManifest.xml:27:13-36
+47
+48        <provider
+48-->[androidx.profileinstaller:profileinstaller:1.0.4] C:\Users\azmi_\.gradle\caches\transforms-3\6d14d84d152b046fcf011d4337f59c16\transformed\profileinstaller-1.0.4\AndroidManifest.xml:26:9-34:20
+49            android:name="androidx.startup.InitializationProvider"
+49-->[androidx.profileinstaller:profileinstaller:1.0.4] C:\Users\azmi_\.gradle\caches\transforms-3\6d14d84d152b046fcf011d4337f59c16\transformed\profileinstaller-1.0.4\AndroidManifest.xml:27:13-67
+50            android:authorities="com.example.app.androidx-startup"
+50-->[androidx.profileinstaller:profileinstaller:1.0.4] C:\Users\azmi_\.gradle\caches\transforms-3\6d14d84d152b046fcf011d4337f59c16\transformed\profileinstaller-1.0.4\AndroidManifest.xml:28:13-68
+51            android:exported="false" >
+51-->[androidx.profileinstaller:profileinstaller:1.0.4] C:\Users\azmi_\.gradle\caches\transforms-3\6d14d84d152b046fcf011d4337f59c16\transformed\profileinstaller-1.0.4\AndroidManifest.xml:29:13-37
+52            <meta-data
+52-->[androidx.profileinstaller:profileinstaller:1.0.4] C:\Users\azmi_\.gradle\caches\transforms-3\6d14d84d152b046fcf011d4337f59c16\transformed\profileinstaller-1.0.4\AndroidManifest.xml:31:13-33:52
+53                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+53-->[androidx.profileinstaller:profileinstaller:1.0.4] C:\Users\azmi_\.gradle\caches\transforms-3\6d14d84d152b046fcf011d4337f59c16\transformed\profileinstaller-1.0.4\AndroidManifest.xml:32:17-85
+54                android:value="androidx.startup" />
+54-->[androidx.profileinstaller:profileinstaller:1.0.4] C:\Users\azmi_\.gradle\caches\transforms-3\6d14d84d152b046fcf011d4337f59c16\transformed\profileinstaller-1.0.4\AndroidManifest.xml:33:17-49
+55        </provider>
+56
+57        <receiver
+57-->[androidx.profileinstaller:profileinstaller:1.0.4] C:\Users\azmi_\.gradle\caches\transforms-3\6d14d84d152b046fcf011d4337f59c16\transformed\profileinstaller-1.0.4\AndroidManifest.xml:36:9-45:20
+58            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+58-->[androidx.profileinstaller:profileinstaller:1.0.4] C:\Users\azmi_\.gradle\caches\transforms-3\6d14d84d152b046fcf011d4337f59c16\transformed\profileinstaller-1.0.4\AndroidManifest.xml:37:13-76
+59            android:directBootAware="false"
+59-->[androidx.profileinstaller:profileinstaller:1.0.4] C:\Users\azmi_\.gradle\caches\transforms-3\6d14d84d152b046fcf011d4337f59c16\transformed\profileinstaller-1.0.4\AndroidManifest.xml:38:13-44
+60            android:enabled="true"
+60-->[androidx.profileinstaller:profileinstaller:1.0.4] C:\Users\azmi_\.gradle\caches\transforms-3\6d14d84d152b046fcf011d4337f59c16\transformed\profileinstaller-1.0.4\AndroidManifest.xml:39:13-35
+61            android:exported="true"
+61-->[androidx.profileinstaller:profileinstaller:1.0.4] C:\Users\azmi_\.gradle\caches\transforms-3\6d14d84d152b046fcf011d4337f59c16\transformed\profileinstaller-1.0.4\AndroidManifest.xml:40:13-36
+62            android:permission="android.permission.DUMP" >
+62-->[androidx.profileinstaller:profileinstaller:1.0.4] C:\Users\azmi_\.gradle\caches\transforms-3\6d14d84d152b046fcf011d4337f59c16\transformed\profileinstaller-1.0.4\AndroidManifest.xml:41:13-57
+63            <intent-filter>
+63-->[androidx.profileinstaller:profileinstaller:1.0.4] C:\Users\azmi_\.gradle\caches\transforms-3\6d14d84d152b046fcf011d4337f59c16\transformed\profileinstaller-1.0.4\AndroidManifest.xml:42:13-44:29
+64                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+64-->[androidx.profileinstaller:profileinstaller:1.0.4] C:\Users\azmi_\.gradle\caches\transforms-3\6d14d84d152b046fcf011d4337f59c16\transformed\profileinstaller-1.0.4\AndroidManifest.xml:43:17-91
+64-->[androidx.profileinstaller:profileinstaller:1.0.4] C:\Users\azmi_\.gradle\caches\transforms-3\6d14d84d152b046fcf011d4337f59c16\transformed\profileinstaller-1.0.4\AndroidManifest.xml:43:25-88
+65            </intent-filter>
+66        </receiver>
+67    </application>
+68
+69</manifest>
