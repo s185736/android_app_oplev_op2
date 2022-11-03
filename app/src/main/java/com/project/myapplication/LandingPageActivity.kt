@@ -5,8 +5,13 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.project.myapplication.ui.theme.ApplicationTheme
 
@@ -15,6 +20,21 @@ class LandingPageActivity : ComponentActivity() {
     /*Creating Varibales*/
     private lateinit var question1: TextView            //global variable
     private lateinit var next_Activity_button: Button   //button to move to next activity
+
+    private fun ComponentActivity.onCreate(savedInstanceState: Bundle?) {
+        onCreate(savedInstanceState)
+        setContent {
+            ApplicationTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colors.background
+                ) {
+                    Greeting1("")
+                }
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +53,7 @@ class LandingPageActivity : ComponentActivity() {
         }
     }
 }
+
 @Composable
 fun Greeting1(name: String) {
     Text(text = "Hello $name!")
