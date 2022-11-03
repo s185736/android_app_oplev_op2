@@ -4,9 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
+import com.project.myapplication.ui.theme.ApplicationTheme
 
-class ShareboardsActivity : AppCompatActivity() {
+class ShareboardsActivity : ComponentActivity() {
 
     /*Creating Varibales*/
     private lateinit var question5: TextView            //global variable
@@ -27,5 +32,17 @@ class ShareboardsActivity : AppCompatActivity() {
             //Starting the activity.
             startActivity(intent)
         }
+    }
+}
+@Composable
+fun Greeting5(name: String) {
+    Text(text = "Hello $name!")
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview5() {
+    ApplicationTheme {
+        Greeting5("Android")
     }
 }

@@ -4,9 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
+import com.project.myapplication.ui.theme.ApplicationTheme
 
-class LandingPageActivity : AppCompatActivity() {
+class LandingPageActivity : ComponentActivity() {
 
     /*Creating Varibales*/
     private lateinit var question1: TextView            //global variable
@@ -27,5 +31,17 @@ class LandingPageActivity : AppCompatActivity() {
             //Starting the activity.
             startActivity(intent)
         }
+    }
+}
+@Composable
+fun Greeting1(name: String) {
+    Text(text = "Hello $name!")
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview1() {
+    ApplicationTheme {
+        Greeting1("Android")
     }
 }

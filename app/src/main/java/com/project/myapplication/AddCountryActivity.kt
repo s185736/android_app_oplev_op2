@@ -1,20 +1,22 @@
 package com.project.myapplication
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
+import com.project.myapplication.ui.theme.ApplicationTheme
 
-class AddCountryActivity : AppCompatActivity() {
+class AddCountryActivity : ComponentActivity() {
 
     /*Creating Varibales*/
     private lateinit var question3: TextView            //global variable
     private lateinit var next_button: Button            //button to move to next activity
     private lateinit var previous_button: Button        //button to move to previous activity
 
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_addcountry)
@@ -39,5 +41,18 @@ class AddCountryActivity : AppCompatActivity() {
             //Starting the activity.
             startActivity(intent)
         }
+    }
+}
+
+@Composable
+fun Greeting3(name: String) {
+    Text(text = "Hello $name!")
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview3() {
+    ApplicationTheme {
+        Greeting3("Android")
     }
 }
