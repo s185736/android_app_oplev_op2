@@ -1,86 +1,66 @@
 [
     {
-        "merged": "com.project.myapplication.app-merged_res-55:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "com.project.myapplication.app-main-57:/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "com.project.oplevapp-merged_res-46:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.project.oplevapp-main-48:/mipmap-mdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.project.myapplication.app-merged_res-55:/layout_activity_shareboards.xml.flat",
-        "source": "com.project.myapplication.app-main-57:/layout/activity_shareboards.xml"
+        "merged": "com.project.oplevapp-merged_res-46:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.project.oplevapp-main-48:/mipmap-hdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.project.myapplication.app-merged_res-55:/drawable-v24_ic_launcher_foreground.xml.flat",
-        "source": "com.project.myapplication.app-main-57:/drawable-v24/ic_launcher_foreground.xml"
+        "merged": "com.project.oplevapp-merged_res-46:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.project.oplevapp-main-48:/mipmap-xxxhdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.project.myapplication.app-merged_res-55:/mipmap-xhdpi_ic_launcher.webp.flat",
-        "source": "com.project.myapplication.app-main-57:/mipmap-xhdpi/ic_launcher.webp"
+        "merged": "com.project.oplevapp-merged_res-46:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.project.oplevapp-main-48:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
-        "merged": "com.project.myapplication.app-merged_res-55:/xml_data_extraction_rules.xml.flat",
-        "source": "com.project.myapplication.app-main-57:/xml/data_extraction_rules.xml"
+        "merged": "com.project.oplevapp-merged_res-46:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.project.oplevapp-main-48:/mipmap-xxhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.project.myapplication.app-merged_res-55:/mipmap-mdpi_ic_launcher.webp.flat",
-        "source": "com.project.myapplication.app-main-57:/mipmap-mdpi/ic_launcher.webp"
+        "merged": "com.project.oplevapp-merged_res-46:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.project.oplevapp-main-48:/mipmap-hdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.project.myapplication.app-merged_res-55:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
-        "source": "com.project.myapplication.app-main-57:/mipmap-xxhdpi/ic_launcher_round.webp"
+        "merged": "com.project.oplevapp-merged_res-46:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.project.oplevapp-main-48:/mipmap-anydpi-v26/ic_launcher_round.xml"
     },
     {
-        "merged": "com.project.myapplication.app-merged_res-55:/layout_activity_listoftrips.xml.flat",
-        "source": "com.project.myapplication.app-main-57:/layout/activity_listoftrips.xml"
+        "merged": "com.project.oplevapp-merged_res-46:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.project.oplevapp-main-48:/mipmap-xhdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.project.myapplication.app-merged_res-55:/mipmap-mdpi_ic_launcher_round.webp.flat",
-        "source": "com.project.myapplication.app-main-57:/mipmap-mdpi/ic_launcher_round.webp"
+        "merged": "com.project.oplevapp-merged_res-46:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.project.oplevapp-main-48:/drawable/ic_launcher_background.xml"
     },
     {
-        "merged": "com.project.myapplication.app-merged_res-55:/xml_backup_rules.xml.flat",
-        "source": "com.project.myapplication.app-main-57:/xml/backup_rules.xml"
+        "merged": "com.project.oplevapp-merged_res-46:/drawable-v24_ic_launcher_foreground.xml.flat",
+        "source": "com.project.oplevapp-main-48:/drawable-v24/ic_launcher_foreground.xml"
     },
     {
-        "merged": "com.project.myapplication.app-merged_res-55:/layout_activity_countrypage.xml.flat",
-        "source": "com.project.myapplication.app-main-57:/layout/activity_countrypage.xml"
+        "merged": "com.project.oplevapp-merged_res-46:/xml_data_extraction_rules.xml.flat",
+        "source": "com.project.oplevapp-main-48:/xml/data_extraction_rules.xml"
     },
     {
-        "merged": "com.project.myapplication.app-merged_res-55:/mipmap-xxhdpi_ic_launcher.webp.flat",
-        "source": "com.project.myapplication.app-main-57:/mipmap-xxhdpi/ic_launcher.webp"
+        "merged": "com.project.oplevapp-merged_res-46:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.project.oplevapp-main-48:/mipmap-mdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.project.myapplication.app-merged_res-55:/mipmap-hdpi_ic_launcher_round.webp.flat",
-        "source": "com.project.myapplication.app-main-57:/mipmap-hdpi/ic_launcher_round.webp"
+        "merged": "com.project.oplevapp-merged_res-46:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.project.oplevapp-main-48:/mipmap-xhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.project.myapplication.app-merged_res-55:/mipmap-xhdpi_ic_launcher_round.webp.flat",
-        "source": "com.project.myapplication.app-main-57:/mipmap-xhdpi/ic_launcher_round.webp"
+        "merged": "com.project.oplevapp-merged_res-46:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.project.oplevapp-main-48:/mipmap-xxhdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.project.myapplication.app-merged_res-55:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
-        "source": "com.project.myapplication.app-main-57:/mipmap-xxxhdpi/ic_launcher_round.webp"
+        "merged": "com.project.oplevapp-merged_res-46:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.project.oplevapp-main-48:/mipmap-xxxhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.project.myapplication.app-merged_res-55:/layout_activity_landingpage.xml.flat",
-        "source": "com.project.myapplication.app-main-57:/layout/activity_landingpage.xml"
-    },
-    {
-        "merged": "com.project.myapplication.app-merged_res-55:/layout_activity_addcountry.xml.flat",
-        "source": "com.project.myapplication.app-main-57:/layout/activity_addcountry.xml"
-    },
-    {
-        "merged": "com.project.myapplication.app-merged_res-55:/mipmap-hdpi_ic_launcher.webp.flat",
-        "source": "com.project.myapplication.app-main-57:/mipmap-hdpi/ic_launcher.webp"
-    },
-    {
-        "merged": "com.project.myapplication.app-merged_res-55:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "com.project.myapplication.app-main-57:/mipmap-anydpi-v26/ic_launcher.xml"
-    },
-    {
-        "merged": "com.project.myapplication.app-merged_res-55:/drawable_ic_launcher_background.xml.flat",
-        "source": "com.project.myapplication.app-main-57:/drawable/ic_launcher_background.xml"
-    },
-    {
-        "merged": "com.project.myapplication.app-merged_res-55:/mipmap-xxxhdpi_ic_launcher.webp.flat",
-        "source": "com.project.myapplication.app-main-57:/mipmap-xxxhdpi/ic_launcher.webp"
+        "merged": "com.project.oplevapp-merged_res-46:/xml_backup_rules.xml.flat",
+        "source": "com.project.oplevapp-main-48:/xml/backup_rules.xml"
     }
 ]

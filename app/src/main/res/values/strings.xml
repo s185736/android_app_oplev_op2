@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">OPLEV</string>
+    <string name="app_name">Oplev App</string>
+    <string name="profile">Profile</string>
+    <string name="friends_list">Friends</string>
     <string name="previous">Previous</string>
     <string name="next">Next</string>
 </resources>

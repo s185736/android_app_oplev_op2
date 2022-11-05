@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "OPLEV"
+rootProject.name = "Oplev App"
 include ':app'
