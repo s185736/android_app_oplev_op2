@@ -4,4 +4,7 @@
     <string name="friends_list">Friends</string>
     <string name="previous">Previous</string>
     <string name="next">Next</string>
+    <string name="Search">Search</string>
+    <string name="featured_page">Featured Page</string>
+    <string name="tilbage">Tilbage</string>
 </resources>
