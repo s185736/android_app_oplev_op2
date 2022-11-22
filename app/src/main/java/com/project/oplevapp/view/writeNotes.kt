@@ -19,9 +19,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.notes.addCountry.BlackPreviousButton
-import com.example.notes.addCountry.WhitePreviousButton
-
+import com.project.oplevapp.view.BlackPreviousButton
+import com.project.oplevapp.view.WhitePreviousButton
 
 @Preview(showBackground = true)
 @Composable
