@@ -10,4 +10,8 @@ sealed class Screen(val route: String, @StringRes val resourceId: Int) {
     object Login: Screen ("login", R.string.login)
     object Note: Screen ("writenotes", R.string.notes)
     object AddCountry: Screen("add_country", R.string.add_country)
+    object TripList: Screen("trip_list", R.string.start_page)
+    object CreateAccount: Screen("create_account", R.string.create_account)
+
+
 }

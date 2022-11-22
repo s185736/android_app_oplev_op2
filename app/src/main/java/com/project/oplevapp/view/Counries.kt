@@ -19,9 +19,9 @@ fun CountriesList(
     navController: NavController
 ) {
     Column(Modifier.fillMaxSize(), Arrangement.Center, Alignment.CenterHorizontally) {
-        Text(text = "Countries", Modifier.padding(20.dp), fontSize = 40.sp)
-        Button(onClick = { navController.navigate(Screen.Country.route) }) {
-            Text(text = "Denmark")
+        Text(text = "Oplevelser", Modifier.padding(20.dp), fontSize = 40.sp)
+        Button(onClick = { navController.navigate(Screen.TripList.route) }) {
+            Text(text = "Tur liste")
         }
         Button(onClick = { navController.navigate(Screen.AddCountry.route) }) {
             Text(text = "Add country")

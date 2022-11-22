@@ -1,4 +1,4 @@
-package com.project.oplevapp.view
+package com.project.oplevapp.ui
 
 import CountryPage
 import androidx.compose.foundation.layout.padding
@@ -17,10 +17,12 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.project.oplevapp.Screen
 import com.project.oplevapp.model.Denmark
+import com.project.oplevapp.ui.theme.CreateAccountScreen
+import com.project.oplevapp.view.*
 
 @Composable
 fun MainNavHost() {
-    val items = listOf(Screen.Login, Screen.CountriesList, Screen.Note, Screen.Profile)
+    val items = listOf(Screen.Login, Screen.TripList, Screen.Note)
 
     val navController = rememberNavController()
     Scaffold(
@@ -61,6 +63,9 @@ fun MainNavHost() {
             composable(Screen.Login.route){ LoginPage(navController)}
             composable(Screen.Note.route){ writeNotes(navController = navController)}
             composable(Screen.AddCountry.route){ AddCountry(navController)}
+
+            composable(Screen.TripList.route){ TripListScreen(navController = navController)}
+            composable(Screen.CreateAccount.route){ CreateAccountScreen(navController = navController) }
         }
     }
 }

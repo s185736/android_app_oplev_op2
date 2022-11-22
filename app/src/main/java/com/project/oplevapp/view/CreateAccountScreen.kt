@@ -14,9 +14,12 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun CreateAccountScreen(
+    navController: NavController,
     onCreateBtnClicked: () -> Unit = {},
     modifier: Modifier = Modifier
 ){
@@ -88,5 +91,5 @@ fun CreateAccountScreen(
 @Preview
 @Composable
 fun CreateAccountPreview(){
-    CreateAccountScreen()
+    CreateAccountScreen(navController = rememberNavController())
 }

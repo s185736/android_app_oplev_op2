@@ -119,14 +119,11 @@ fun LoginPage(navController: NavController) {
                     }
 
                     Spacer(modifier = Modifier.padding(bottom = 27.dp))
-                LoginButton(navController)
-                    TextButton(onClick = {}) {
+                    LoginButton( navController)
+                    TextButton(onClick = {navController.navigate(Screen.CreateAccount.route)}) {
                         Text(text = "Har du ikke en konto? Opret", fontSize = 12.sp)
                     }
-
-
                 }
-
             }
         }
     }
@@ -135,7 +132,7 @@ fun LoginPage(navController: NavController) {
 
 @Composable
 fun LoginButton(navController: NavController) {
-    Button(onClick = { navController.navigate(Screen.CountriesList.route) },
+    Button(onClick = { navController.navigate(Screen.TripList.route) },
     shape= RoundedCornerShape(60),
         colors = ButtonDefaults.buttonColors(backgroundColor=Color(5,54,103)),
         modifier = Modifier
