@@ -4,6 +4,9 @@
     <string name="country_list">Countries</string>
     <string name="previous">Previous</string>
     <string name="next">Next</string>
+    <string name="Search">Search</string>
+    <string name="featured_page">Featured Page</string>
+    <string name="tilbage">Tilbage</string>
     <string name="login">Login</string>
     <string name="country">Country</string>
     <string name="edit_country">Edit</string>
