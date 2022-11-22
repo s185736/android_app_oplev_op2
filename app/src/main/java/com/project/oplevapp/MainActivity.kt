@@ -45,6 +45,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     OplevAppTheme {
-
+        MainNavHost()
     }
 }
