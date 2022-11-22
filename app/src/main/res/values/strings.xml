@@ -11,4 +11,5 @@
     <string name="country">Country</string>
     <string name="edit_country">Edit</string>
     <string name="notes">Notes</string>
+    <string name="add_country">Add Country</string>
 </resources>

@@ -9,4 +9,5 @@ sealed class Screen(val route: String, @StringRes val resourceId: Int) {
     object EditCountry: Screen("edit_country", R.string.edit_country)
     object Login: Screen ("login", R.string.login)
     object Note: Screen ("writenotes", R.string.notes)
+    object AddCountry: Screen("add_country", R.string.add_country)
 }

@@ -23,5 +23,8 @@ fun CountriesList(
         Button(onClick = { navController.navigate(Screen.Country.route) }) {
             Text(text = "Denmark")
         }
+        Button(onClick = { navController.navigate(Screen.AddCountry.route) }) {
+            Text(text = "Add country")
+        }
     }
 }
