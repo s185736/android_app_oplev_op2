@@ -1,13 +1,11 @@
 package com.project.oplevapp.view
 
-import android.widget.NumberPicker.OnValueChangeListener
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.*
@@ -27,12 +25,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.project.oplevapp.R
+import com.project.oplevapp.Screen
 
 
-@Preview(showBackground = true)
 @Composable
-fun LoginPage() {
+fun LoginPage(navController: NavController) {
     Scaffold {
         Box {
             Image(
@@ -120,8 +119,8 @@ fun LoginPage() {
                     }
 
                     Spacer(modifier = Modifier.padding(bottom = 27.dp))
-                LoginButton()
-                    TextButton(onClick = {/*TODO*/}) {
+                LoginButton(navController)
+                    TextButton(onClick = {}) {
                         Text(text = "Har du ikke en konto? Opret", fontSize = 12.sp)
                     }
 
@@ -201,8 +200,8 @@ fun MyTextField(
 }
 
 @Composable
-fun LoginButton() {
-    Button(onClick = { /*TODO*/ },
+fun LoginButton(navController: NavController) {
+    Button(onClick = { navController.navigate(Screen.CountriesList.route) },
     shape= RoundedCornerShape(60),
         colors = ButtonDefaults.buttonColors(backgroundColor=Color(5,54,103)),
         modifier = Modifier

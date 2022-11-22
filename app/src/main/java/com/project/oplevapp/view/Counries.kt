@@ -15,7 +15,7 @@ import androidx.navigation.NavController
 import com.project.oplevapp.Screen
 
 @Composable
-fun FriendsList(
+fun CountriesList(
     navController: NavController
 ) {
     Column(Modifier.fillMaxSize(), Arrangement.Center, Alignment.CenterHorizontally) {

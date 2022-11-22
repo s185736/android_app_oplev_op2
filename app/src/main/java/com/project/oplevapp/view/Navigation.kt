@@ -20,7 +20,7 @@ import com.project.oplevapp.model.Denmark
 
 @Composable
 fun MainNavHost() {
-    val items = listOf(Screen.Profile, Screen.FriendsList)
+    val items = listOf(Screen.Login, Screen.CountriesList, Screen.Note, Screen.Profile)
 
     val navController = rememberNavController()
     Scaffold(
@@ -53,11 +53,13 @@ fun MainNavHost() {
             }
         }
     ) { innerPadding ->
-        NavHost(navController, startDestination = Screen.FriendsList.route, Modifier.padding(innerPadding)) {
+        NavHost(navController, startDestination = Screen.Login.route, Modifier.padding(innerPadding)) {
             composable(Screen.Profile.route) { Profile(navController) }
-            composable(Screen.FriendsList.route) { FriendsList(navController) }
+            composable(Screen.CountriesList.route) { CountriesList(navController) }
             composable(Screen.Country.route) { CountryPage(country = Denmark, navController = navController) }
             composable(Screen.EditCountry.route) { EditCountry(country = Denmark, navController = navController)}
+            composable(Screen.Login.route){ LoginPage(navController)}
+            composable(Screen.Note.route){ writeNotes(navController = navController)}
         }
     }
 }
