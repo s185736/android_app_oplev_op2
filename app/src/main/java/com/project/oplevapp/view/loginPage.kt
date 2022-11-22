@@ -132,73 +132,7 @@ fun LoginPage() {
         }
     }
 }
-@Composable
-fun MyTextField(
-    text:String,
-    textSize: Int,
-    onValueChange: (String)-> Unit,
-    placeHolder: String,
-    width: Int,
-    height: Int,
-    keyboardType: KeyboardType,
-    visualTransformation: VisualTransformation,
-    myTextColor: Color,
-    backgroundColor : Color,
-    placeHolderColor: Color,
-    vectorPainter: Painter
 
-) {
-    Surface(
-        modifier = Modifier.size(width.dp, height.dp),
-        color = Color.White,
-        shape = RoundedCornerShape(35),
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
-            modifier = Modifier.fillMaxHeight()
-        ) {
-            TextField(
-                value = text,
-                onValueChange = onValueChange,
-                textStyle = LocalTextStyle.current.copy(color = myTextColor),
-                placeholder = {
-                    Text(
-                        text = placeHolder,
-                        fontSize = textSize.sp,
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = FontFamily.Default,
-                        textAlign = TextAlign.Left,
-                        color = placeHolderColor,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(height = (height + 50).dp)
-                    )
-
-                },
-
-                leadingIcon = {Icon(painter = vectorPainter, contentDescription = "" ) },
-
-
-
-                visualTransformation = visualTransformation,
-                keyboardOptions = KeyboardOptions(
-                    keyboardType = keyboardType
-                ),
-
-                modifier = Modifier.fillMaxSize(),
-
-                colors = TextFieldDefaults.textFieldColors(
-                    disabledTextColor = Color.Transparent,
-                    backgroundColor = backgroundColor,
-                    focusedIndicatorColor = Color.Transparent,
-                    unfocusedIndicatorColor = Color.Transparent,
-                    disabledIndicatorColor = Color.Transparent
-                ),
-            )
-        }
-    }
-}
 
 @Composable
 fun LoginButton() {

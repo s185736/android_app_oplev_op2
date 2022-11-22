@@ -1,0 +1,260 @@
+package com.project.oplevapp.view
+
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.project.oplevapp.R
+
+
+@Preview(showBackground = true)
+@Composable
+
+fun AddCountry() {
+    Scaffold() {
+
+        Box() {
+            Image(
+                painter = painterResource(id = R.drawable.blue1),
+                contentDescription = "Background Image",
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop
+            )
+
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(start = 20.dp, end = 20.dp, bottom = 20.dp, top = 10.dp)
+            ) {
+                WhitePreviousButton({})
+                CountryInfo()
+            }
+        }
+    }
+}
+
+
+    @Composable
+   fun CountryInfo(){
+       Card(
+           modifier = Modifier
+               .padding(start = 0.dp, top = 150.dp)
+               .fillMaxWidth(),
+           elevation = 10.dp,
+           shape = RoundedCornerShape(20.dp),
+           backgroundColor = Color(red = 255, green = 255, blue = 255)
+
+       )
+
+       {
+           Column(
+               horizontalAlignment = Alignment.CenterHorizontally,
+               verticalArrangement = Arrangement.Center,
+               modifier = Modifier.padding(start = 0.dp,top = 25.dp),
+
+           ) {
+
+
+               Text(
+                   text = "Tilføj Rejse",
+                   fontFamily = FontFamily.Default,
+                   fontWeight = FontWeight.ExtraBold,
+                   fontSize = 25.sp,
+                   color = Color(red = 5, green = 54, blue = 103),
+                   modifier = Modifier
+                       .padding(top = 30.dp, start = 0.dp)
+               )
+                Spacer(modifier = Modifier.size(20.dp))
+               //CountryName
+
+               var country by remember { mutableStateOf("") }
+               MyTextField(
+                   text = country,
+                   textSize = 15,
+                   onValueChange = { country = it },
+                   placeHolder = "Land",
+                   width = 300,
+                   height = 51,
+                   KeyboardType.Text,
+                   visualTransformation = VisualTransformation.None,
+                   Color.DarkGray,
+                   Color.LightGray,
+                   Color.Gray,
+                   vectorPainter = painterResource(id = R.drawable.ic_baseline_near_me_24)
+               )
+
+               Spacer(modifier = Modifier.size(20.dp))
+
+               //CityName
+               var city by remember { mutableStateOf("") }
+               MyTextField(
+                   text = city,
+                   textSize = 15,
+                   onValueChange = { city = it },
+                   placeHolder = "By",
+                   width = 300,
+                   height = 51,
+                   KeyboardType.Text,
+                   visualTransformation = VisualTransformation.None,
+                   Color.DarkGray,
+                   Color.LightGray,
+                   Color.Gray,
+                   vectorPainter = painterResource(id = R.drawable.ic_outline_place_24)
+               )
+               Spacer(modifier = Modifier.size(20.dp))
+
+               //CityName
+               var dateDeparture by remember { mutableStateOf("") }
+               MyTextField(
+                   text = dateDeparture,
+                   textSize = 15,
+                   onValueChange = { dateDeparture = it },
+                   placeHolder = "Afrejse dato",
+                   width = 300,
+                   height = 51,
+                   KeyboardType.Text,
+                   visualTransformation = VisualTransformation.None,
+                   Color.DarkGray,
+                   Color.LightGray,
+                   Color.Gray,
+                   vectorPainter = painterResource(id = R.drawable.ic_baseline_schedule_24)
+               )
+
+               Spacer(modifier = Modifier.size(20.dp))
+
+               //CityName
+               var dateArrival by remember { mutableStateOf("") }
+               MyTextField(
+                   text = dateArrival,
+                   textSize = 15,
+                   onValueChange = { dateArrival = it },
+                   placeHolder = "Hjemrejse dato",
+                   width = 300,
+                   height = 51,
+                   KeyboardType.Text,
+                   visualTransformation = VisualTransformation.None,
+                   Color.DarkGray,
+                   Color.LightGray,
+                   Color.Gray,
+                   vectorPainter = painterResource(id = R.drawable.ic_baseline_schedule_24)
+                   //vectorPainter = Icons.Rounded.Search
+               )
+               Spacer(modifier = Modifier.size(15.dp))
+            AddCountryButton()
+
+           }
+       }
+   }
+
+@Composable
+fun MyTextField(
+    text: String,
+    textSize: Int,
+    onValueChange: (String) -> Unit,
+    placeHolder: String,
+    width: Int,
+    height: Int,
+    keyboardType: KeyboardType,
+    visualTransformation: VisualTransformation,
+    myTextColor: Color,
+    backgroundColor: Color,
+    placeHolderColor: Color,
+    vectorPainter: Painter
+
+
+) {
+
+    Surface(
+        modifier = Modifier.size(width.dp, height.dp),
+        color = Color.White,
+        shape = RoundedCornerShape(35),
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+
+
+            TextField(
+                value = text,
+                onValueChange = onValueChange,
+                textStyle = LocalTextStyle.current.copy(color = myTextColor),
+                placeholder = {
+                    Text(
+                        text = placeHolder,
+                        fontSize = textSize.sp,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Default,
+                        textAlign = TextAlign.Left,
+                        color = placeHolderColor,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(height = (height + 50).dp)
+                    )
+
+                },
+                
+                leadingIcon = {Icon(painter = vectorPainter, contentDescription ="" ) },
+
+
+
+                visualTransformation = visualTransformation,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = keyboardType
+                ),
+
+                modifier = Modifier.fillMaxSize(),
+
+                colors = TextFieldDefaults.textFieldColors(
+                    disabledTextColor = Color.Transparent,
+                    backgroundColor = backgroundColor,
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    disabledIndicatorColor = Color.Transparent
+                ),
+            )
+        }
+    }}
+
+@Composable
+fun AddCountryButton() {
+    Button(
+        onClick = { /*TODO*/ },
+        shape = RoundedCornerShape(60),
+        colors = ButtonDefaults.buttonColors(backgroundColor = Color(5, 54, 103)),
+        modifier = Modifier
+            .height(38.dp)
+            .width(130.dp)
+    ) {
+        Row() {
+            Text(
+                "Tilføj",
+                color = Color.White,
+                fontSize = 12.sp,
+                modifier = Modifier.padding(start = 0.dp)
+            )
+        }
+
+    }
+
+}
+
+
