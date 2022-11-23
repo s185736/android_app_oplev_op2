@@ -1,4 +1,4 @@
-package com.project.oplevapp.view
+package com.project.oplevapp.ui.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -16,12 +16,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.project.oplevapp.view.BlackPreviousButton
-import com.project.oplevapp.view.WhitePreviousButton
 
 @Composable
 fun writeNotes(navController: NavController) {

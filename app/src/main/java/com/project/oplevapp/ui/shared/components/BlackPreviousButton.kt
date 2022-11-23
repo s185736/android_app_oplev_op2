@@ -1,4 +1,4 @@
-package com.project.oplevapp.view
+package com.project.oplevapp.ui.screen
 
 
 import androidx.compose.foundation.Image

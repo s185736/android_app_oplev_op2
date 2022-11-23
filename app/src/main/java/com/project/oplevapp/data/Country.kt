@@ -1,4 +1,4 @@
-package com.project.oplevapp.model
+package com.project.oplevapp.data
 
 data class Country(
     val country: String,

@@ -1,4 +1,4 @@
-package com.project.oplevapp.view
+package com.project.oplevapp.ui.screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button

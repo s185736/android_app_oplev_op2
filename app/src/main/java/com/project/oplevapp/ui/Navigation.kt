@@ -16,9 +16,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.project.oplevapp.Screen
-import com.project.oplevapp.model.Denmark
+import com.project.oplevapp.data.Denmark
 import com.project.oplevapp.ui.theme.CreateAccountScreen
-import com.project.oplevapp.view.*
+import com.project.oplevapp.ui.screen.*
 
 @Composable
 fun MainNavHost() {
@@ -59,10 +59,10 @@ fun MainNavHost() {
             composable(Screen.Profile.route) { Profile(navController) }
             composable(Screen.CountriesList.route) { CountriesList(navController) }
             composable(Screen.Country.route) { CountryPage(country = Denmark, navController = navController) }
-            composable(Screen.EditCountry.route) { EditCountry(country = Denmark, navController = navController)}
-            composable(Screen.Login.route){ LoginPage(navController)}
-            composable(Screen.Note.route){ writeNotes(navController = navController)}
-            composable(Screen.AddCountry.route){ AddCountry(navController)}
+            composable(Screen.EditCountry.route) { EditCountry(country = Denmark, navController = navController) }
+            composable(Screen.Login.route){ LoginPage(navController) }
+            composable(Screen.Note.route){ writeNotes(navController = navController) }
+            composable(Screen.AddCountry.route){ AddCountry(navController) }
 
             composable(Screen.TripList.route){ TripListScreen(navController = navController)}
             composable(Screen.CreateAccount.route){ CreateAccountScreen(navController = navController) }
