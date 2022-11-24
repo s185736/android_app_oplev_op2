@@ -14,4 +14,7 @@ sealed class Screen(val route: String, @StringRes val resourceId: Int) {
     object CreateAccount: Screen("create_account", R.string.create_account)
 
 
+
+
+
 }

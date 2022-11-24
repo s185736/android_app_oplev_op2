@@ -55,7 +55,7 @@ fun MainNavHost() {
             }
         }
     ) { innerPadding ->
-        NavHost(navController, startDestination = Screen.Login.route, Modifier.padding(innerPadding)) {
+        NavHost(navController, startDestination = Screen.DBTest2.route, Modifier.padding(innerPadding)) {
             composable(Screen.Profile.route) { Profile(navController) }
             composable(Screen.CountriesList.route) { CountriesList(navController) }
             composable(Screen.Country.route) { CountryPage(country = Denmark, navController = navController) }
@@ -66,6 +66,9 @@ fun MainNavHost() {
 
             composable(Screen.TripList.route){ TripListScreen(navController = navController)}
             composable(Screen.CreateAccount.route){ CreateAccountScreen(navController = navController) }
+
+
+
         }
     }
 }
