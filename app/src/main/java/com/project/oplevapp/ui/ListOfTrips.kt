@@ -1,13 +1,8 @@
 package com.project.oplevapp.ui
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.*
@@ -40,6 +35,9 @@ class ListOfTrips : ComponentActivity() {
     }
 
  */
+
+
+
 //for at afprøve hvordan det var lavet til lektion 7 øvelse
 class ListOfTrips : ViewModel(){
 
@@ -109,7 +107,6 @@ class ListOfTrips : ViewModel(){
 
             )
     }
-
 
     @Preview(showBackground = true)
     @Composable
