@@ -13,6 +13,7 @@ sealed class Screen(val route: String, @StringRes val resourceId: Int) {
     object TripList: Screen("trip_list", R.string.start_page)
     object CreateAccount: Screen("create_account", R.string.create_account)
 
+    object User: Screen("user", R.string.start_page)
 
 
 
