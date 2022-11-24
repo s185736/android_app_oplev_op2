@@ -1,4 +1,4 @@
-package com.project.oplevapp.ui.screen
+package com.project.oplevapp.ui.screen.shareboards
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

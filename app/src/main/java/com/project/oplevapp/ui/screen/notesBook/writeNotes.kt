@@ -1,4 +1,4 @@
-package com.project.oplevapp.ui.screen
+package com.project.oplevapp.ui.screen.notesBook
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

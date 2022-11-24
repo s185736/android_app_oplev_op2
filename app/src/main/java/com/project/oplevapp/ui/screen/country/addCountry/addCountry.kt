@@ -1,4 +1,4 @@
-package com.project.oplevapp.ui.screen.country
+package com.project.oplevapp.ui.screen.country.addCountry
 
 
 import androidx.compose.foundation.Image

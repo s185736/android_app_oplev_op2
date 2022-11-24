@@ -1,4 +1,4 @@
-package com.project.oplevapp.ui.screen.country
+package com.project.oplevapp.ui.screen.country.countryInfo
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.project.oplevapp.Screen
+import com.project.oplevapp.ui.Screen
 
 @Composable
 fun CountriesList(

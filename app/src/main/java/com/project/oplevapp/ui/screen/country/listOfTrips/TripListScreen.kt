@@ -1,4 +1,4 @@
-package com.project.oplevapp.ui
+package com.project.oplevapp.ui.screen.country.listOfTrips
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.project.oplevapp.R
-import com.project.oplevapp.Screen
+import com.project.oplevapp.ui.Screen
 
 @Composable
 fun TripListScreen(

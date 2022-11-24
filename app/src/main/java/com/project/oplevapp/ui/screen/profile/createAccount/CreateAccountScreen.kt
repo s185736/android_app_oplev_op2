@@ -1,4 +1,4 @@
-package com.project.oplevapp.ui.screen.profile
+package com.project.oplevapp.ui.screen.profile.createAccount
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions

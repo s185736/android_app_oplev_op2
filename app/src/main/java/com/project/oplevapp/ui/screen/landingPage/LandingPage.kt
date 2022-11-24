@@ -1,4 +1,4 @@
-package com.project.oplevapp.ui.screen
+package com.project.oplevapp.ui.screen.landingPage
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
