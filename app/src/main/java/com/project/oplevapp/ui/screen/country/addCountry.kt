@@ -1,4 +1,4 @@
-package com.project.oplevapp.ui.screen
+package com.project.oplevapp.ui.screen.country
 
 
 import androidx.compose.foundation.Image
@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.project.oplevapp.R
+import com.project.oplevapp.ui.shared.components.WhitePreviousButton
 
 
 @Composable

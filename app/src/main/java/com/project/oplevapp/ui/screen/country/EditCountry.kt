@@ -1,7 +1,5 @@
-package com.project.oplevapp.ui.screen
+package com.project.oplevapp.ui.screen.country
 
-import AddToShareBoardButton
-import ParallaxToolbar
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
