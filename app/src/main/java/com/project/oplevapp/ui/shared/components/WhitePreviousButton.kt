@@ -1,4 +1,4 @@
-package com.project.oplevapp.ui.screen
+package com.project.oplevapp.ui.shared.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize

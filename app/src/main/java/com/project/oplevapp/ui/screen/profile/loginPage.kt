@@ -1,4 +1,4 @@
-package com.project.oplevapp.ui.screen
+package com.project.oplevapp.ui.screen.profile
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.project.oplevapp.R
 import com.project.oplevapp.Screen
+import com.project.oplevapp.ui.screen.country.MyTextField
 
 
 @Composable

@@ -1,6 +1,5 @@
 package com.project.oplevapp.ui
 
-import CountryPage
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -17,8 +16,14 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.project.oplevapp.Screen
 import com.project.oplevapp.data.Denmark
-import com.project.oplevapp.ui.theme.CreateAccountScreen
+import com.project.oplevapp.ui.screen.profile.CreateAccountScreen
 import com.project.oplevapp.ui.screen.*
+import com.project.oplevapp.ui.screen.country.AddCountry
+import com.project.oplevapp.ui.screen.country.CountriesList
+import com.project.oplevapp.ui.screen.country.CountryPage
+import com.project.oplevapp.ui.screen.country.EditCountry
+import com.project.oplevapp.ui.screen.profile.LoginPage
+import com.project.oplevapp.ui.screen.profile.Profile
 
 @Composable
 fun MainNavHost() {
@@ -55,7 +60,7 @@ fun MainNavHost() {
             }
         }
     ) { innerPadding ->
-        NavHost(navController, startDestination = Screen.DBTest2.route, Modifier.padding(innerPadding)) {
+        NavHost(navController, startDestination = Screen.Login.route, Modifier.padding(innerPadding)) {
             composable(Screen.Profile.route) { Profile(navController) }
             composable(Screen.CountriesList.route) { CountriesList(navController) }
             composable(Screen.Country.route) { CountryPage(country = Denmark, navController = navController) }

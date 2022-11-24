@@ -1,4 +1,4 @@
-package com.project.oplevapp.ui.theme
+package com.project.oplevapp.ui.screen.profile
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions

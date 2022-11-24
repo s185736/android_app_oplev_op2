@@ -1,4 +1,4 @@
-package com.project.oplevapp.ui.screen
+package com.project.oplevapp.ui.screen.country
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
