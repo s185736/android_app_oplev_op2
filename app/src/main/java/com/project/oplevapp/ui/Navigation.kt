@@ -1,6 +1,5 @@
 package com.project.oplevapp.ui
 
-import CountryPage
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -22,6 +21,12 @@ import com.project.oplevapp.data.Denmark
 import com.project.oplevapp.ui.screen.*
 import com.project.oplevapp.ui.screen.profile.CreateAccountScreen
 import com.project.oplevapp.ui.screen.profile.LoginPage
+import com.project.oplevapp.ui.screen.country.AddCountry
+import com.project.oplevapp.ui.screen.country.CountriesList
+import com.project.oplevapp.ui.screen.country.CountryPage
+import com.project.oplevapp.ui.screen.country.EditCountry
+import com.project.oplevapp.ui.screen.profile.LoginPage
+import com.project.oplevapp.ui.screen.profile.Profile
 
 @Composable
 fun MainNavHost() {
