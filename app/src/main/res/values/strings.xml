@@ -1,11 +1,17 @@
 <resources>
     <string name="app_name">Oplev App</string>
     <string name="profile">Profile</string>
-    <string name="friends_list">Friends</string>
+    <string name="country_list">Countries</string>
     <string name="previous">Previous</string>
     <string name="next">Next</string>
     <string name="Search">Search</string>
     <string name="featured_page">Featured Page</string>
     <string name="tilbage">Tilbage</string>
-    <string name="profile_image">Profile Image</string>
+    <string name="login">Login</string>
+    <string name="country">Country</string>
+    <string name="edit_country">Edit</string>
+    <string name="notes">Notes</string>
+    <string name="add_country">Add Country</string>
+    <string name="start_page">Startside</string>
+    <string name="create_account">Opret profil</string>
 </resources>

@@ -27,6 +27,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.project.oplevapp.Screen
+import com.project.oplevapp.ui.MainNavHost
 import com.project.oplevapp.ui.theme.OplevAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -40,72 +41,10 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
-@Composable
-fun MainNavHost() {
-    val items = listOf(Screen.Profile, Screen.FriendsList)
-
-    val navController = rememberNavController()
-    Scaffold(
-        bottomBar = {
-            BottomNavigation {
-                val navBackStackEntry by navController.currentBackStackEntryAsState()
-                val currentDestination = navBackStackEntry?.destination
-                items.forEach { screen ->
-                    BottomNavigationItem(
-                        icon = { Icon(Icons.Filled.Favorite, contentDescription = null) },
-                        label = { Text(stringResource(screen.resourceId)) },
-                        selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
-                        onClick = {
-                            navController.navigate(screen.route) {
-                                // Pop up to the start destination of the graph to
-                                // avoid building up a large stack of destinations
-                                // on the back stack as users select items
-                                popUpTo(navController.graph.findStartDestination().id) {
-                                    saveState = true
-                                }
-                                // Avoid multiple copies of the same destination when
-                                // reselecting the same item
-                                launchSingleTop = true
-                                // Restore state when reselecting a previously selected item
-                                restoreState = true
-                            }
-                        }
-                    )
-                }
-            }
-        }
-    ) { innerPadding ->
-        NavHost(navController, startDestination = Screen.Profile.route, Modifier.padding(innerPadding)) {
-            composable(Screen.Profile.route) { Profile(navController) }
-            composable(Screen.FriendsList.route) { FriendsList(navController) }
-        }
-    }
-}
-
-@Composable
-fun Profile(
-    navController: NavController
-) {
-    Column(Modifier.fillMaxSize(), Arrangement.Center, Alignment.CenterHorizontally) {
-        Text(text = "Profile", Modifier.padding(20.dp), fontSize = 40.sp)
-    }
-}
-
-@Composable
-fun FriendsList(
-    navController: NavController
-) {
-    Column(Modifier.fillMaxSize(), Arrangement.Center, Alignment.CenterHorizontally) {
-        Text(text = "Friends", Modifier.padding(20.dp), fontSize = 40.sp)
-    }
-}
-
-
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     OplevAppTheme {
-
+        MainNavHost()
     }
 }

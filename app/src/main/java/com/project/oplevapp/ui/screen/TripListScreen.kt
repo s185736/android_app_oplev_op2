@@ -4,6 +4,7 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.*
@@ -15,13 +16,17 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.project.oplevapp.R
-import com.project.oplevapp.ui.theme.OplevAppTheme
+import com.project.oplevapp.Screen
 
 @Composable
-fun ListOfTripsScreen(
+fun TripListScreen(
+    navController: NavController,
     onDestinationBtnClicked: () -> Unit = {},
     modifier: Modifier = Modifier
+
 ){
     var tipInput by remember { mutableStateOf("") }
     Column(
@@ -46,6 +51,7 @@ fun ListOfTripsScreen(
                 contentDescription = "Copenhagen",
                 modifier = Modifier.size(150.dp)
             )
+
             Spacer(Modifier.width(16.dp))
             Image(
                 painter = painterResource(id = R.drawable.copenhagen),
@@ -53,7 +59,18 @@ fun ListOfTripsScreen(
                 modifier = Modifier.size(150.dp)
             )
         }
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Button(onClick = { navController.navigate(Screen.AddCountry.route) }) {
+                Text(text = "Tilføj rejse")
+            }
+            Button(onClick = { navController.navigate(Screen.Country.route) }) {
+                Text(text = "København")
+            }
+        }
 
+        Spacer(Modifier.width(32.dp))
         Row() {
             Image(
                 painter = painterResource(id = R.drawable.copenhagen),
@@ -67,7 +84,6 @@ fun ListOfTripsScreen(
                 modifier = Modifier.size(150.dp)
             )
         }
-
     }
 }
 @Composable
@@ -92,5 +108,5 @@ fun SearchBar(
 @Preview(showBackground = true)
 @Composable
 fun TripsPreview() {
-    ListOfTripsScreen()
+    TripListScreen(rememberNavController());
 }
