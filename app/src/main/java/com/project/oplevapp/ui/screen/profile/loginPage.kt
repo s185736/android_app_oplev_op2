@@ -37,12 +37,14 @@ import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.MainActivity
 import com.project.oplevapp.R
 import com.project.oplevapp.Screen
-// Guide https://www.youtube.com/watch?v=ZhDhUEFZDWU&ab_channel=Rotlin 
+import com.project.oplevapp.ui.screen.country.MyTextField
+
+// Guide https://www.youtube.com/watch?v=ZhDhUEFZDWU&ab_channel=Rotlin
 
 @Composable
 fun LoginPage(
     navController: NavController,
-    auth: FirebaseAuth
+    //auth: FirebaseAuth
     ) {
     var email by remember {
         mutableStateOf("")
@@ -96,6 +98,7 @@ fun LoginPage(
 
                     Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
+                    /*
                     OutlinedTextField(
                         value = email,
                         label = {
@@ -118,7 +121,9 @@ fun LoginPage(
                         ),
                         isError = isEmailValid
                     )
-                    /*
+
+                     */
+
                     MyTextField(
                         text = email,
                         textSize = 15,
@@ -133,7 +138,7 @@ fun LoginPage(
                         Color.Gray,
                         vectorPainter = painterResource(id = R.drawable.ic_outline_mail_outline_24),
                     )
-                     */
+                     /*
                     OutlinedTextField(
                         value = password,
                         label = {
@@ -158,9 +163,11 @@ fun LoginPage(
                         isError = isPasswordValid
                     )
 
+                      */
+
                     Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
-                    /*
+
                     MyTextField(
                         text = password,
                         textSize = 15,
@@ -176,8 +183,9 @@ fun LoginPage(
                         vectorPainter = painterResource(id = R.drawable.ic_outline_vpn_key_24)
                     )
 
-                     */
+
                     Spacer(modifier = Modifier.padding(bottom = 27.dp))
+
                     Row(
                         modifier = Modifier.fillMaxWidth(),Arrangement.SpaceBetween
                     ){
@@ -193,8 +201,9 @@ fun LoginPage(
                     }
 
                     Spacer(modifier = Modifier.padding(bottom = 27.dp))
-                    //LoginButton( navController)
+                    LoginButton( navController)
 
+                    /*
                     Button(
                         modifier = Modifier.weight(1f),
                         //Bruges ikke, i dette tilfælde
@@ -213,6 +222,8 @@ fun LoginPage(
                     ) {
                         Text("Login")
                     }
+
+                     */
 
                     TextButton(onClick = {navController.navigate(Screen.CreateAccount.route)}) {
                         Text(text = "Har du ikke en konto? Opret", fontSize = 12.sp)
@@ -247,12 +258,12 @@ fun LoginButton(navController: NavController) {
     }
 }
 
-/*
+
 @Preview
 @Composable
 fun LoginPagePreview(){
     LoginPage(navController = rememberNavController())
 }
 
- */
+
 

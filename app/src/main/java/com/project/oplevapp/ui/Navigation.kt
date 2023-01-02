@@ -72,7 +72,7 @@ fun MainNavHost() {
             composable(Screen.CountriesList.route) { CountriesList(navController) }
             composable(Screen.Country.route) { CountryPage(country = Denmark, navController = navController) }
             composable(Screen.EditCountry.route) { EditCountry(country = Denmark, navController = navController) }
-            composable(Screen.Login.route){ LoginPage(navController, auth) }
+            composable(Screen.Login.route){ LoginPage(navController) }
             composable(Screen.Note.route){ writeNotes(navController = navController) }
             composable(Screen.AddCountry.route){ AddCountry(navController) }
 
