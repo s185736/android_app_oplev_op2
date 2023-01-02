@@ -1,4 +1,4 @@
-package com.project.oplevapp.ui.screen.profile.createAccount
+package com.project.oplevapp.ui.screen.profile
 
 import android.content.ContentValues.TAG
 import android.util.Log
