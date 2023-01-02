@@ -24,11 +24,12 @@ import com.project.oplevapp.R
 
 
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
 fun Onboardingcard() {
-   Scaffold {
-       Box {
+    Scaffold {
+        Box (
+        ){
            Image(
                painter= painterResource(id = R.drawable.blue1),
                contentDescription = "Background Image",
@@ -36,33 +37,32 @@ fun Onboardingcard() {
                contentScale = ContentScale.Crop
            )
 
+            Image(
+                painter= painterResource(id = R.drawable.image1),
+                contentDescription = "Logo",
+                modifier = Modifier.fillMaxWidth().padding(30.dp),
+                contentScale = ContentScale.Crop
+            )
+
+
+
+
+
            Column(
                Modifier
                    .padding(horizontal = 32.dp, vertical = 80.dp)
                    .fillMaxSize()
            ) {
 
-               Spacer(Modifier.fillMaxHeight(0.6f))
-               Card(
-                   elevation = 4.dp,
-                   modifier = Modifier
-                       .border(
-                           width = 1.dp,
-                           color = Color.White.copy(0.1f),
-                           shape = RoundedCornerShape(27.dp)
-                       )
-                       .clip(RoundedCornerShape(27.dp))
-               ) {
-                   Image(
-                       painter = painterResource(id = R.drawable.blue1),
-                       contentDescription = "Card background",
-                       modifier = Modifier.fillMaxSize(),
-                       contentScale = ContentScale.Crop
-                   )
+               
+               Spacer(Modifier.fillMaxHeight(0.3f))
+
                    Column(
                        horizontalAlignment=Alignment.CenterHorizontally,
                        modifier = Modifier.padding(27.dp)
                    ) {
+                    
+
                        Text(
                            "MED OPLEV KAN DU UDFORSKE VERDEN NEMMERE",
                            color = Color.White,
@@ -76,6 +76,7 @@ fun Onboardingcard() {
                          color = Color.White.copy(0.8f),
                            textAlign = TextAlign.Center
                        )
+
                        Spacer(modifier = Modifier.padding(bottom = 27.dp))
                        Button(
                            onClick = { /*TODO*/ },
@@ -101,6 +102,14 @@ fun Onboardingcard() {
                                fontWeight = FontWeight.SemiBold
                            )
                        }
+                       Spacer(modifier = Modifier.padding( 27.dp))
+
+                       Image(
+                           painter = painterResource(id = R.drawable.rejse),
+                           contentDescription = "travel Image",
+                           modifier = Modifier.fillMaxSize(),
+                           contentScale = ContentScale.Crop
+                       )
 
                    }
 
@@ -110,5 +119,9 @@ fun Onboardingcard() {
     }
 
 
-}
 
+@Preview
+@Composable
+fun OnboardingcardPreview(){
+    Onboardingcard()
+}
