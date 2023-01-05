@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.project.oplevapp.R
-import com.project.oplevapp.Screen
+import com.project.oplevapp.ui.Screen
 import com.project.oplevapp.ui.screen.idea_portal.components.PortalSlots
 import com.project.oplevapp.ui.screen.idea_portal.actions.idea.IdeaActions.Restore
 import com.project.oplevapp.ui.theme.LightRed
@@ -82,7 +82,8 @@ fun PortalScreen(
                         Box(modifier = Modifier.padding(10.dp), contentAlignment = Alignment.Center) {
                             PortalSlots(
                                 idea = idea,
-                                modifier = Modifier.fillMaxWidth().clickable { navController.navigate(Screen.ModifyInIdeaMessageScreen.route + "?ideaId=${idea.id}") }
+                                modifier = Modifier.fillMaxWidth().clickable { navController.navigate(
+                                    Screen.ModifyInIdeaMessageScreen.route + "?ideaId=${idea.id}") }
                             ) {
                                 viewModel.run { onAction(IdeaActions.IdeaDeletion(idea)) }
                                 coroutine.launch {
