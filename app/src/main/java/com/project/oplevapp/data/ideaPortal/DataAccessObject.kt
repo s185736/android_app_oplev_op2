@@ -1,3 +1,4 @@
+/*Source: https://www.geeksforgeeks.org/how-to-build-a-simple-note-android-app-using-mvvm-and-room-database*/
 /*Source: https://developer.android.com/reference/android/arch/persistence/room/Dao*/
 /*Source: https://johncodeos.com/how-to-use-room-in-android-using-kotlin*/
 package com.project.oplevapp.data.ideaPortal
