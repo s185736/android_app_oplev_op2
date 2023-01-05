@@ -1,4 +1,4 @@
-package com.project.oplevapp.ui.view.profilePage;
+package com.project.oplevapp.ui.theme.profilePage;
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
