@@ -16,6 +16,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.project.oplevapp.data.CountryRepository
 import com.project.oplevapp.model.Denmark
 import com.project.oplevapp.nav.Screen
 import com.project.oplevapp.ui.screen.*
@@ -31,6 +32,7 @@ import com.project.oplevapp.ui.screen.profile.Profile
 fun MainNavHost() {
     val items = listOf(Screen.Login, Screen.TripList, Screen.Note)
     val navController = rememberNavController()
+    val countryRepository = CountryRepository()
 
     val auth by lazy {
         Firebase.auth
@@ -73,7 +75,7 @@ fun MainNavHost() {
             composable(Screen.EditCountry.route) { EditCountry(country = Denmark, navController = navController) }
             composable(Screen.Login.route){ LoginPage(navController, auth) }
             composable(Screen.Note.route){ writeNotes(navController = navController) }
-            composable(Screen.AddCountry.route){ AddCountry(navController) }
+            composable(Screen.AddCountry.route){ AddCountry(navController, countryRepository) }
 
             composable(Screen.TripList.route){ TripListScreen(navController = navController)}
             composable(Screen.CreateAccount.route){ CreateAccountScreen(navController = navController, auth = auth) }
