@@ -13,13 +13,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.*
 import androidx.compose.ui.graphics.*
-import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.project.oplevapp.ui.screen.idea_portal.actions.IdeaActions.ColorSelector
 import com.project.oplevapp.ui.screen.idea_portal.actions.idea.Idea
-import com.project.oplevapp.ui.screen.idea_portal.components.InvisibleTextField
+import com.project.oplevapp.ui.screen.idea_portal.components.TextField
 import com.project.oplevapp.ui.screen.idea_portal.actions.idea.ModifyViewModel
 import com.project.oplevapp.ui.theme.LightRed
 import kotlinx.coroutines.*
@@ -100,25 +99,25 @@ fun ModifyPortal(navController: NavController, ideaColor: Int, viewModel: Modify
                 }
             }
             Spacer(modifier = Modifier.height(20.dp))
-            InvisibleTextField(
-                value = stateTitle.message,
-                ideaMessage = stateTitle.slot,
-                onValueChange = { viewModel.onAction(IdeaActions.TitleTyped(it)) },
-                onFocusChange = { viewModel.onAction(IdeaActions.ModifyTitleTyped(it)) },
-                isVisible = stateTitle.isVisible,
-                singleLine = true,
-                textStyle = MaterialTheme.typography.h4
-            )
+                TextField(
+                    value = stateTitle.message,
+                    ideaMessage = stateTitle.slot,
+                    onValueChange = { viewModel.onAction(IdeaActions.TitleTyped(it)) },
+                    onFocusChange = { viewModel.onAction(IdeaActions.ModifyTitleTyped(it)) },
+                    isVisible = stateTitle.isVisible,
+                    singleLine = true,
+                    textStyle = MaterialTheme.typography.h4
+                )
             Spacer(modifier = Modifier.height(20.dp))
-            InvisibleTextField(
-                value = stateIdea.message,
-                ideaMessage = stateIdea.slot,
-                onValueChange = { viewModel.onAction(IdeaActions.IdeaMessageTyped(it)) },
-                onFocusChange = { viewModel.onAction(IdeaActions.ModifyIdeaMessageTyped(it)) },
-                isVisible = stateIdea.isVisible,
-                textStyle = MaterialTheme.typography.h5,
-                modifier = Modifier.fillMaxHeight()
-            )
+                TextField(
+                    value = stateIdea.message,
+                    ideaMessage = stateIdea.slot,
+                    onValueChange = { viewModel.onAction(IdeaActions.IdeaMessageTyped(it)) },
+                    onFocusChange = { viewModel.onAction(IdeaActions.ModifyIdeaMessageTyped(it)) },
+                    isVisible = stateIdea.isVisible,
+                    textStyle = MaterialTheme.typography.h5,
+                    modifier = Modifier.fillMaxHeight()
+                )
         }
     }
  }
