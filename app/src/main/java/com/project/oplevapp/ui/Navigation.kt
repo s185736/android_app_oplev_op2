@@ -1,6 +1,5 @@
-package com.project.oplevapp.view
+package com.project.oplevapp.ui
 
-import CountryPage
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -15,14 +14,29 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.Screen
-import com.project.oplevapp.model.Denmark
+import com.project.oplevapp.data.Denmark
+import com.project.oplevapp.ui.screen.*
+import com.project.oplevapp.ui.screen.profile.CreateAccountScreen
+import com.project.oplevapp.ui.screen.profile.LoginPage
+import com.project.oplevapp.ui.screen.country.AddCountry
+import com.project.oplevapp.ui.screen.country.CountriesList
+import com.project.oplevapp.ui.screen.country.CountryPage
+import com.project.oplevapp.ui.screen.country.EditCountry
+import com.project.oplevapp.ui.screen.profile.LoginPage
+import com.project.oplevapp.ui.screen.profile.Profile
 
 @Composable
 fun MainNavHost() {
-    val items = listOf(Screen.Profile, Screen.FriendsList)
-
+    val items = listOf(Screen.Login, Screen.TripList, Screen.Note)
     val navController = rememberNavController()
+
+    val auth by lazy {
+        Firebase.auth
+    }
+
     Scaffold(
         bottomBar = {
             BottomNavigation {
@@ -53,11 +67,20 @@ fun MainNavHost() {
             }
         }
     ) { innerPadding ->
-        NavHost(navController, startDestination = Screen.FriendsList.route, Modifier.padding(innerPadding)) {
+        NavHost(navController, startDestination = Screen.Login.route, Modifier.padding(innerPadding)) {
             composable(Screen.Profile.route) { Profile(navController) }
-            composable(Screen.FriendsList.route) { FriendsList(navController) }
+            composable(Screen.CountriesList.route) { CountriesList(navController) }
             composable(Screen.Country.route) { CountryPage(country = Denmark, navController = navController) }
-            composable(Screen.EditCountry.route) { EditCountry(country = Denmark, navController = navController)}
+            composable(Screen.EditCountry.route) { EditCountry(country = Denmark, navController = navController) }
+            composable(Screen.Login.route){ LoginPage(navController, auth) }
+            composable(Screen.Note.route){ writeNotes(navController = navController) }
+            composable(Screen.AddCountry.route){ AddCountry(navController) }
+
+            composable(Screen.TripList.route){ TripListScreen(navController = navController)}
+            composable(Screen.CreateAccount.route){ CreateAccountScreen(navController = navController, auth = auth) }
+
+
+
         }
     }
 }

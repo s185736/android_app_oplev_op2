@@ -33,11 +33,9 @@ class ProfileSettingsActivity : ComponentActivity() {
 @Composable
 private fun ProfileIcon(modifier: Modifier = Modifier) {
         Surface(modifier = modifier.padding(8.dp), shape = CircleShape, elevation = 2.dp) {
-              /*  Image(painter = painterResource(id = R.drawable.profile_image),
-                        contentDescription = stringResource(id = R.String.profile_image)
+                Image(painter = painterResource(id = R.drawable.profile_image),
+                        contentDescription = stringResource(id = R.string.profile_image)
                 )
-
-               */
         }
 }
 

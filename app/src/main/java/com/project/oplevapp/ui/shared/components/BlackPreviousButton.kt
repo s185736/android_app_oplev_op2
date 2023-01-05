@@ -1,4 +1,5 @@
-package com.project.oplevapp.view
+package com.project.oplevapp.ui.shared.components
+
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,14 +16,14 @@ import com.project.oplevapp.R
 
 
 @Composable
-fun WhitePreviousButton(onClick: () -> Unit) {
+fun BlackPreviousButton(onClick: () -> Unit) {
     Button(
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
         modifier = Modifier.height(67.dp).width(67.dp)
     ) {
         Image(
-            painter = painterResource(id = R.drawable.ic_arrow_back),
+            painter = painterResource(id = R.drawable.ic_round_arrow_back_24),
             contentDescription = "",
             modifier = Modifier.fillMaxSize()
         )

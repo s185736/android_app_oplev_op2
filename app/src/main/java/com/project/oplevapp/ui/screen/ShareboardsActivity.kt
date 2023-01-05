@@ -1,4 +1,4 @@
-package com.project.oplevapp
+package com.project.oplevapp.ui.screen
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -21,6 +21,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.project.oplevapp.R
 import com.project.oplevapp.ui.theme.OplevAppTheme
 
 class ShareboardsActivity : ComponentActivity() {

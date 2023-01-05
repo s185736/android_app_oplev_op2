@@ -1,3 +1,5 @@
+package com.project.oplevapp.ui.screen.country
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.project.oplevapp.R
 import com.project.oplevapp.Screen
-import com.project.oplevapp.model.Country
+import com.project.oplevapp.data.Country
 
 val AppBarExpendedHeight = 400.dp;
 

@@ -27,8 +27,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.project.oplevapp.Screen
+import com.project.oplevapp.ui.MainNavHost
 import com.project.oplevapp.ui.theme.OplevAppTheme
-import com.project.oplevapp.view.MainNavHost
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
