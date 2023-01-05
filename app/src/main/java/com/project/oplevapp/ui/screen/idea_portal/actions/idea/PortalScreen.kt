@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.project.oplevapp.R
-import com.project.oplevapp.Screen
+import com.project.oplevapp.nav.Screen
 import com.project.oplevapp.ui.screen.idea_portal.components.PortalSlots
 import com.project.oplevapp.ui.screen.idea_portal.actions.idea.IdeaActions.Restore
 import com.project.oplevapp.ui.theme.LightRed

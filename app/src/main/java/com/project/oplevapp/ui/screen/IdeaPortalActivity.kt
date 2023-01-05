@@ -12,7 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.project.oplevapp.Screen
+import com.project.oplevapp.nav.Screen
 import com.project.oplevapp.ui.screen.idea_portal.actions.ModifyPortal
 import com.project.oplevapp.ui.screen.idea_portal.actions.idea.PortalScreen
 import com.project.oplevapp.ui.theme.OplevAppTheme

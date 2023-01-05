@@ -16,9 +16,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.project.oplevapp.model.Country
+import com.project.oplevapp.model.Denmark
 import com.project.oplevapp.nav.Screen
-import com.project.oplevapp.data.Country
-import com.project.oplevapp.data.Denmark
 
 
 @Composable
