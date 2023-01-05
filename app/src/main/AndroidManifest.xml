@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".ui.screen.idea_portal.IdeaApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -13,7 +14,11 @@
         android:theme="@style/Theme.OplevApp"
         tools:targetApi="31">
         <activity
+<<<<<<< HEAD
             android:name=".MainActivity"
+=======
+            android:name=".ui.screen.MainActivity"
+>>>>>>> 1f5b9870140b75e529400a0225b0705885f4ed7e
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.OplevApp">

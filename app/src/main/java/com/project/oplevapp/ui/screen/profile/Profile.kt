@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+<<<<<<< HEAD
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -142,6 +143,9 @@ fun LoginPage() {
     }
 
 
+=======
+import com.project.oplevapp.ui.Screen
+>>>>>>> 1f5b9870140b75e529400a0225b0705885f4ed7e
 
 @Composable
 fun LoginButton() {
