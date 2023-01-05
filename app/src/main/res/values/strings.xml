@@ -9,9 +9,12 @@
     <string name="tilbage">Tilbage</string>
     <string name="login">Login</string>
     <string name="country">Country</string>
+    <string name="idea_portal_screen">Idea Portal</string>
+    <string name="create_idea_screen">Create an Idea</string>
     <string name="edit_country">Edit</string>
     <string name="notes">Notes</string>
     <string name="add_country">Add Country</string>
     <string name="start_page">Startside</string>
     <string name="create_account">Opret profil</string>
+    <string name="profile_image" />
 </resources>
