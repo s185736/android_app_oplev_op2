@@ -61,14 +61,12 @@ fun PortalSlots(
                         color = Black,
                         maxLines = 1
                     )
-                    Spacer(modifier = Modifier.height(7.dp))
                     Text(
                         text = idea.ideaSuggestionText.toString(),
                         style = MaterialTheme.typography.body1,
                         color = White,
                         maxLines = 7,
                     )
-                    Spacer(modifier = Modifier.height(7.dp))
                     Row(modifier = Modifier.fillMaxWidth()) {
                         IconButton(
                             onClick = ideaDeletion,
@@ -76,7 +74,7 @@ fun PortalSlots(
                             /*Using Icon for delete icon*/
                             Icon(
                                 imageVector = Icons.Default.Delete,
-                                contentDescription = "Delete an Idea",
+                                contentDescription = "Slet Ide.",
                                 tint = LightRed,
                             )
                         }

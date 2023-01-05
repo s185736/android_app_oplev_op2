@@ -74,11 +74,10 @@ fun PortalScreen(
             Column(modifier = Modifier.fillMaxSize()) {
 
                 /*Using Grids for the cells,
-                and structuring the screen, we've set 2 ideas in one line.*/
+                and structuring the screen, we've set 1 ideas in one line.*/
                 LazyVerticalGrid(cells = GridCells.Fixed(1)
                 ) {
                     items(vmState.ideas) {
-                        /*Making the space between the squares..*/
                             idea ->
                         Box(modifier = Modifier.padding(10.dp), contentAlignment = Alignment.Center) {
                             PortalSlots(

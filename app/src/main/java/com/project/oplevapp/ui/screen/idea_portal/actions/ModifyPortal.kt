@@ -1,5 +1,3 @@
-/*Source: https://m2.material.io/components/buttons-floating-action-button/android#regular-fabs*/
-/*Source: */
 package com.project.oplevapp.ui.screen.idea_portal.actions
 
 import androidx.compose.animation.Animatable
@@ -31,9 +29,9 @@ fun ModifyPortal(navController: NavController, ideaColor: Int, viewModel: Modify
     val stateScaff: ScaffoldState = rememberScaffoldState()
 
     val background = remember<Animatable<Color, AnimationVector4D>> {
-        return@remember Animatable(
+        Animatable(
             initialValue = Color(color = when {
-                !ideaColor.equals(-1) -> {
+                ideaColor != -1 -> {
                     ideaColor
                 }
                 else -> {
@@ -73,32 +71,38 @@ fun ModifyPortal(navController: NavController, ideaColor: Int, viewModel: Modify
                     Idea.ideaColors.forEach {
                         val colorID: Int = it.toArgb()
                         Box(
-                        modifier = Modifier.size(45.dp)
-                            .shadow(20.dp, RectangleShape)
-                            .clip(RectangleShape)
-                            .background(it).border(
-                                width = 5.dp, color =
-                                when (viewModel.ideaColor.value) {
-                                    colorID -> {
-                                        Color.Black
-                                    } else -> {
-                                        Color.Transparent
+                            modifier = Modifier
+                                .size(45.dp)
+                                .shadow(20.dp, RectangleShape)
+                                .clip(RectangleShape)
+                                .background(it)
+                                .border(
+                                    width = 5.dp,
+                                    color =
+                                    when (viewModel.ideaColor.value) {
+                                        colorID -> {
+                                            Color.Black
+                                        } else -> {
+                                            Color.Transparent
+                                        }
+                                    },
+                                    shape = RectangleShape
+                                )
+                                .clickable {
+                                    coroutineScope.launch {
+                                        background.animateTo(
+                                            targetValue = Color(colorID),
+                                            animationSpec = tween(
+                                                durationMillis = 1000
+                                            )
+                                        )
                                     }
-                                },
-                                shape = RectangleShape
-                            )
-                            .clickable { coroutineScope.launch {
-                                    background.animateTo(
-                                        targetValue = Color(colorID),
-                                        animationSpec = tween(durationMillis = 999)
-                                    )
+                                    viewModel.onAction(ColorSelector(colorID))
                                 }
-                                viewModel.onAction(ColorSelector(colorID))
-                            }
-                    )
+                        )
+                    }
                 }
-            }
-            Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(20.dp))
                 TextField(
                     value = stateTitle.message,
                     ideaMessage = stateTitle.slot,
@@ -108,7 +112,7 @@ fun ModifyPortal(navController: NavController, ideaColor: Int, viewModel: Modify
                     singleLine = true,
                     textStyle = MaterialTheme.typography.h4
                 )
-            Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(20.dp))
                 TextField(
                     value = stateIdea.message,
                     ideaMessage = stateIdea.slot,
@@ -118,7 +122,7 @@ fun ModifyPortal(navController: NavController, ideaColor: Int, viewModel: Modify
                     textStyle = MaterialTheme.typography.h5,
                     modifier = Modifier.fillMaxHeight()
                 )
+            }
         }
     }
- }
 }

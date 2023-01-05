@@ -1,6 +1,5 @@
 package com.project.oplevapp.ui.screen
 
-import android.app.Application
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -19,10 +18,9 @@ import com.project.oplevapp.ui.screen.idea_portal.actions.idea.PortalScreen
 import com.project.oplevapp.ui.theme.OplevAppTheme
 import com.project.oplevapp.ui.theme.OplevDarkBlue
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
 
 @AndroidEntryPoint
-class IdeaPortalActivity : ComponentActivity() {
+class MainActivity : ComponentActivity() {
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(instance: Bundle?) {
@@ -36,15 +34,18 @@ class IdeaPortalActivity : ComponentActivity() {
                         startDestination = Screen.IdeaScreen.route) {
                         composable(route = Screen.IdeaScreen.route) { PortalScreen(navController = navController) }
                         composable(
-                            route = Screen.ModifyInIdeaMessageScreen.route,
-                            arguments = listOf(navArgument(name = "ideaId") { type = NavType.IntType
-                                defaultValue = -1 },
-                                navArgument(name = "ideaColor") { type = NavType.IntType
-                                    defaultValue = -1 },
+                            route = Screen.ModifyInIdeaMessageScreen.route + "?ideaId={ideaId}&ideaColor={ideaColor}",
+                            arguments = listOf(navArgument(name = "ideaId") {
+                                    type = NavType.IntType
+                                    defaultValue = -1
+                                },
+                                navArgument(name = "ideaColor") {
+                                    type = NavType.IntType
+                                    defaultValue = -1
+                                },
                             )) {
-                            val color = (it.arguments?.getInt("ideaColor") ?: -1).also {
-                                ModifyPortal(navController = navController, ideaColor = it)
-                            }
+                            val color = it.arguments?.getInt("ideaColor") ?: -1
+                            ModifyPortal(navController = navController, ideaColor = color)
                         }
                     }
                 }
@@ -52,3 +53,4 @@ class IdeaPortalActivity : ComponentActivity() {
         }
     }
 }
+

@@ -16,10 +16,10 @@ class IdeaException(message: String): Exception(message)
 @SuppressLint("ParcelCreator")
 @Entity
 data class Idea(
-        val ideaTitle: String?, //displayed
-        val ideaSuggestionText: String?, //displayed
-        val ideaTimeCreated: Long, //will not be displayed.
-        val ideaColorStatus: Int, //displayed
+        val ideaTitle: String?,
+        val ideaSuggestionText: String?,
+        val ideaTimeCreated: Long,
+        val ideaColorStatus: Int,
         @PrimaryKey val id: Int ?= null) : Parcelable {
             constructor(parcel: Parcel) : this(
             parcel.readString(),
