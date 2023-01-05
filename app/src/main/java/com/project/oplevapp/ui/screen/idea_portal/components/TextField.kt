@@ -11,7 +11,6 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 
-
 @Composable
 fun TextField(
     /*defining variables for BasicTextField*/
@@ -33,8 +32,8 @@ fun TextField(
             singleLine = singleLine,
             textStyle = textStyle,
             modifier = Modifier.fillMaxWidth().onFocusChanged {
-                    onFocusChange(it)
-                }
+                onFocusChange(it)
+            }
         )
         when {
             isVisible -> Text(text = ideaMessage, style = textStyle, color = Color.DarkGray)
