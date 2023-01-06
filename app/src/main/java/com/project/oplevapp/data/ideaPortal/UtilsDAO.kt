@@ -1,3 +1,4 @@
+/*Source: https://www.geeksforgeeks.org/how-to-build-a-simple-note-android-app-using-mvvm-and-room-database*/
 package com.project.oplevapp.data.ideaPortal
 
 import com.project.oplevapp.ui.screen.idea_portal.actions.idea.Idea
