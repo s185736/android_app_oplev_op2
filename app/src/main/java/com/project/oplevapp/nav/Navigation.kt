@@ -1,4 +1,4 @@
-package com.project.oplevapp.ui
+package com.project.oplevapp.nav
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
@@ -17,7 +17,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.model.Denmark
-import com.project.oplevapp.nav.Screen
+import com.project.oplevapp.ui.TripListScreen
 import com.project.oplevapp.ui.screen.*
 import com.project.oplevapp.ui.screen.profile.CreateAccountScreen
 import com.project.oplevapp.ui.screen.profile.LoginPage
@@ -75,7 +75,7 @@ fun MainNavHost() {
             composable(Screen.Note.route){ writeNotes(navController = navController) }
             composable(Screen.AddCountry.route){ AddCountry(navController) }
 
-            composable(Screen.TripList.route){ TripListScreen(navController = navController)}
+            composable(Screen.TripList.route){ TripListScreen(navController = navController) }
             composable(Screen.CreateAccount.route){ CreateAccountScreen(navController = navController, auth = auth) }
 
 

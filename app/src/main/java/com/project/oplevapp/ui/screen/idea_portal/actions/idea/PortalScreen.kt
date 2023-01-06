@@ -82,7 +82,8 @@ fun PortalScreen(
                         Box(modifier = Modifier.padding(10.dp), contentAlignment = Alignment.Center) {
                             PortalSlots(
                                 idea = idea,
-                                modifier = Modifier.fillMaxWidth().clickable { navController.navigate(Screen.ModifyInIdeaMessageScreen.route + "?ideaId=${idea.id}") }
+                                modifier = Modifier.fillMaxWidth().clickable { navController.navigate(
+                                    Screen.ModifyInIdeaMessageScreen.route + "?ideaId=${idea.id}") }
                             ) {
                                 viewModel.run { onAction(IdeaActions.IdeaDeletion(idea)) }
                                 coroutine.launch {

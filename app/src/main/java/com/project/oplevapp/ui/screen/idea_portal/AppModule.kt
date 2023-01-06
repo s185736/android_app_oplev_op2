@@ -1,3 +1,4 @@
+/*Source: https://www.geeksforgeeks.org/how-to-build-a-simple-note-android-app-using-mvvm-and-room-database*/
 /*Source: https://stackoverflow.com/questions/71631944/how-make-appmodule-works-in-dagger-2-with-kotlin-app*/
 /*Source: https://medium.com/@sfazleyrabbi/dagger-android-beginner-to-intermediate-guide-cd26aa91b7c2*/
 package com.project.oplevapp.ui.screen.idea_portal

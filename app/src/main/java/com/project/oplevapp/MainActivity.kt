@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.project.oplevapp.ui.MainNavHost
+import com.project.oplevapp.nav.MainNavHost
 import com.project.oplevapp.ui.theme.OplevAppTheme
 
 class MainActivity : ComponentActivity() {
