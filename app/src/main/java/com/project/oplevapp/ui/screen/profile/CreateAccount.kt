@@ -3,20 +3,12 @@ package com.project.oplevapp.ui.screen.profile
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.graphics.vector.VectorPainter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
@@ -27,10 +19,9 @@ import androidx.compose.ui.unit.sp
 import com.project.oplevapp.R
 import com.project.oplevapp.ui.screen.country.MyTextField
 
-
 @Preview(showBackground = true)
 @Composable
-fun Profile() {
+fun CreateAccount() {
     Scaffold {
         Box {
 
@@ -38,24 +29,13 @@ fun Profile() {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.padding(27.dp)
             ) {
-                Row {
-
-                    Text(
-                        text = "Profil",
-                        color = Color(5, 54, 103),
-                        fontWeight = FontWeight.ExtraBold,
-                        fontSize = 25.sp,
-                        textAlign = TextAlign.Center
-                    )
-
-                    Spacer(modifier = Modifier.padding(start = 200.dp))
-
-                    Icon(imageVector = ImageVector.vectorResource(id = R.drawable.ic_outline_logout_24), contentDescription = "")
-
-
-
-                }
-
+                Text(
+                    text = "Opret Konto",
+                    color = Color(5, 54, 103),
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 25.sp,
+                    textAlign = TextAlign.Center
+                )
 
                 Spacer(modifier = Modifier.padding(bottom = 30.dp))
 
@@ -144,32 +124,55 @@ fun Profile() {
                     vectorPainter = painterResource(id = R.drawable.ic_outline_vpn_key_24)
                 )
 
+                Spacer(modifier = Modifier.padding(bottom = 27.dp))
+
+                MyTextField(
+                    text = confirmPassword,
+                    textSize = 15,
+                    onValueChange = { confirmPassword = it },
+                    placeHolder = " Bekræft adgangskode",
+                    width = 320,
+                    height = 57,
+                    KeyboardType.Text,
+                    visualTransformation = VisualTransformation.None,
+                    Color.DarkGray,
+                    Color.LightGray,
+                    Color.Gray,
+                    vectorPainter = painterResource(id = R.drawable.ic_outline_lock_24)
+                )
 
 
+                Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
-                Spacer(modifier = Modifier.padding(bottom = 300.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(), Arrangement.SpaceBetween
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Checkbox(checked = true, onCheckedChange = {})
+                        Text(text = "Agree with terms and conditions", fontSize = 12.sp)
 
-
-
-                Button(
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color(5,54,103)),
-                    shape = RoundedCornerShape(60),
-                    modifier = Modifier
-                        .height(45.dp)
-                        .width(189.dp),
-
-
-                    onClick = { /** TO DO */ },
-
-                    ) {
-                    Text("Opdater",
-                        color = Color.White,
-                        fontSize = 16.sp)
-
-
+                    }
                 }
+                    Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
 
+                    Button(
+                        colors = ButtonDefaults.buttonColors(backgroundColor = Color(5,54,103)),
+                        modifier = Modifier.padding(70.dp) ,
+
+
+                        onClick = { /** TO DO */ },
+
+                        ) {
+                        Text("Opret")
+
+                    }
+
+                    TextButton(onClick = {}) {
+
+                        Text(text = "Har du allerede en konto? Login", fontSize = 12.sp)
+
+                    }
 
 
             }
@@ -178,7 +181,7 @@ fun Profile() {
 
 
     @Composable
-    fun UpdateButton() {
+    fun OpretButton() {
         Button(
             onClick = {},
             shape = RoundedCornerShape(60),
@@ -189,7 +192,7 @@ fun Profile() {
         ) {
             Row {
                 Text(
-                    text = "Opdater",
+                    text = "Opret",
                     color = Color.White,
                     fontSize = 12.sp,
                     modifier = Modifier.padding()
@@ -200,4 +203,30 @@ fun Profile() {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
