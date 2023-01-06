@@ -16,8 +16,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.project.oplevapp.Screen
-import com.project.oplevapp.data.Denmark
+import com.project.oplevapp.model.Denmark
+import com.project.oplevapp.nav.Screen
 import com.project.oplevapp.ui.screen.*
 import com.project.oplevapp.ui.screen.profile.CreateAccountScreen
 import com.project.oplevapp.ui.screen.profile.LoginPage
@@ -25,7 +25,6 @@ import com.project.oplevapp.ui.screen.country.AddCountry
 import com.project.oplevapp.ui.screen.country.CountriesList
 import com.project.oplevapp.ui.screen.country.CountryPage
 import com.project.oplevapp.ui.screen.country.EditCountry
-import com.project.oplevapp.ui.screen.profile.LoginPage
 import com.project.oplevapp.ui.screen.profile.Profile
 
 @Composable
