@@ -115,7 +115,7 @@ fun Profile() {
 
                 Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
-                MyTextField(
+                UneditableTextField(
                     text = phone,
                     textSize = 15,
                     onValueChange = { phone = it },

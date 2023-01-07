@@ -116,7 +116,6 @@ fun UneditableTextField(
 
 
             TextField(
-
                 value = text,
                 onValueChange = onValueChange,
                 textStyle = LocalTextStyle.current.copy(color = myTextColor),
