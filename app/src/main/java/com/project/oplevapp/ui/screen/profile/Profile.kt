@@ -1,6 +1,7 @@
 package com.project.oplevapp.ui.screen.profile
 
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -21,6 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.project.oplevapp.MainActivity
 import com.project.oplevapp.R
 import com.project.oplevapp.ui.shared.components.MyTextField
 import com.project.oplevapp.ui.shared.components.UneditableTextField
@@ -145,56 +147,19 @@ fun Profile() {
                     Color.Gray,
                     vectorPainter = painterResource(id = R.drawable.ic_outline_vpn_key_24)
                 )
-
-
-
-
-                Spacer(modifier = Modifier.padding(bottom = 300.dp))
-
-
-            Row {
-                Button(
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color(5, 54, 103)),
-                    shape = RoundedCornerShape(60),
-                    modifier = Modifier
-                        .height(45.dp)
-                        .width(189.dp),
-                    onClick = { /** TO DO */ },
-
-                    ) {
-                    Text(
-                        "Opdater",
-                        color = Color.White,
-                        fontSize = 16.sp
-                    )
-
-
                 }
-            }
-                Spacer(modifier = Modifier.padding(start = 200.dp))
+            Spacer(modifier = Modifier.padding(bottom = 300.dp))
 
-                Row {
-                    Button(
-                        colors = ButtonDefaults.buttonColors(backgroundColor = LightRed),
-                        shape = RoundedCornerShape(60),
-                        modifier = Modifier
-                            .height(45.dp)
-                            .width(189.dp),
-                        onClick = { /** TO DO */ },
+            Button(
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color(5,54,103)),
+                modifier = Modifier.padding(70.dp) ,
+                onClick = { /** TO DO */ },
 
-                        ) {
-                        Text(
-                            "Fortryd",
-                            color = Color.White,
-                            fontSize = 16.sp
-                        )
-
-
-                    }
-                }
-
+                ) {
+                Text("Opret")
 
             }
+
         }
-    }
+   }
 }
