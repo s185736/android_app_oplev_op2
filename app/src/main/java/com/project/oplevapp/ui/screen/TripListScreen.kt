@@ -1,8 +1,7 @@
-package com.project.oplevapp.ui
+package com.project.oplevapp.ui.screen
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
@@ -13,11 +12,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.fontResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,15 +24,13 @@ import androidx.navigation.compose.rememberNavController
 import com.project.oplevapp.R
 import com.project.oplevapp.model.TripInfo
 import com.project.oplevapp.nav.Screen
-import com.project.oplevapp.ui.screen.DisplayTrips
+import com.project.oplevapp.ui.screen.trip.TripScreenTestContent
 
 @Composable
 fun TripListScreen(
     navController: NavController,
-    onDestinationBtnClicked: () -> Unit = {},
+    //onDestinationBtnClicked: () -> Unit = {},
     modifier: Modifier = Modifier
-
-
 ){
     var searchBar by remember { mutableStateOf("") }
     Column(
@@ -72,13 +66,15 @@ fun TripListScreen(
             }
         }
 
+        TripScreenTestContent()
+
         //Spacer(Modifier.height(16.dp))
         //Skal lave en funktion hvor der tages oplysninger gennem appen, når der oprettes ny rejse.
         //TODO skal tilføje knap, så der kan navigeres til den rejse der vil se mere info på.
         val listTripInfo = listOf<TripInfo>(
-            TripInfo("København0", R.drawable.copenhagen),
-            TripInfo("test1", R.drawable.copenhagen),
-            TripInfo("test2", R.drawable.copenhagen),
+            TripInfo(1,"København0", R.drawable.copenhagen),
+            TripInfo(2,"test1", R.drawable.copenhagen),
+            TripInfo(3,"test2", R.drawable.copenhagen),
         )
         DisplayTrips(listTrips = listTripInfo)
 

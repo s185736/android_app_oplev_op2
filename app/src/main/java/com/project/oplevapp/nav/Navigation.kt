@@ -17,7 +17,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.model.Denmark
-import com.project.oplevapp.ui.TripListScreen
+import com.project.oplevapp.ui.screen.TripListScreen
 import com.project.oplevapp.ui.screen.*
 import com.project.oplevapp.ui.screen.profile.CreateAccountScreen
 import com.project.oplevapp.ui.screen.profile.LoginPage
