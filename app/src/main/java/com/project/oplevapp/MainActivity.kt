@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.project.oplevapp.nav.MainNavHost
+import com.project.oplevapp.ui.screen.profile.Profile
 import com.project.oplevapp.ui.theme.OplevAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -13,7 +14,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             OplevAppTheme {
-                MainNavHost()
+                Profile()
             }
         }
     }

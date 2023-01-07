@@ -11,13 +11,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.project.oplevapp.R
-import com.project.oplevapp.ui.screen.country.MyTextField
+import com.project.oplevapp.ui.shared.components.MyTextField
 
 @Preview(showBackground = true)
 @Composable
@@ -81,7 +82,7 @@ fun CreateAccount() {
                     placeHolder = "Email",
                     width = 320,
                     height = 57,
-                    KeyboardType.Text,
+                    KeyboardType.Email,
                     visualTransformation = VisualTransformation.None,
                     Color.DarkGray,
                     Color.LightGray,
@@ -100,7 +101,7 @@ fun CreateAccount() {
                     placeHolder = "Telefon",
                     width = 320,
                     height = 57,
-                    KeyboardType.Text,
+                    KeyboardType.Phone,
                     visualTransformation = VisualTransformation.None,
                     Color.DarkGray,
                     Color.LightGray,
@@ -116,7 +117,7 @@ fun CreateAccount() {
                     placeHolder = "Adgangskode",
                     width = 320,
                     height = 57,
-                    KeyboardType.Text,
+                    KeyboardType.Password,
                     visualTransformation = VisualTransformation.None,
                     Color.DarkGray,
                     Color.LightGray,
@@ -133,8 +134,8 @@ fun CreateAccount() {
                     placeHolder = " Bekræft adgangskode",
                     width = 320,
                     height = 57,
-                    KeyboardType.Text,
-                    visualTransformation = VisualTransformation.None,
+                    KeyboardType.Password,
+                    visualTransformation = PasswordVisualTransformation(),
                     Color.DarkGray,
                     Color.LightGray,
                     Color.Gray,
