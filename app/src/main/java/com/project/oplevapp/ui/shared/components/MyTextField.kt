@@ -101,6 +101,7 @@ fun UneditableTextField(
     myTextColor: Color,
     backgroundColor: Color,
     placeHolderColor: Color,
+    color: Color,
     vectorPainter: Painter
 ) {
     Surface(

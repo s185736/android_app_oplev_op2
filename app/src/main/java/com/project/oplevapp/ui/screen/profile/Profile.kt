@@ -124,9 +124,10 @@ fun Profile() {
                         height = 57,
                         KeyboardType.Email,
                         visualTransformation = VisualTransformation.None,
-                        Color.DarkGray,
-                        Color.LightGray,
-                        Color.Gray,
+                        myTextColor = Color.DarkGray,
+                        backgroundColor = Color.LightGray,
+                        placeHolderColor = Color.Gray,
+                        color = MaterialTheme.colors.onSurface.copy(alpha = 0.5f),
                         vectorPainter = painterResource(id = R.drawable.ic_outline_mail_outline_24),
                     )
 
@@ -143,9 +144,10 @@ fun Profile() {
                         height = 57,
                         KeyboardType.Phone,
                         visualTransformation = VisualTransformation.None,
-                        Color.DarkGray,
-                        Color.LightGray,
-                        Color.Gray,
+                        myTextColor = Color.DarkGray,
+                        backgroundColor = Color.LightGray,
+                        placeHolderColor = Color.Gray,
+                        color = MaterialTheme.colors.onSurface.copy(alpha = 1.5f),
                         vectorPainter = painterResource(id = R.drawable.ic_outline_phone_24)
                     )
                     Spacer(modifier = Modifier.padding(bottom = 27.dp))
