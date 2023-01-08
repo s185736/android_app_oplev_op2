@@ -147,7 +147,7 @@ fun Profile() {
                         vectorPainter = painterResource(id = R.drawable.ic_outline_vpn_key_24)
                     )
                     Spacer(modifier = Modifier.padding(bottom = 100.dp))
-                    AlertDialogSletBruger()
+                    AlertDialogDeleteAccount()
                     Spacer(modifier = Modifier.padding(bottom = 10.dp))
                     Row {
                         Button(
@@ -234,7 +234,7 @@ fun AlertDialogLogOut() {
 }
 
 @Composable
-fun AlertDialogSletBruger() {
+fun AlertDialogDeleteAccount() {
     MaterialTheme {
         Column {
             val openBox = remember { mutableStateOf(false)  }
