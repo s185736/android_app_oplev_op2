@@ -1,13 +1,18 @@
 package com.project.oplevapp.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
@@ -40,13 +45,12 @@ fun MainNavHost() {
 
     Scaffold(
         bottomBar = {
-            BottomNavigation {
+            BottomNavigation(backgroundColor = Color.White) {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentDestination = navBackStackEntry?.destination
                 items.forEach { screen ->
                     BottomNavigationItem(
-                        icon = { Icon(Icons.Filled.Favorite, contentDescription = null) },
-                        label = { Text(stringResource(screen.resourceId)) },
+                        icon = { Icon(screen.icon!!, contentDescription = null, tint = Color.Black, modifier = Modifier.size(33.dp)) },
                         selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
                         onClick = {
                             navController.navigate(screen.route) {
@@ -77,7 +81,7 @@ fun MainNavHost() {
             composable(Screen.Note.route){ writeNotes(navController = navController) }
             composable(Screen.AddCountry.route){ AddCountry(navController, countryRepository) }
 
-            composable(Screen.TripList.route){ TripListScreen(navController = navController)}
+            composable(Screen.TripList.route){ TripListScreen(navController = navController, countryRepository = countryRepository) }
             composable(Screen.CreateAccount.route){ CreateAccountScreen(navController = navController, auth = auth) }
 
 
