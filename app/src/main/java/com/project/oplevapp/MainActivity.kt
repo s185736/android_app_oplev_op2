@@ -19,11 +19,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             OplevAppTheme {
-                val navController = rememberNavController()
+                /* val navController = rememberNavController()
                 val auth by lazy {
                     Firebase.auth
                 }
-                LoginPage(navController, auth)
+                LoginPage(navController, auth)*/
+                Profile()
             }
         }
     }
@@ -33,10 +34,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     OplevAppTheme {
-        val navController = rememberNavController()
-        val auth by lazy {
-            Firebase.auth
-        }
-        LoginPage(navController, auth)
+        Profile()
     }
 }
