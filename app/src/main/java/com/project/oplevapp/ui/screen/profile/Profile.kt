@@ -48,18 +48,7 @@ fun Profile() {
                     )
                     Spacer(modifier = Modifier.padding(start = 140.dp))
 
-                    Row(modifier = Modifier.fillMaxWidth()) {
-                        IconButton(
-                            onClick = { /**TODO**/ },
-                            modifier = Modifier.size(67.dp)
-                        ) {
-                            Icon(
-                                imageVector = ImageVector.vectorResource(id = R.drawable.ic_outline_logout_24),
-                                contentDescription = "Slet Bruger.",
-                                tint = LightRed,
-                            )
-                        }
-                    }
+                    AlertDialogLogOut()
                 }
                 Spacer(modifier = Modifier.padding(bottom = 1.dp))
 
@@ -120,7 +109,6 @@ fun Profile() {
                         myTextColor = Color.DarkGray,
                         backgroundColor = Color.LightGray,
                         placeHolderColor = Color.Gray,
-                        color = MaterialTheme.colors.onSurface.copy(alpha = 0.5f),
                         vectorPainter = painterResource(id = R.drawable.ic_outline_mail_outline_24),
                     )
 
@@ -140,8 +128,7 @@ fun Profile() {
                         myTextColor = Color.DarkGray,
                         backgroundColor = Color.LightGray,
                         placeHolderColor = Color.Gray,
-                        color = MaterialTheme.colors.onSurface.copy(alpha = 1.5f),
-                        vectorPainter = painterResource(id = R.drawable.ic_outline_phone_24)
+                        vectorPainter = painterResource(id = R.drawable.ic_outline_phone_24),
                     )
                     Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
@@ -160,17 +147,7 @@ fun Profile() {
                         vectorPainter = painterResource(id = R.drawable.ic_outline_vpn_key_24)
                     )
                     Spacer(modifier = Modifier.padding(bottom = 100.dp))
-                    Row {
-                        Button(onClick = { /** TO DO */ }) {
-                            Text(
-                                "Slet Konto",
-                                color = Color.Black,
-                                fontSize = 14.sp
-                            )
-
-
-                        }
-                    }
+                    AlertDialogSletBruger()
                     Spacer(modifier = Modifier.padding(bottom = 10.dp))
                     Row {
                         Button(
@@ -222,3 +199,63 @@ fun Profile() {
 
         }
     }
+
+@Composable
+fun AlertDialogLogOut() {
+    MaterialTheme {
+        Row(modifier = Modifier.fillMaxWidth()) {
+            val openBox = remember { mutableStateOf(false)  }
+            IconButton(
+                onClick = {openBox.value = true},
+                modifier = Modifier.size(67.dp)
+            ) {
+                Icon(
+                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_outline_logout_24),
+                    contentDescription = "Log Ud.",
+                    tint = LightRed,
+                )
+            }
+            if (openBox.value) {
+                AlertDialog(onDismissRequest = { openBox.value = false },
+                    title = { Text(text = "Log Ud") },
+                    text = { Text("Du er ved, at logge dig selv ud af appen. Er du sikker på det?") },
+                    confirmButton = { Button( onClick = { openBox.value = false }) {
+                        Text("Ja")
+                    }
+                    },
+                    dismissButton = { Button( onClick = { openBox.value = false }) {
+                        Text("Nej")
+                    }
+                    }
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun AlertDialogSletBruger() {
+    MaterialTheme {
+        Column {
+            val openBox = remember { mutableStateOf(false)  }
+            Button(onClick = {
+                openBox.value = true}) {
+                Text("Slet Bruger")
+            }
+            if (openBox.value) {
+                AlertDialog(onDismissRequest = { openBox.value = false },
+                    title = { Text(text = "Slet Bruger") },
+                    text = { Text("Hovsa, du er ved at slette din bruger permanent. Er du sikker på det?") },
+                    confirmButton = { Button( onClick = { openBox.value = false }) {
+                            Text("Ja, slet")
+                        }
+                    },
+                    dismissButton = { Button( onClick = { openBox.value = false }) {
+                            Text("Nej, fortryd")
+                        }
+                    }
+                )
+            }
+        }
+    }
+}
