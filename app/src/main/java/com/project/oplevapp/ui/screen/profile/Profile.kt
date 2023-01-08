@@ -1,11 +1,9 @@
 package com.project.oplevapp.ui.screen.profile
 
-
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -62,15 +60,10 @@ fun Profile() {
                             )
                         }
                     }
-
-
                 }
-
-
                 Spacer(modifier = Modifier.padding(bottom = 1.dp))
 
-
-                CreateImageProfile()
+                ShowProfileImage()
 
                 var email by remember {
                     mutableStateOf("Hans@mail.com")
@@ -168,6 +161,18 @@ fun Profile() {
                     )
                     Spacer(modifier = Modifier.padding(bottom = 100.dp))
                     Row {
+                        Button(onClick = { /** TO DO */ }) {
+                            Text(
+                                "Slet Konto",
+                                color = Color.Black,
+                                fontSize = 14.sp
+                            )
+
+
+                        }
+                    }
+                    Spacer(modifier = Modifier.padding(bottom = 10.dp))
+                    Row {
                         Button(
                             colors = ButtonDefaults.buttonColors(
                                 backgroundColor = Color(
@@ -198,7 +203,7 @@ fun Profile() {
     }
 }
     @Composable
-    private fun CreateImageProfile(modifier: Modifier = Modifier) {
+    private fun ShowProfileImage(modifier: Modifier = Modifier) {
         Surface(
             modifier = Modifier
                 .size(100.dp)
