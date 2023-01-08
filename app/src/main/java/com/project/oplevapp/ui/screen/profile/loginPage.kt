@@ -9,9 +9,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -42,8 +46,11 @@ fun LoginPage(
     var email by remember {
         mutableStateOf("")
     }
-    var password by remember {
+    var password by rememberSaveable {
         mutableStateOf("")
+    }
+    var passwordVisible by rememberSaveable {
+        mutableStateOf(false)
     }
     val focusManager = LocalFocusManager.current
 
@@ -137,7 +144,7 @@ fun LoginPage(
                         onValueChange = {
                             password = it
                         },
-                        placeholder = { Text(text = "mail123")},
+                        //placeholder = { Text(text = "mail123")},
                         singleLine = true,
                         modifier = Modifier
                             .fillMaxWidth(0.6f),
@@ -150,6 +157,16 @@ fun LoginPage(
                         keyboardActions = KeyboardActions(
                             onDone = {focusManager.clearFocus()}
                         ),
+                        trailingIcon = {
+                            val icon = if (passwordVisible)
+                                Icons.Filled.Visibility
+                            else Icons.Filled.VisibilityOff
+
+                            val content = if (passwordVisible) "Skjul kodeord." else "Vis kodeord."
+                            IconButton(onClick = {passwordVisible = !passwordVisible}){
+                                Icon(imageVector  = icon, content)
+                            }
+                        },
                         isError = isPasswordValid
                     )
 
@@ -191,7 +208,7 @@ fun LoginPage(
                     //LoginButton( navController)
 
                     Button(
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier.fillMaxWidth().padding(30.dp),
                         //Bruges ikke, i dette tilfælde
 
                         onClick = {
