@@ -10,6 +10,8 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Login
+import androidx.compose.material.icons.filled.Password
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.Composable
@@ -98,7 +100,7 @@ fun LoginPage(
 
                     Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
-                    OutlinedTextField(
+                    TextField(
                         value = email,
                         label = {
                             Text(text = "Indtast email")
@@ -106,10 +108,10 @@ fun LoginPage(
                         onValueChange = {
                             email = it
                         },
-                        placeholder = { Text(text = "test@mail.dk")},
+                        //placeholder = { Text(text = "test@mail.dk")},
                         singleLine = true,
                         modifier = Modifier
-                            .fillMaxWidth(0.6f),
+                            .fillMaxWidth(1f),
                         textStyle = TextStyle(color = Color.LightGray, fontSize = 20.sp),
                         keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Email,
@@ -120,6 +122,8 @@ fun LoginPage(
                         ),
                         isError = isEmailValid
                     )
+                    Spacer(modifier = Modifier.padding(bottom = 5.dp))
+
                     /*
                     MyTextField(
                         text = email,
@@ -136,7 +140,7 @@ fun LoginPage(
                         vectorPainter = painterResource(id = R.drawable.ic_outline_mail_outline_24),
                     )
                      */
-                    OutlinedTextField(
+                   TextField(
                         value = password,
                         label = {
                             Text(text = "Indtast adgangskode")
@@ -147,7 +151,7 @@ fun LoginPage(
                         //placeholder = { Text(text = "mail123")},
                         singleLine = true,
                         modifier = Modifier
-                            .fillMaxWidth(0.6f),
+                            .fillMaxWidth(1f),
                         textStyle = TextStyle(color = Color.LightGray, fontSize = 20.sp),
                         keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Password,
