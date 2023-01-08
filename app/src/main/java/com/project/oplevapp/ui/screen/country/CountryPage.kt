@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.project.oplevapp.R
 import com.project.oplevapp.nav.Screen
-import com.project.oplevapp.data.Country
+import com.project.oplevapp.model.Country
 
 val AppBarExpendedHeight = 400.dp;
 

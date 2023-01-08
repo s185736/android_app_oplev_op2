@@ -4,20 +4,26 @@ package com.project.oplevapp.ui.screen.profile
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.project.oplevapp.R
-import com.project.oplevapp.ui.screen.country.MyTextField
+import com.project.oplevapp.ui.shared.components.MyTextField
+import com.project.oplevapp.ui.shared.components.PasswordVisibilityField
 
 @Preview(showBackground = true)
 @Composable
@@ -44,8 +50,11 @@ fun CreateAccount() {
                     mutableStateOf("")
                 }
 
-                var password by remember {
+                var password by rememberSaveable {
                     mutableStateOf("")
+                }
+                var passwordVisible by rememberSaveable {
+                    mutableStateOf(false)
                 }
                 var Name by remember {
                     mutableStateOf("")
@@ -81,7 +90,7 @@ fun CreateAccount() {
                     placeHolder = "Email",
                     width = 320,
                     height = 57,
-                    KeyboardType.Text,
+                    KeyboardType.Email,
                     visualTransformation = VisualTransformation.None,
                     Color.DarkGray,
                     Color.LightGray,
@@ -100,7 +109,7 @@ fun CreateAccount() {
                     placeHolder = "Telefon",
                     width = 320,
                     height = 57,
-                    KeyboardType.Text,
+                    KeyboardType.Phone,
                     visualTransformation = VisualTransformation.None,
                     Color.DarkGray,
                     Color.LightGray,
@@ -109,19 +118,30 @@ fun CreateAccount() {
                 )
                 Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
-                MyTextField(
+
+                PasswordVisibilityField(
                     text = password,
                     textSize = 15,
                     onValueChange = { password = it },
                     placeHolder = "Adgangskode",
                     width = 320,
                     height = 57,
-                    KeyboardType.Text,
-                    visualTransformation = VisualTransformation.None,
+                    KeyboardType.Password,
+                    visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                     Color.DarkGray,
                     Color.LightGray,
                     Color.Gray,
-                    vectorPainter = painterResource(id = R.drawable.ic_outline_vpn_key_24)
+                    vectorPainter = painterResource(id = R.drawable.ic_outline_vpn_key_24),
+                    trailingIcon = {
+                        val icon = if (passwordVisible)
+                            Icons.Filled.Visibility
+                        else Icons.Filled.VisibilityOff
+
+                        val content = if (passwordVisible) "Skjul kodeord." else "Vis kodeord."
+                        IconButton(onClick = {passwordVisible = !passwordVisible}){
+                            Icon(imageVector  = icon, content)
+                        }
+                    }
                 )
 
                 Spacer(modifier = Modifier.padding(bottom = 27.dp))
@@ -133,8 +153,8 @@ fun CreateAccount() {
                     placeHolder = " Bekræft adgangskode",
                     width = 320,
                     height = 57,
-                    KeyboardType.Text,
-                    visualTransformation = VisualTransformation.None,
+                    KeyboardType.Password,
+                    visualTransformation = PasswordVisualTransformation(),
                     Color.DarkGray,
                     Color.LightGray,
                     Color.Gray,

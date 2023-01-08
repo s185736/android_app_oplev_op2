@@ -5,7 +5,13 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.project.oplevapp.nav.MainNavHost
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import com.project.oplevapp.ui.screen.profile.LoginPage
+import com.project.oplevapp.ui.screen.profile.Profile
 import com.project.oplevapp.ui.theme.OplevAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -13,7 +19,11 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             OplevAppTheme {
-                MainNavHost()
+                val navController = rememberNavController()
+                val auth by lazy {
+                    Firebase.auth
+                }
+                LoginPage(navController, auth)
             }
         }
     }
@@ -23,6 +33,10 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     OplevAppTheme {
-        MainNavHost()
+        val navController = rememberNavController()
+        val auth by lazy {
+            Firebase.auth
+        }
+        LoginPage(navController, auth)
     }
 }

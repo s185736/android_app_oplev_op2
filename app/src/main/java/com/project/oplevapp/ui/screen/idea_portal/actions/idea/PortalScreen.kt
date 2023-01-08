@@ -1,6 +1,10 @@
 package com.project.oplevapp.ui.screen.idea_portal.actions.idea
 
 import android.os.Build
+import androidx.compose.foundation.Image
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.*
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -42,60 +46,86 @@ fun PortalScreen(
     val foldState: ScaffoldState = rememberScaffoldState()
     val coroutine: CoroutineScope = rememberCoroutineScope()
 
-    Scaffold(
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = { navController.navigate(Screen.ModifyInIdeaMessageScreen.route) },
-                backgroundColor = LightRed) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Opret en ide.")
-            } },
-        scaffoldState = foldState) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize().background(color = colorResource(id = R.color.oplev_dark_blue)).padding(7.dp)) {
-            Row(
-                modifier = Modifier.fillMaxWidth().padding(7.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    text = "Ide Portalen",
-                    style = MaterialTheme.typography.h2,
-                    color = Color.White,
-                    fontWeight = FontWeight.ExtraBold
-                )
-            }
-            this.AnimatedVisibility(
-                visible = vmState.isShown,
-                enter = fadeIn().plus(slideInHorizontally()),
-                exit = fadeOut().plus(slideOutHorizontally())
-            ) {
-            }
-            Spacer(modifier = Modifier.height(10.dp))
-            Column(modifier = Modifier.fillMaxSize()) {
+    Image(
+        painter = painterResource(id = R.drawable.blue1),
+        contentDescription = "Background Image",
+        modifier = Modifier.fillMaxSize(),
+        contentScale = ContentScale.Crop
+    )
+        Scaffold(
 
-                /*Using Grids for the cells,
-                and structuring the screen, we've set 1 ideas in one line.*/
-                LazyVerticalGrid(cells = GridCells.Fixed(1)
+            floatingActionButton = {
+                FloatingActionButton(
+                    onClick = { navController.navigate(Screen.ModifyInIdeaMessageScreen.route) },
+                    backgroundColor = LightRed
                 ) {
-                    items(vmState.ideas) {
-                            idea ->
-                        Box(modifier = Modifier.padding(10.dp), contentAlignment = Alignment.Center) {
-                            PortalSlots(
-                                idea = idea,
-                                modifier = Modifier.fillMaxWidth().clickable { navController.navigate(
-                                    Screen.ModifyInIdeaMessageScreen.route + "?ideaId=${idea.id}") }
+                    Icon(imageVector = Icons.Default.Add, contentDescription = "Opret en ide.")
+                }
+            },
+            scaffoldState = foldState
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(color = colorResource(id = R.color.oplev_dark_blue))
+                    .padding(7.dp)
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(7.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Ide Portalen",
+                        style = MaterialTheme.typography.h2,
+                        color = Color.White,
+                        fontWeight = FontWeight.ExtraBold
+                    )
+                }
+                this.AnimatedVisibility(
+                    visible = vmState.isShown,
+                    enter = fadeIn().plus(slideInHorizontally()),
+                    exit = fadeOut().plus(slideOutHorizontally())
+                ) {
+                }
+                Spacer(modifier = Modifier.height(10.dp))
+                Column(modifier = Modifier.fillMaxSize()) {
+
+                    /*Using Grids for the cells,
+                    and structuring the screen, we've set 1 ideas in one line.*/
+                    LazyVerticalGrid(
+                        cells = GridCells.Fixed(1)
+                    ) {
+                        items(vmState.ideas) { idea ->
+                            Box(
+                                modifier = Modifier.padding(10.dp),
+                                contentAlignment = Alignment.Center
                             ) {
-                                viewModel.run { onAction(IdeaActions.IdeaDeletion(idea)) }
-                                coroutine.launch {
-                                    val action: SnackbarResult = foldState.snackbarHostState.showSnackbar(
-                                        message = "Ideen er slettet.",
-                                        actionLabel = "Fortryd"
-                                    )
-                                    when {
-                                        action != SnackbarResult.ActionPerformed -> {
+                                PortalSlots(
+                                    idea = idea,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .clickable {
+                                            navController.navigate(
+                                                Screen.ModifyInIdeaMessageScreen.route + "?ideaId=${idea.id}"
+                                            )
                                         }
-                                        else -> {
-                                            viewModel.onAction(Restore)
+                                ) {
+                                    viewModel.run { onAction(IdeaActions.IdeaDeletion(idea)) }
+                                    coroutine.launch {
+                                        val action: SnackbarResult =
+                                            foldState.snackbarHostState.showSnackbar(
+                                                message = "Ideen er slettet.",
+                                                actionLabel = "Fortryd"
+                                            )
+                                        when {
+                                            action != SnackbarResult.ActionPerformed -> {
+                                            }
+                                            else -> {
+                                                viewModel.onAction(Restore)
+                                            }
                                         }
                                     }
                                 }
@@ -104,6 +134,5 @@ fun PortalScreen(
                     }
                 }
             }
-       }
-   }
+        }
 }

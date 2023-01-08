@@ -1,4 +1,5 @@
 /*Source: https://www.geeksforgeeks.org/how-to-build-a-simple-note-android-app-using-mvvm-and-room-database*/
+/*Source: https://www.geeksforgeeks.org/mvvm-model-view-viewmodel-architecture-pattern-in-android*/
 package com.project.oplevapp.ui.screen.idea_portal.actions.idea
 
 import android.os.Parcel
