@@ -6,7 +6,12 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import com.project.oplevapp.R
 import com.project.oplevapp.ui.shared.components.BlackPreviousButton
 import com.project.oplevapp.ui.shared.components.MyTextField
+import com.project.oplevapp.ui.shared.components.PasswordVisibilityField
 import com.project.oplevapp.ui.shared.components.UneditableTextField
 import com.project.oplevapp.ui.theme.LightRed
 
@@ -57,8 +63,11 @@ fun Profile() {
                 var email by remember {
                     mutableStateOf("Hans@mail.com")
                 }
-                var password by remember {
+                var password by rememberSaveable {
                     mutableStateOf("123456")
+                }
+                var passwordVisible by rememberSaveable {
+                    mutableStateOf(false)
                 }
                 var Name by remember {
                     mutableStateOf("Hans Ole")
@@ -80,6 +89,13 @@ fun Profile() {
                         text = Name
                     )
                     Spacer(modifier = Modifier.padding(bottom = 1.dp))
+                    Text(
+                        color = Color.Black,
+                        fontSize = 16.sp,
+                        style = MaterialTheme.typography.h4,
+                        text = "Herunder kan du opdatere dine oplysninger.."
+                    )
+                    Spacer(modifier = Modifier.padding(bottom = 30.dp))
 
                     MyTextField(
                         text = Name,
@@ -110,7 +126,14 @@ fun Profile() {
                         backgroundColor = Color.LightGray,
                         placeHolderColor = Color.Gray,
                         vectorPainter = painterResource(id = R.drawable.ic_outline_mail_outline_24),
+                        trailingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Default.Lock,
+                                        contentDescription = "Locked"
+                                    )
+                            }
                     )
+
 
 
 
@@ -129,10 +152,16 @@ fun Profile() {
                         backgroundColor = Color.LightGray,
                         placeHolderColor = Color.Gray,
                         vectorPainter = painterResource(id = R.drawable.ic_outline_phone_24),
+                        trailingIcon = {
+                            Icon(
+                                imageVector = Icons.Default.Lock,
+                                contentDescription = "Locked"
+                            )
+                        }
                     )
                     Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
-                    MyTextField(
+                    PasswordVisibilityField(
                         text = password,
                         textSize = 15,
                         onValueChange = { password = it },
@@ -140,13 +169,23 @@ fun Profile() {
                         width = 320,
                         height = 57,
                         KeyboardType.Password,
-                        visualTransformation = PasswordVisualTransformation(),
+                        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                         Color.DarkGray,
                         Color.LightGray,
                         Color.Gray,
-                        vectorPainter = painterResource(id = R.drawable.ic_outline_vpn_key_24)
+                        vectorPainter = painterResource(id = R.drawable.ic_outline_vpn_key_24),
+                        trailingIcon = {
+                            val icon = if (passwordVisible)
+                                Icons.Filled.Visibility
+                            else Icons.Filled.VisibilityOff
+
+                            val content = if (passwordVisible) "Skjul kodeord." else "Vis kodeord."
+                            IconButton(onClick = {passwordVisible = !passwordVisible}){
+                                Icon(imageVector  = icon, content)
+                            }
+                        }
                     )
-                    Spacer(modifier = Modifier.padding(bottom = 100.dp))
+                    Spacer(modifier = Modifier.padding(bottom = 50.dp))
                     AlertDialogDeleteAccount()
                     Spacer(modifier = Modifier.padding(bottom = 10.dp))
                     Row {
