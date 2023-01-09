@@ -2,15 +2,12 @@ package com.project.oplevapp.ui.screen
 
 import android.content.ContentValues
 import android.util.Log
-import android.widget.Space
-import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,28 +15,22 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.R
 import com.project.oplevapp.data.CountryRepository
@@ -93,6 +84,7 @@ fun TripListScreen(
                         for (document in snapshot){
 
                             Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
+                            val id = document.id
                             val countryFromDb = document.data["country"] as String
                             val city = document.data["city"] as String
                             val departureDate = document.data["departureDate"] as String
@@ -101,6 +93,7 @@ fun TripListScreen(
                             val info = document.data["info"] as String
                             countries.add(
                                 Country(
+                                    id = id,
                                     city = city,
                                     country = countryFromDb,
                                     departureDate = departureDate,
@@ -160,7 +153,7 @@ fun CountryList(navController: NavController, list: MutableList<Country>){
             modifier = Modifier.fillMaxHeight()
         ){
             items(list){ country ->
-                CountryCard(country = country)
+                    CountryCard(country = country, navController = navController)
             }
         }
 
@@ -174,52 +167,14 @@ fun CountryList(navController: NavController, list: MutableList<Country>){
                 Text(text = "København")
             }
         }
-
-        /*
-        Spacer(Modifier.height(16.dp))
-        Row() {
-            Image(
-                painter = painterResource(id = R.drawable.copenhagen),
-                contentDescription = "Copenhagen",
-                modifier = Modifier.size(150.dp)
-            )
-            Spacer(Modifier.width(16.dp))
-            Image(
-                painter = painterResource(id = R.drawable.copenhagen),
-                contentDescription = "Copenhagen",
-                modifier = Modifier.size(150.dp)
-            )
-        }
-
-
-        Spacer(Modifier.width(32.dp))
-        Row() {
-            Image(
-                painter = painterResource(id = R.drawable.copenhagen),
-                contentDescription = "Copenhagen",
-                modifier = Modifier.size(150.dp)
-            )
-            Spacer(Modifier.width(16.dp))
-            Image(
-                painter = painterResource(id = R.drawable.copenhagen),
-                contentDescription = "Copenhagen",
-                modifier = Modifier.size(150.dp)
-            )
-        }
-
-
-         */
-
-
-
-
-
-
     }
 }
 
 @Composable
-fun CountryCard(country: Country){
+fun CountryCard(country: Country, navController: NavController){
+
+    //pass data to nagvigation
+
 
 Card(
     modifier = Modifier
@@ -230,10 +185,18 @@ Card(
 ) {
     Box(modifier = Modifier.height(250.dp)){
         Image(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize()
+                .clickable {
+                    //sending data
+                    navController.currentBackStackEntry?.savedStateHandle?.set(
+                        key = "country",
+                        value = country
+                    )
+                    navController.navigate(Screen.Country.route)
+                           },
             painter = rememberAsyncImagePainter(model = country.imageUrl),
             contentDescription = " ",
-            contentScale = ContentScale.Crop
+            contentScale = ContentScale.Crop,
         )
         Box(
             modifier = Modifier
@@ -243,7 +206,7 @@ Card(
         ){
            Column {
                Text(
-                   text = country.country,
+                   text = country.city,
                    style = TextStyle(
                        fontSize = 16.sp,
                        fontWeight = FontWeight.Bold

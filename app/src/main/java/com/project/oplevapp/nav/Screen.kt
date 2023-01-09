@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import com.project.oplevapp.R
 
 sealed class Screen(val route: String, @StringRes val resourceId: Int, val icon: ImageVector?) {
-    object Profile : Screen("profile", R.string.profile, null)
+    object Profile : Screen("profile", R.string.profile, Icons.Default.Person)
     object CountriesList : Screen("countrieslist", R.string.country_list, null)
     object Country : Screen("country_page", R.string.country, null)
     object EditCountry: Screen("edit_country", R.string.edit_country, null)
@@ -23,8 +23,4 @@ sealed class Screen(val route: String, @StringRes val resourceId: Int, val icon:
     object ModifyInIdeaMessageScreen: Screen("create_idea_screen", R.string.create_idea_screen, null)
 
     object User: Screen("user", R.string.start_page, null)
-
-
-
-
 }
