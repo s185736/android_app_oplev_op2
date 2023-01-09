@@ -72,15 +72,15 @@ fun MainNavHost() {
             }
         }
     ) { innerPadding ->
-        NavHost(navController, startDestination = Screen.Login.route, Modifier.padding(innerPadding)) {
-            composable(Screen.Profile.route) { Profile(navController) }
+        NavHost(navController, startDestination = Screen.LandingPage.route, Modifier.padding(innerPadding)) {
+            composable(Screen.Profile.route) { Profile() }
             composable(Screen.CountriesList.route) { CountriesList(navController) }
             composable(Screen.Country.route) { CountryPage(country = Denmark, navController = navController) }
             composable(Screen.EditCountry.route) { EditCountry(country = Denmark, navController = navController) }
             composable(Screen.Login.route){ LoginPage(navController, auth) }
             composable(Screen.Note.route){ writeNotes(navController = navController) }
             composable(Screen.AddCountry.route){ AddCountry(navController, countryRepository) }
-
+            composable(Screen.LandingPage.route){ AddCountry(navController, countryRepository) }
             composable(Screen.TripList.route){ TripListScreen(navController = navController, countryRepository = countryRepository) }
             composable(Screen.CreateAccount.route){ CreateAccountScreen(navController = navController, auth = auth) }
 

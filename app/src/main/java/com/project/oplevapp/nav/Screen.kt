@@ -10,12 +10,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import com.project.oplevapp.R
 
 sealed class Screen(val route: String, @StringRes val resourceId: Int, val icon: ImageVector?) {
+    object LandingPage : Screen("landingpage", R.string.landingpage, null)
     object Profile : Screen("profile", R.string.profile, null)
     object CountriesList : Screen("countrieslist", R.string.country_list, null)
     object Country : Screen("country_page", R.string.country, null)
     object EditCountry: Screen("edit_country", R.string.edit_country, null)
-    object Login: Screen("login", R.string.login, Icons.Default.Login)
-    object Note: Screen("writenotes", R.string.notes, Icons.Default.Notes)
+    object Login: Screen("login", R.string.login, null)
+    object Note: Screen("writenotes", R.string.notes, null)
     object AddCountry: Screen("add_country", R.string.add_country, null)
     object TripList: Screen("trip_list", R.string.start_page, Icons.Default.Home)
     object CreateAccount: Screen("create_account", R.string.create_account, null)
