@@ -6,13 +6,13 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.compose.material.Surface
-import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.project.oplevapp.nav.Screen
+import com.project.oplevapp.ui.screen.idea_portal.IdeaApplication
 import com.project.oplevapp.ui.screen.idea_portal.actions.ModifyPortal
 import com.project.oplevapp.ui.screen.idea_portal.actions.idea.PortalScreen
 import com.project.oplevapp.ui.theme.OplevAppTheme
@@ -20,8 +20,7 @@ import com.project.oplevapp.ui.theme.OplevDarkBlue
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
-
+class IdeaPortalActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(instance: Bundle?) {
         super.onCreate(instance)
@@ -47,6 +46,7 @@ class MainActivity : ComponentActivity() {
                             val color = it.arguments?.getInt("ideaColor") ?: -1
                             ModifyPortal(navController = navController, ideaColor = color)
                         }
+                        IdeaApplication()
                     }
                 }
             }

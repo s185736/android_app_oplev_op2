@@ -1,3 +1,4 @@
+/*Source: https://firebase.google.com/docs/auth/android/manage-users*/
 package com.project.oplevapp.ui.screen.profile
 
 import androidx.compose.foundation.BorderStroke
@@ -27,12 +28,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.R
 import com.project.oplevapp.ui.shared.components.BlackPreviousButton
 import com.project.oplevapp.ui.shared.components.MyTextField
 import com.project.oplevapp.ui.shared.components.PasswordVisibilityField
 import com.project.oplevapp.ui.shared.components.UneditableTextField
 import com.project.oplevapp.ui.theme.LightRed
+
+
 
 @Preview(showBackground = true)
 @Composable
@@ -56,8 +62,8 @@ fun Profile() {
 
                     AlertDialogLogOut()
                 }
-                Spacer(modifier = Modifier.padding(bottom = 1.dp))
 
+                Spacer(modifier = Modifier.padding(bottom = 1.dp))
                 ShowProfileImage()
 
                 var email by remember {

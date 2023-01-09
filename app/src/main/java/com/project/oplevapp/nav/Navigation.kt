@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
@@ -17,7 +16,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.project.oplevapp.R
 import com.project.oplevapp.model.Denmark
 import com.project.oplevapp.ui.TripListScreen
 import com.project.oplevapp.ui.screen.*
@@ -28,9 +26,7 @@ import com.project.oplevapp.ui.screen.country.CountriesList
 import com.project.oplevapp.ui.screen.country.CountryPage
 import com.project.oplevapp.ui.screen.country.EditCountry
 //import com.project.oplevapp.ui.screen.profile.Profile
-import com.project.oplevapp.ui.screen.MainActivity
-import com.project.oplevapp.ui.screen.idea_portal.actions.ModifyPortal
-import com.project.oplevapp.ui.screen.idea_portal.actions.idea.ModifyViewModel
+import com.project.oplevapp.ui.screen.IdeaPortalActivity
 
 @Composable
 fun MainNavHost() {
@@ -79,7 +75,7 @@ fun MainNavHost() {
             composable(Screen.Login.route){ LoginPage(navController, auth) }
             composable(Screen.Note.route){ writeNotes(navController = navController) }
             composable(Screen.AddCountry.route){ AddCountry(navController) }
-            composable(Screen.IdeaScreen.route){ MainActivity() }
+            composable(Screen.IdeaScreen.route){ IdeaPortalActivity() }
             composable(Screen.TripList.route){ TripListScreen(navController = navController) }
             composable(Screen.CreateAccount.route){ CreateAccountScreen(navController = navController, auth = auth) }
 
