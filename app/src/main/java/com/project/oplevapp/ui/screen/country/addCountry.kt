@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -22,13 +23,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.project.oplevapp.R
-import com.project.oplevapp.ui.shared.components.MyTextField
+import com.project.oplevapp.data.CountryRepository
+import com.project.oplevapp.model.Country
+import com.project.oplevapp.nav.Screen
 import com.project.oplevapp.ui.shared.components.WhitePreviousButton
 
 
 @Composable
 
-fun AddCountry(navController: NavController) {
+fun AddCountry(navController: NavController, countryRepository: CountryRepository) {
     Scaffold() {
 
         Box() {
@@ -45,7 +48,7 @@ fun AddCountry(navController: NavController) {
                     .padding(start = 20.dp, end = 20.dp, bottom = 20.dp, top = 10.dp)
             ) {
                 WhitePreviousButton({})
-                CountryInfo()
+                CountryInfo(navController, countryRepository)
             }
         }
     }
@@ -53,10 +56,13 @@ fun AddCountry(navController: NavController) {
 
 
     @Composable
-   fun CountryInfo(){
+   fun CountryInfo(navController: NavController, countryRepository: CountryRepository){
+
+        val content = LocalContext.current
+
        Card(
            modifier = Modifier
-               .padding(start = 0.dp, top = 150.dp)
+               .padding(start = 0.dp, top = 50.dp)
                .fillMaxWidth(),
            elevation = 10.dp,
            shape = RoundedCornerShape(20.dp),
@@ -158,11 +164,132 @@ fun AddCountry(navController: NavController) {
                    //vectorPainter = Icons.Rounded.Search
                )
                Spacer(modifier = Modifier.size(15.dp))
-            AddCountryButton()
 
+               var imageUrl by remember { mutableStateOf("") }
+               MyTextField(
+                   text = imageUrl,
+                   textSize = 15,
+                   onValueChange = { imageUrl = it },
+                   placeHolder = "Image Url",
+                   width = 300,
+                   height = 51,
+                   KeyboardType.Text,
+                   visualTransformation = VisualTransformation.None,
+                   Color.DarkGray,
+                   Color.LightGray,
+                   Color.Gray,
+                   vectorPainter = painterResource(id = R.drawable.ic_baseline_schedule_24)
+                   //vectorPainter = Icons.Rounded.Search
+               )
+               Spacer(modifier = Modifier.size(15.dp))
+
+               var info by remember { mutableStateOf("") }
+               MyTextField(
+                   text = info,
+                   textSize = 15,
+                   onValueChange = { info = it },
+                   placeHolder = "info",
+                   width = 300,
+                   height = 51,
+                   KeyboardType.Text,
+                   visualTransformation = VisualTransformation.None,
+                   Color.DarkGray,
+                   Color.LightGray,
+                   Color.Gray,
+                   vectorPainter = painterResource(id = R.drawable.ic_baseline_schedule_24)
+                   //vectorPainter = Icons.Rounded.Search
+               )
+               Spacer(modifier = Modifier.size(15.dp))
+
+                val countryToSave = Country(
+                    country = country,
+                    city = city,
+                    departureDate = dateDeparture,
+                    returnDate = dateArrival,
+                    imageUrl = imageUrl,
+                    info = info
+                )
+
+               AddToShareBoardButton(title = "Tilføj"){
+                    countryRepository.saveCountry(countryToSave, content)
+                   navController.navigate(Screen.Country.route)
+               }
            }
+
+
        }
    }
+
+@Composable
+fun MyTextField(
+    text: String,
+    textSize: Int,
+    onValueChange: (String) -> Unit,
+    placeHolder: String,
+    width: Int,
+    height: Int,
+    keyboardType: KeyboardType,
+    visualTransformation: VisualTransformation,
+    myTextColor: Color,
+    backgroundColor: Color,
+    placeHolderColor: Color,
+    vectorPainter: Painter
+
+
+) {
+
+    Surface(
+        modifier = Modifier.size(width.dp, height.dp),
+        color = Color.White,
+        shape = RoundedCornerShape(35),
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+
+
+            TextField(
+                value = text,
+                onValueChange = onValueChange,
+                textStyle = LocalTextStyle.current.copy(color = myTextColor),
+                placeholder = {
+                    Text(
+                        text = placeHolder,
+                        fontSize = textSize.sp,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Default,
+                        textAlign = TextAlign.Left,
+                        color = placeHolderColor,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(height = (height + 50).dp)
+                    )
+
+                },
+                
+                leadingIcon = {Icon(painter = vectorPainter, contentDescription ="" ) },
+
+
+
+                visualTransformation = visualTransformation,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = keyboardType
+                ),
+
+                modifier = Modifier.fillMaxSize(),
+
+                colors = TextFieldDefaults.textFieldColors(
+                    disabledTextColor = Color.Transparent,
+                    backgroundColor = backgroundColor,
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    disabledIndicatorColor = Color.Transparent
+                ),
+            )
+        }
+    }}
 
 @Composable
 fun AddCountryButton() {
