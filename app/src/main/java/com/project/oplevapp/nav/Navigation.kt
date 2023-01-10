@@ -101,6 +101,9 @@ fun MainNavHost() {
             composable(Screen.Login.route){ LoginPage(navController, auth) }
             composable(Screen.Note.route){ writeNotes(navController = navController) }
             composable(Screen.AddCountry.route){ AddCountry(navController, countryRepository) }
+
+            composable(Screen.LandingPage.route){ AddCountry(navController, countryRepository) }
+
             composable(Screen.TripList.route){ TripListScreen(navController = navController, countryRepository = countryRepository) }
             composable(Screen.CreateAccount.route){ CreateAccountScreen(navController = navController, auth = auth) }
 

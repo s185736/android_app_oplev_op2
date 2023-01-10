@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.sp
 import com.project.oplevapp.R
 
 
-@Preview (showBackground = true)
+@Preview(showBackground = true)
 @Composable
 fun ShareTrip() {
     Scaffold {
@@ -104,17 +104,18 @@ fun ShareTrip() {
                 Spacer(modifier = Modifier.padding(bottom = 5.dp))
 
                 Button(
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color(5,54,103)),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color(5, 54, 103)),
                     shape = RoundedCornerShape(60),
-                    modifier = Modifier.padding(70.dp) ,
-
+                    modifier = Modifier.padding(70.dp),
 
 
                     onClick = { /** TO DO */ },
 
                     ) {
-                    Text("Invitere nu",
-                        color= Color.White,)
+                    Text(
+                        "Invitere nu",
+                        color = Color.White,
+                    )
 
                 }
 
@@ -145,13 +146,6 @@ fun ShareTrip() {
         }
     }
 }
-
-
-
-
-
-
-
 
 
 @Composable
@@ -203,8 +197,7 @@ fun MyTextField(
 
                 },
 
-                leadingIcon = { Icon(painter = vectorPainter, contentDescription ="" ) },
-
+                leadingIcon = { Icon(painter = vectorPainter, contentDescription = "") },
 
 
                 visualTransformation = visualTransformation,

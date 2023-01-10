@@ -21,7 +21,7 @@ import com.project.oplevapp.R
 
 @Preview(showBackground = true)
 @Composable
-fun Onboardingcard() {
+fun LandingPage() {
     Scaffold {
         Box (
         ){
@@ -115,9 +115,6 @@ fun Onboardingcard() {
 
 
 
-@Preview
-@Composable
-fun OnboardingcardPreview(){
-    Onboardingcard()
-}
+
+
 
