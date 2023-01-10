@@ -1,6 +1,5 @@
 package com.project.oplevapp.ui.screen.profile
 
-import android.content.ContentValues.TAG
 import android.util.Log
 import android.util.Patterns
 import androidx.compose.foundation.layout.*
@@ -9,30 +8,29 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.view.ViewCompat.FocusDirection
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.MainActivity
-
+import com.project.oplevapp.data.user.ui.AuthViewModel
+import com.project.oplevapp.data.user.ui.CommonDialog
 
 @Composable
 fun CreateAccountScreen(
     auth: FirebaseAuth,
-    navController: NavController,
+    navController: NavHostController,
     //onCreateBtnClicked: () -> Unit = {},
     modifier: Modifier = Modifier
 ){
@@ -146,5 +144,6 @@ fun CreateAccountScreen(
 fun CreateAccountPreview(){
     CreateAccountScreen(navController = rememberNavController(), auth = Firebase.auth)
 }
+
 
  */

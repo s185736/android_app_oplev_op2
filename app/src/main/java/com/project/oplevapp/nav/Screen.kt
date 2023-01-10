@@ -23,4 +23,8 @@ sealed class Screen(val route: String, @StringRes val resourceId: Int, val icon:
     object ModifyInIdeaMessageScreen: Screen("create_idea_screen", R.string.create_idea_screen, null)
 
     object User: Screen("user", R.string.start_page, null)
+
+    object SignIn: Screen("sign_in", R.string.create_account, null)
+
+
 }

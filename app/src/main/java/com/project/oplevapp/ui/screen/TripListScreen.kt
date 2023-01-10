@@ -1,5 +1,6 @@
 package com.project.oplevapp.ui.screen
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.util.Log
 import androidx.annotation.StringRes
@@ -9,6 +10,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
+
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -37,6 +39,7 @@ import com.project.oplevapp.data.CountryRepository
 import com.project.oplevapp.model.Country
 import com.project.oplevapp.nav.Screen
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun TripListScreen(
     navController: NavController,
@@ -72,6 +75,7 @@ fun TripListScreen(
         ){
             CountryList(navController = navController, countries)
         }
+
         }
     else{
         Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {

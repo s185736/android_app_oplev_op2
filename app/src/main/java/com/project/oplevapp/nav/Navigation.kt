@@ -1,17 +1,12 @@
 package com.project.oplevapp.ui
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -23,15 +18,15 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.data.CountryRepository
 import com.project.oplevapp.model.Country
-import com.project.oplevapp.model.Denmark
 import com.project.oplevapp.nav.Screen
 import com.project.oplevapp.ui.screen.*
-import com.project.oplevapp.ui.screen.profile.CreateAccountScreen
 import com.project.oplevapp.ui.screen.profile.LoginPage
 import com.project.oplevapp.ui.screen.country.AddCountry
 import com.project.oplevapp.ui.screen.country.CountriesList
 import com.project.oplevapp.ui.screen.country.CountryPage
 import com.project.oplevapp.ui.screen.country.EditCountry
+import com.project.oplevapp.ui.screen.profile.CreateAccountScreen
+
 import com.project.oplevapp.ui.screen.profile.Profile
 
 @Composable
@@ -51,7 +46,14 @@ fun MainNavHost() {
                 val currentDestination = navBackStackEntry?.destination
                 items.forEach { screen ->
                     BottomNavigationItem(
-                        icon = { Icon(screen.icon!!, contentDescription = null, tint = Color.Black, modifier = Modifier.size(33.dp)) },
+                        icon = {
+                            Icon(
+                                screen.icon!!,
+                                contentDescription = null,
+                                tint = Color.Black,
+                                modifier = Modifier.size(33.dp)
+                            )
+                        },
                         selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
                         onClick = {
                             navController.navigate(screen.route) {
@@ -73,39 +75,50 @@ fun MainNavHost() {
             }
         }
     ) { innerPadding ->
-        NavHost(navController, startDestination = Screen.TripList.route, Modifier.padding(innerPadding)) {
+        NavHost(
+            navController,
+            startDestination = Screen.CreateAccount.route,
+            Modifier.padding(innerPadding)
+        ) {
             composable(Screen.Profile.route) { Profile() }
             composable(Screen.CountriesList.route) { CountriesList(navController) }
             composable(Screen.Country.route) {
                 //receiving data
-                val country = navController.previousBackStackEntry?.savedStateHandle?.get<Country>("country")
-                if (country != null){
+                val country =
+                    navController.previousBackStackEntry?.savedStateHandle?.get<Country>("country")
+                if (country != null) {
                     CountryPage(country = country, navController = navController)
                     println("Details page loaded successfully")
-                }
-                else{
+                } else {
                     println("No data in country")
                 }
             }
             composable(Screen.EditCountry.route) {
                 //receiving data
-                val country = navController.previousBackStackEntry?.savedStateHandle?.get<Country>("country")
-                if (country != null){
-                    EditCountry(country = country, navController = navController, countryRepository = countryRepository)
+                val country =
+                    navController.previousBackStackEntry?.savedStateHandle?.get<Country>("country")
+                if (country != null) {
+                    EditCountry(
+                        country = country,
+                        navController = navController,
+                        countryRepository = countryRepository
+                    )
                     println("Edit page loaded successfully")
-                }
-                else{
+                } else {
                     println("No data in country")
                 }
             }
-            composable(Screen.Login.route){ LoginPage(navController, auth) }
-            composable(Screen.Note.route){ writeNotes(navController = navController) }
-            composable(Screen.AddCountry.route){ AddCountry(navController, countryRepository) }
-            composable(Screen.TripList.route){ TripListScreen(navController = navController, countryRepository = countryRepository) }
-            composable(Screen.CreateAccount.route){ CreateAccountScreen(navController = navController, auth = auth) }
+            composable(Screen.Login.route) { LoginPage(navController, auth) }
+            composable(Screen.Note.route) { writeNotes(navController = navController) }
+            composable(Screen.AddCountry.route) { AddCountry(navController, countryRepository) }
 
-
-
+            composable(Screen.CreateAccount.route) {
+                CreateAccountScreen(
+                    navController = navController,
+                    auth = auth
+                )
+            }
+            composable(Screen.SignIn.route){}
         }
     }
 }
