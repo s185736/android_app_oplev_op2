@@ -22,6 +22,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.data.CountryRepository
+import com.project.oplevapp.model.Country
 import com.project.oplevapp.model.Denmark
 import com.project.oplevapp.nav.Screen
 import com.project.oplevapp.ui.screen.*
@@ -35,7 +36,7 @@ import com.project.oplevapp.ui.screen.profile.Profile
 
 @Composable
 fun MainNavHost() {
-    val items = listOf(Screen.Login, Screen.TripList, Screen.Note)
+    val items = listOf(Screen.Profile, Screen.TripList, Screen.Note)
     val navController = rememberNavController()
     val countryRepository = CountryRepository()
 
@@ -75,12 +76,34 @@ fun MainNavHost() {
         NavHost(navController, startDestination = Screen.TripList.route, Modifier.padding(innerPadding)) {
             composable(Screen.Profile.route) { Profile() }
             composable(Screen.CountriesList.route) { CountriesList(navController) }
-            composable(Screen.Country.route) { CountryPage(country = Denmark, navController = navController) }
-            composable(Screen.EditCountry.route) { EditCountry(country = Denmark, navController = navController) }
+            composable(Screen.Country.route) {
+                //receiving data
+                val country = navController.previousBackStackEntry?.savedStateHandle?.get<Country>("country")
+                if (country != null){
+                    CountryPage(country = country, navController = navController)
+                    println("Details page loaded successfully")
+                }
+                else{
+                    println("No data in country")
+                }
+            }
+            composable(Screen.EditCountry.route) {
+                //receiving data
+                val country = navController.previousBackStackEntry?.savedStateHandle?.get<Country>("country")
+                if (country != null){
+                    EditCountry(country = country, navController = navController, countryRepository = countryRepository)
+                    println("Edit page loaded successfully")
+                }
+                else{
+                    println("No data in country")
+                }
+            }
             composable(Screen.Login.route){ LoginPage(navController, auth) }
             composable(Screen.Note.route){ writeNotes(navController = navController) }
             composable(Screen.AddCountry.route){ AddCountry(navController, countryRepository) }
+
             composable(Screen.LandingPage.route){ AddCountry(navController, countryRepository) }
+
             composable(Screen.TripList.route){ TripListScreen(navController = navController, countryRepository = countryRepository) }
             composable(Screen.CreateAccount.route){ CreateAccountScreen(navController = navController, auth = auth) }
 
