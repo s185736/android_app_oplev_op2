@@ -72,7 +72,7 @@ fun MainNavHost() {
             }
         }
     ) { innerPadding ->
-        NavHost(navController, startDestination = Screen.Country.route, Modifier.padding(innerPadding)) {
+        NavHost(navController, startDestination = Screen.LandingPage.route, Modifier.padding(innerPadding)) {
             composable(Screen.Profile.route) { Profile() }
             composable(Screen.CountriesList.route) { CountriesList(navController) }
             composable(Screen.Country.route) { CountryPage(country = Denmark, navController = navController) }
