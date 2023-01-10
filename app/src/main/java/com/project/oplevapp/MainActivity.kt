@@ -35,8 +35,10 @@ class MainActivity : ComponentActivity() {
                 val auth by lazy {
                     Firebase.auth
                 }
+
                // LoginPage(navController, auth)
                 MainNavHost()
+
             }
 
              */
@@ -52,7 +54,8 @@ fun DefaultPreview() {
         val auth by lazy {
             Firebase.auth
         }
-        LoginPage(navController, auth)
+        MainNavHost()
+        //LoginPage(navController, auth)
     }
 }
 
