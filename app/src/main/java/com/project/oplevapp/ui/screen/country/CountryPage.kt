@@ -1,6 +1,7 @@
 package com.project.oplevapp.ui.screen.country
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,6 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import coil.compose.rememberAsyncImagePainter
 import com.project.oplevapp.R
 import com.project.oplevapp.nav.Screen
 import com.project.oplevapp.model.Country
@@ -28,19 +30,18 @@ val AppBarExpendedHeight = 400.dp;
 fun CountryPage(country: Country, navController: NavController) {
     LazyColumn{
         item {
-            ParallaxToolbar(country)
+            ParallaxToolbar(country, navController)
             BasisInfo(country, navController)
             Description(country)
-            TitleStandard(text = "Opslagstavler:")
-            AddToShareBoardButton("Hoteller"){}
-            AddToShareBoardButton("Spisesteder"){}
-            AddToShareBoardButton("Andet"){}
+            AddToShareBoardButton("Idea Portal"){
+                navController.navigate(Screen.TripList.route)
+            }
         }
     }
 }
 
 @Composable
-fun ParallaxToolbar(country: Country) {
+fun ParallaxToolbar(country: Country, navController: NavController) {
     val imageHeight = AppBarExpendedHeight
     TopAppBar(
         contentPadding = PaddingValues(),
@@ -52,14 +53,14 @@ fun ParallaxToolbar(country: Country) {
                 Modifier.height(imageHeight)
             ){
                 Image(
-                    painter = painterResource(id = R.drawable.copenhagen),
+                    painter = rememberAsyncImagePainter(model = country.imageUrl),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.fillMaxSize()
                 )
                 Icon(imageVector = Icons.Default.ArrowBack,
                     contentDescription = null,
-                    modifier = Modifier.padding(20.dp),
+                    modifier = Modifier.padding(20.dp).clickable { navController.popBackStack() },
                 )
             }
         }
@@ -78,6 +79,10 @@ fun BasisInfo(country: Country, navController: NavController) {
         Text(text = country.city, fontSize = 24.sp, fontWeight = FontWeight.Bold)
         Button(
             onClick = {
+                navController.currentBackStackEntry?.savedStateHandle?.set(
+                    key = "country",
+                    value = country
+                )
                 navController.navigate(Screen.EditCountry.route)
             },
             elevation = null,

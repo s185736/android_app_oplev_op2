@@ -47,7 +47,7 @@ fun AddCountry(navController: NavController, countryRepository: CountryRepositor
                     .fillMaxSize()
                     .padding(start = 20.dp, end = 20.dp, bottom = 20.dp, top = 10.dp)
             ) {
-                WhitePreviousButton({})
+                WhitePreviousButton{navController.popBackStack()}
                 CountryInfo(navController, countryRepository)
             }
         }
@@ -202,6 +202,7 @@ fun AddCountry(navController: NavController, countryRepository: CountryRepositor
                Spacer(modifier = Modifier.size(15.dp))
 
                 val countryToSave = Country(
+                    id = null,
                     country = country,
                     city = city,
                     departureDate = dateDeparture,
@@ -211,8 +212,10 @@ fun AddCountry(navController: NavController, countryRepository: CountryRepositor
                 )
 
                AddToShareBoardButton(title = "Tilføj"){
-                    countryRepository.saveCountry(countryToSave, content)
-                   navController.navigate(Screen.Country.route)
+                   if (countryToSave.country != "" && countryToSave.city != "" && countryToSave.imageUrl != ""){
+                       countryRepository.saveCountry(countryToSave, content)
+                       navController.navigate(Screen.TripList.route)
+                   }
                }
            }
 

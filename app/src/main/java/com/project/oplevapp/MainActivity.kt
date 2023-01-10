@@ -1,33 +1,33 @@
-/*Source: https://firebase.google.com/docs/database/android/read-and-write*/
 package com.project.oplevapp
 
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.project.oplevapp.ui.screen.IdeaPortal
-import com.project.oplevapp.ui.screen.IdeaPortalActivity
-import com.project.oplevapp.ui.screen.idea_portal.IdeaApplication
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import com.project.oplevapp.ui.MainNavHost
+import com.project.oplevapp.ui.screen.profile.LoginPage
 import com.project.oplevapp.ui.screen.profile.Profile
 import com.project.oplevapp.ui.theme.OplevAppTheme
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    @RequiresApi(Build.VERSION_CODES.N)
-    override fun onCreate(instance: Bundle?) {
-        super.onCreate(instance)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContent {
             OplevAppTheme {
-                /* val navController = rememberNavController()
+                val navController = rememberNavController()
                 val auth by lazy {
                     Firebase.auth
                 }
-                LoginPage(navController, auth)*/
-                Profile()
+
+               // LoginPage(navController, auth)
+                MainNavHost()
+
             }
         }
     }
@@ -37,6 +37,11 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     OplevAppTheme {
-        Profile()
+        val navController = rememberNavController()
+        val auth by lazy {
+            Firebase.auth
+        }
+        MainNavHost()
+        //LoginPage(navController, auth)
     }
 }
