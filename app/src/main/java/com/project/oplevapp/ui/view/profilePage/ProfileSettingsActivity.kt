@@ -12,12 +12,12 @@ import androidx.compose.foundation.shape.CircleShape
 import com.project.oplevapp.ui.theme.OplevAppTheme
 import androidx.compose.ui.res.*
 import androidx.compose.ui.unit.dp
-import com.project.oplevapp.ui.Utility.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.graphics.RectangleShape
 import com.project.oplevapp.R
+import com.project.oplevapp.ui.Utility.ProfileSetting
 
 class ProfileSettingsActivity : ComponentActivity() {
         override fun onCreate(savedInstanceState: Bundle?) {
