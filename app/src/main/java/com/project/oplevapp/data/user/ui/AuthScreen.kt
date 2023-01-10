@@ -19,7 +19,7 @@ import com.project.oplevapp.data.user.utils.showMsg
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-
+//Hjælp til opsætning fra https://www.youtube.com/watch?v=G1sD6SGx1Ts
 @Composable
 fun AuthScreen1(
     viewModel:AuthViewModel = hiltViewModel()
