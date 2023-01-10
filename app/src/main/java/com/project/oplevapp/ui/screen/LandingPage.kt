@@ -16,12 +16,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.project.oplevapp.R
+import com.project.oplevapp.nav.Screen
 
 
-@Preview(showBackground = true)
 @Composable
-fun LandingPage() {
+fun LandingPage(navController: NavController) {
     Scaffold {
         Box (
         ){
@@ -74,7 +75,7 @@ fun LandingPage() {
 
                     Spacer(modifier = Modifier.padding(bottom = 27.dp))
                     Button(
-                        onClick = {  },
+                        onClick = { navController.navigate(Screen.TripList.route) },
                         shape = RoundedCornerShape(percent = 50),
                         modifier = Modifier.border(
                             width = 1.dp,

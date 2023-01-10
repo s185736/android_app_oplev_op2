@@ -73,7 +73,7 @@ fun MainNavHost() {
             }
         }
     ) { innerPadding ->
-        NavHost(navController, startDestination = Screen.TripList.route, Modifier.padding(innerPadding)) {
+        NavHost(navController, startDestination = Screen.LandingPage.route, Modifier.padding(innerPadding)) {
             composable(Screen.Profile.route) { Profile() }
             composable(Screen.CountriesList.route) { CountriesList(navController) }
             composable(Screen.Country.route) {
@@ -102,7 +102,7 @@ fun MainNavHost() {
             composable(Screen.Note.route){ writeNotes(navController = navController) }
             composable(Screen.AddCountry.route){ AddCountry(navController, countryRepository) }
 
-            composable(Screen.LandingPage.route){ AddCountry(navController, countryRepository) }
+            composable(Screen.LandingPage.route){ LandingPage(navController) }
 
             composable(Screen.TripList.route){ TripListScreen(navController = navController, countryRepository = countryRepository) }
             composable(Screen.CreateAccount.route){ CreateAccountScreen(navController = navController, auth = auth) }
