@@ -10,6 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.project.oplevapp.ui.MainNavHost
 import com.project.oplevapp.ui.screen.profile.LoginPage
 import com.project.oplevapp.ui.screen.profile.Profile
 import com.project.oplevapp.ui.theme.OplevAppTheme
@@ -23,7 +24,8 @@ class MainActivity : ComponentActivity() {
                 val auth by lazy {
                     Firebase.auth
                 }
-                LoginPage(navController, auth)
+                MainNavHost()
+                //LoginPage(navController, auth)
             }
         }
     }
@@ -37,6 +39,7 @@ fun DefaultPreview() {
         val auth by lazy {
             Firebase.auth
         }
-        LoginPage(navController, auth)
+        MainNavHost()
+        //LoginPage(navController, auth)
     }
 }
