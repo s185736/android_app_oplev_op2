@@ -34,7 +34,7 @@ fun CountryPage(country: Country, navController: NavController) {
             BasisInfo(country, navController)
             Description(country)
             AddToShareBoardButton("Idea Portal"){
-                navController.navigate(Screen.TripList.route)
+                navController.navigate(Screen.IdeaScreen.route)
             }
         }
     }

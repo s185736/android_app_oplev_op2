@@ -1,19 +1,16 @@
 package com.project.oplevapp.ui.screen.idea_portal.actions.idea
 
 import android.os.Build
-import androidx.compose.foundation.Image
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.*
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyVerticalGrid
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -22,15 +19,17 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.project.oplevapp.R
 import com.project.oplevapp.nav.Screen
-import com.project.oplevapp.ui.screen.idea_portal.components.PortalSlots
 import com.project.oplevapp.ui.screen.idea_portal.actions.idea.IdeaActions.Restore
+import com.project.oplevapp.ui.screen.idea_portal.components.PortalSlots
 import com.project.oplevapp.ui.theme.LightRed
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -53,7 +52,6 @@ fun PortalScreen(
         contentScale = ContentScale.Crop
     )
         Scaffold(
-
             floatingActionButton = {
                 FloatingActionButton(
                     onClick = { navController.navigate(Screen.ModifyInIdeaMessageScreen.route) },
@@ -96,7 +94,7 @@ fun PortalScreen(
                     /*Using Grids for the cells,
                     and structuring the screen, we've set 1 ideas in one line.*/
                     LazyVerticalGrid(
-                        cells = GridCells.Fixed(1)
+                        columns = GridCells.Fixed(1)
                     ) {
                         items(vmState.ideas) { idea ->
                             Box(
