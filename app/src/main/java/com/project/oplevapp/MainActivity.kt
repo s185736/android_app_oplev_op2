@@ -15,7 +15,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-import com.project.oplevapp.data.user.ui.AuthScreen1
+
 import com.project.oplevapp.nav.MainNavHost
 import com.project.oplevapp.ui.screen.profile.LoginPage
 import com.project.oplevapp.ui.screen.profile.Profile

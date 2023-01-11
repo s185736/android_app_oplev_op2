@@ -9,9 +9,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import javax.inject.Inject
 
-class AuthRepoImpl @Inject constructor(
+class UserRepoImpl @Inject constructor(
     private val authDB:FirebaseAuth
-) : AuthRepo {
+) : UserRepo {
 
     override fun userCreate(user: User): Flow<ResultState<String>> = callbackFlow{
         trySend(ResultState.Loading)

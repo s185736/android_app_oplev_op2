@@ -1,7 +1,7 @@
 package com.project.oplevapp.data.firebase
 
-import com.project.oplevapp.data.user.repo.AuthRepo
-import com.project.oplevapp.data.user.repo.AuthRepoImpl
+import com.project.oplevapp.data.user.repo.UserRepo
+import com.project.oplevapp.data.user.repo.UserRepoImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -12,7 +12,7 @@ import dagger.hilt.android.components.ViewModelComponent
 abstract class RepoModule {
     @Binds
     abstract fun providesFirebaseAuthRepo(
-        repo:AuthRepoImpl
-    ): AuthRepo
+        repo:UserRepoImpl
+    ): UserRepo
 
 }

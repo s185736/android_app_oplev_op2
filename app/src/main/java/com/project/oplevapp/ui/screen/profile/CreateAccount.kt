@@ -26,7 +26,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.project.oplevapp.R
 import com.project.oplevapp.data.user.utils.ResultState
 import com.project.oplevapp.data.user.User
-import com.project.oplevapp.data.user.ui.AuthViewModel
+import com.project.oplevapp.data.user.ui.UserViewModel
 import com.project.oplevapp.data.user.utils.showMsg
 import com.project.oplevapp.ui.shared.components.MyTextField
 import com.project.oplevapp.ui.shared.components.PasswordVisibilityField
@@ -37,7 +37,7 @@ import kotlinx.coroutines.launch
 @Preview(showBackground = true)
 @Composable
 fun CreateAccount(
-    viewModel: AuthViewModel = hiltViewModel()
+    viewModel: UserViewModel = hiltViewModel()
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }

@@ -5,7 +5,7 @@ import com.project.oplevapp.data.user.User
 import kotlinx.coroutines.flow.Flow
 
 
-interface AuthRepo {
+interface UserRepo {
     fun userCreate(
         auth: User
     ) : Flow<ResultState<String>>

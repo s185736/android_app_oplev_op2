@@ -28,7 +28,7 @@ import androidx.navigation.NavController
 import com.project.oplevapp.R
 import com.project.oplevapp.data.user.utils.ResultState
 import com.project.oplevapp.data.user.User
-import com.project.oplevapp.data.user.ui.AuthViewModel
+import com.project.oplevapp.data.user.ui.UserViewModel
 
 import com.project.oplevapp.data.user.utils.showMsg
 import com.project.oplevapp.nav.Screen
@@ -42,7 +42,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun LoginPage(
     navController: NavController,
-    viewModel: AuthViewModel = hiltViewModel()
+    viewModel: UserViewModel = hiltViewModel()
     ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
