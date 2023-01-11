@@ -6,6 +6,7 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -63,10 +64,15 @@ fun ModifyPortal(navController: NavController, ideaColor: Int, viewModel: Modify
                 }
             },
             scaffoldState = stateScaff) {
+            Icon(imageVector = Icons.Default.ArrowBack,
+                contentDescription = null,
+                modifier = Modifier.padding(10.dp).clickable { navController.popBackStack() },
+            )
             Column(
+
                 modifier = Modifier.fillMaxSize().background(background.value).padding(20.dp)) {
                 Row(
-                    modifier = Modifier.fillMaxWidth().padding(10.dp),
+                    modifier = Modifier.fillMaxWidth().padding(20.dp),
                     horizontalArrangement = Arrangement.SpaceBetween) {
                     Idea.ideaColors.forEach {
                         val colorID: Int = it.toArgb()
