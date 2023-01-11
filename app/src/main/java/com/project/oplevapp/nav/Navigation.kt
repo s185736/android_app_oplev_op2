@@ -23,6 +23,7 @@ import androidx.navigation.navArgument
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.data.CountryRepository
+import com.project.oplevapp.data.user.ui.AuthScreen1
 import com.project.oplevapp.model.Country
 import com.project.oplevapp.ui.screen.*
 import com.project.oplevapp.ui.screen.profile.LoginPage
@@ -86,7 +87,7 @@ fun MainNavHost() {
 
         NavHost(
             navController,
-            startDestination = Screen.CreateAccount.route,
+            startDestination = Screen.SignIn.route,
             Modifier.padding(innerPadding)
         ) {
 
@@ -206,6 +207,7 @@ fun MainNavHost() {
                 val color = it.arguments?.getInt("ideaColor") ?: -1
                 ModifyPortal(navController = navController, ideaColor = color)
             }
+            composable(Screen.SignIn.route){ AuthScreen1()}
 
 
         }
