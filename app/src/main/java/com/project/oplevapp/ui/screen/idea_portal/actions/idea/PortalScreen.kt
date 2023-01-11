@@ -53,7 +53,6 @@ fun PortalScreen(
         contentScale = ContentScale.Crop
     )
         Scaffold(
-
             floatingActionButton = {
                 FloatingActionButton(
                     onClick = { navController.navigate(Screen.ModifyInIdeaMessageScreen.route) },

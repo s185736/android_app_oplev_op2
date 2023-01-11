@@ -1,30 +1,27 @@
-package com.project.oplevapp.ui
+package com.project.oplevapp.nav
 
-import androidx.compose.foundation.background
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.data.CountryRepository
 import com.project.oplevapp.model.Country
-import com.project.oplevapp.model.Denmark
-import com.project.oplevapp.nav.Screen
 import com.project.oplevapp.ui.screen.*
 import com.project.oplevapp.ui.screen.profile.CreateAccountScreen
 import com.project.oplevapp.ui.screen.profile.LoginPage
@@ -32,8 +29,12 @@ import com.project.oplevapp.ui.screen.country.AddCountry
 import com.project.oplevapp.ui.screen.country.CountriesList
 import com.project.oplevapp.ui.screen.country.CountryPage
 import com.project.oplevapp.ui.screen.country.EditCountry
+import com.project.oplevapp.ui.screen.idea_portal.actions.ModifyPortal
+import com.project.oplevapp.ui.screen.idea_portal.actions.idea.PortalScreen
 import com.project.oplevapp.ui.screen.profile.Profile
 
+
+@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun MainNavHost() {
     val items = listOf(Screen.Profile, Screen.TripList, Screen.Note)
@@ -106,7 +107,22 @@ fun MainNavHost() {
 
             composable(Screen.TripList.route){ TripListScreen(navController = navController, countryRepository = countryRepository) }
             composable(Screen.CreateAccount.route){ CreateAccountScreen(navController = navController, auth = auth) }
-
+            composable(Screen.IdeaScreen.route) { PortalScreen(navController = navController) }
+            composable(
+                route = Screen.ModifyInIdeaMessageScreen.route + "?ideaId={ideaId}&ideaColor={ideaColor}",
+                arguments = listOf(
+                    navArgument(name = "ideaId") {
+                    type = NavType.IntType
+                    defaultValue = -1
+                },
+                    navArgument(name = "ideaColor") {
+                        type = NavType.IntType
+                        defaultValue = -1
+                    },
+                )) {
+                val color = it.arguments?.getInt("ideaColor") ?: -1
+                ModifyPortal(navController = navController, ideaColor = color)
+            }
 
 
         }
