@@ -25,3 +25,11 @@ val Denmark = Country(
     returnDate = "30/02-2023",
     imageUrl = null
 )
+
+
+@Parcelize
+class Notes(
+    val id: String?,
+    var text: String,
+
+) : Parcelable
