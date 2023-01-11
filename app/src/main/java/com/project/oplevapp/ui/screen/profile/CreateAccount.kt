@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.project.oplevapp.R
-import com.project.oplevapp.data.user.ResultState
+import com.project.oplevapp.data.user.utils.ResultState
 import com.project.oplevapp.data.user.User
 import com.project.oplevapp.data.user.ui.AuthViewModel
 import com.project.oplevapp.data.user.utils.showMsg
