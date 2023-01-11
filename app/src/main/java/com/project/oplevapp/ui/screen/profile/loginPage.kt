@@ -1,19 +1,10 @@
 package com.project.oplevapp.ui.screen.profile
 
-import android.util.Log
-import android.util.Patterns
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Login
-import androidx.compose.material.icons.filled.Password
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.*
@@ -21,48 +12,50 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.google.firebase.auth.FirebaseAuth
-import com.project.oplevapp.MainActivity
 import com.project.oplevapp.R
+import com.project.oplevapp.data.user.ResultState
+import com.project.oplevapp.data.user.User
+import com.project.oplevapp.data.user.ui.AuthViewModel
+
+import com.project.oplevapp.data.user.utils.showMsg
 import com.project.oplevapp.nav.Screen
-// Guide https://www.youtube.com/watch?v=ZhDhUEFZDWU&ab_channel=Rotlin 
+import com.project.oplevapp.ui.screen.country.MyTextField
+import com.project.oplevapp.ui.shared.components.ProgressIndicator
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
+// Guide https://www.youtube.com/watch?v=ZhDhUEFZDWU&ab_channel=Rotlin
 
 @Composable
 fun LoginPage(
     navController: NavController,
-    auth: FirebaseAuth
+    viewModel: AuthViewModel = hiltViewModel()
     ) {
-    var email by remember {
-        mutableStateOf("")
-    }
-    var password by rememberSaveable {
-        mutableStateOf("")
-    }
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    val scope = rememberCoroutineScope()
+    val context = LocalContext.current
+    var isDialog by remember { mutableStateOf(false) }
+    if (isDialog)
+        ProgressIndicator()
+
     var passwordVisible by rememberSaveable {
         mutableStateOf(false)
     }
     val focusManager = LocalFocusManager.current
-
-    val isEmailValid by derivedStateOf {
-        Patterns.EMAIL_ADDRESS.matcher(email).matches()
-    }
-
-    val isPasswordValid by derivedStateOf {
-        password.length > 5
-    }
 
     Scaffold {
         Box {
@@ -100,31 +93,6 @@ fun LoginPage(
 
                     Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
-                    TextField(
-                        value = email,
-                        label = {
-                            Text(text = "Indtast email")
-                        },
-                        onValueChange = {
-                            email = it
-                        },
-                        //placeholder = { Text(text = "test@mail.dk")},
-                        singleLine = true,
-                        modifier = Modifier
-                            .fillMaxWidth(1f),
-                        textStyle = TextStyle(color = Color.LightGray, fontSize = 20.sp),
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Email,
-                            imeAction = ImeAction.Next
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onNext = {focusManager.moveFocus(FocusDirection.Down)}
-                        ),
-                        isError = isEmailValid
-                    )
-                    Spacer(modifier = Modifier.padding(bottom = 5.dp))
-
-                    /*
                     MyTextField(
                         text = email,
                         textSize = 15,
@@ -139,44 +107,9 @@ fun LoginPage(
                         Color.Gray,
                         vectorPainter = painterResource(id = R.drawable.ic_outline_mail_outline_24),
                     )
-                     */
-                   TextField(
-                        value = password,
-                        label = {
-                            Text(text = "Indtast adgangskode")
-                        },
-                        onValueChange = {
-                            password = it
-                        },
-                        //placeholder = { Text(text = "mail123")},
-                        singleLine = true,
-                        modifier = Modifier
-                            .fillMaxWidth(1f),
-                        textStyle = TextStyle(color = Color.LightGray, fontSize = 20.sp),
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Password,
-
-                            imeAction = ImeAction.Done
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onDone = {focusManager.clearFocus()}
-                        ),
-                        trailingIcon = {
-                            val icon = if (passwordVisible)
-                                Icons.Filled.Visibility
-                            else Icons.Filled.VisibilityOff
-
-                            val content = if (passwordVisible) "Skjul kodeord." else "Vis kodeord."
-                            IconButton(onClick = {passwordVisible = !passwordVisible}){
-                                Icon(imageVector  = icon, content)
-                            }
-                        },
-                        isError = isPasswordValid
-                    )
 
                     Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
-                    /*
                     MyTextField(
                         text = password,
                         textSize = 15,
@@ -192,7 +125,7 @@ fun LoginPage(
                         vectorPainter = painterResource(id = R.drawable.ic_outline_vpn_key_24)
                     )
 
-                     */
+
                     Spacer(modifier = Modifier.padding(bottom = 27.dp))
                     Row(
                         modifier = Modifier.fillMaxWidth(),Arrangement.SpaceBetween
@@ -212,20 +145,36 @@ fun LoginPage(
                     //LoginButton( navController)
 
                     Button(
-                        modifier = Modifier.fillMaxWidth().padding(30.dp),
-                        //Bruges ikke, i dette tilfælde
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(30.dp),
+
 
                         onClick = {
-                            auth.signInWithEmailAndPassword(email, password)
-                                .addOnCompleteListener {
-                                    if (it.isSuccessful) {
-                                        Log.d(MainActivity::class.java.simpleName,"The user has succesfully logged in")
-                                    }else {
-                                        Log.d(MainActivity::class.java.simpleName, "The user has failed to log in", it.exception)
+                            scope.launch(Dispatchers.Main){
+                                viewModel.userLogin(
+                                    User(
+                                        email,
+                                        password
+                                    )
+                                ).collect{
+                                    isDialog = when(it){
+                                        is ResultState.Success -> {
+                                            context.showMsg(it.data)
+                                            false
+                                        }
+                                        is ResultState.Failure->{
+                                            context.showMsg(it.msg.toString())
+                                            false
+                                        }
+                                        ResultState.Loading->{
+                                            true
+                                        }
                                     }
                                 }
+                            }
+
                         },
-                        enabled = isEmailValid && isPasswordValid
                     ) {
                         Text("Login")
                     }

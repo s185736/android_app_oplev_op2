@@ -6,11 +6,11 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface AuthRepo {
-    fun createUser(
+    fun userCreate(
         auth: User
     ) : Flow<ResultState<String>>
 
-    fun loginUser(
+    fun userLogin(
         auth: User
     ) : Flow<ResultState<String>>
 }

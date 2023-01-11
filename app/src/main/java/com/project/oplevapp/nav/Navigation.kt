@@ -23,7 +23,6 @@ import androidx.navigation.navArgument
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.data.CountryRepository
-import com.project.oplevapp.data.user.ui.AuthScreen1
 import com.project.oplevapp.model.Country
 import com.project.oplevapp.ui.screen.*
 import com.project.oplevapp.ui.screen.profile.LoginPage
@@ -31,9 +30,9 @@ import com.project.oplevapp.ui.screen.country.AddCountry
 import com.project.oplevapp.ui.screen.country.CountriesList
 import com.project.oplevapp.ui.screen.country.CountryPage
 import com.project.oplevapp.ui.screen.country.EditCountry
-import com.project.oplevapp.ui.screen.profile.CreateAccountScreen
 import com.project.oplevapp.ui.screen.idea_portal.actions.ModifyPortal
 import com.project.oplevapp.ui.screen.idea_portal.actions.idea.PortalScreen
+import com.project.oplevapp.ui.screen.profile.CreateAccount
 import com.project.oplevapp.ui.screen.profile.Profile
 
 
@@ -84,7 +83,7 @@ fun MainNavHost() {
             }
         }
     ) { innerPadding ->
-        NavHost(navController, startDestination = Screen.LandingPage.route, Modifier.padding(innerPadding)) {
+        NavHost(navController, startDestination = Screen.Login.route, Modifier.padding(innerPadding)) {
             composable(Screen.Profile.route) { Profile(navController = navController) }
 
             composable(Screen.CountriesList.route) { CountriesList(navController) }
@@ -167,7 +166,7 @@ fun MainNavHost() {
                     println("No data in country")
                 }
             }
-            composable(Screen.Login.route) { LoginPage(navController, auth) }
+            composable(Screen.Login.route) { LoginPage(navController) }
             composable(Screen.Note.route) { writeNotes(navController = navController) }
             composable(Screen.AddCountry.route) { AddCountry(navController, countryRepository) }
 
@@ -180,10 +179,7 @@ fun MainNavHost() {
                 )
             }
             composable(Screen.CreateAccount.route) {
-                CreateAccountScreen(
-                    navController = navController,
-                    auth = auth
-                )
+                CreateAccount()
             }
             composable(Screen.IdeaScreen.route) { PortalScreen(navController = navController) }
             composable(
@@ -202,7 +198,6 @@ fun MainNavHost() {
                 val color = it.arguments?.getInt("ideaColor") ?: -1
                 ModifyPortal(navController = navController, ideaColor = color)
             }
-            composable(Screen.SignIn.route){ AuthScreen1()}
 
 
         }

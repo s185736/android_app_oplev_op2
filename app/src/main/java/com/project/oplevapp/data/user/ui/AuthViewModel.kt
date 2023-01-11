@@ -8,12 +8,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(
-    private val repo:AuthRepo
+    private val repository:AuthRepo
 ): ViewModel(){
 
-    fun createUser(user: User) = repo.createUser(user)
+    fun userCreate(user: User) = repository.userCreate(user)
 
-    fun loginUser(user: User) = repo.loginUser(user)
+    fun userLogin(user: User) = repository.userLogin(user)
 
 
 }

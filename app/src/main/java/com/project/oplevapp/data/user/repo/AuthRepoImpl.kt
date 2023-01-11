@@ -13,7 +13,7 @@ class AuthRepoImpl @Inject constructor(
     private val authdb:FirebaseAuth
 ) : AuthRepo {
 
-    override fun createUser(auth: User): Flow<ResultState<String>> = callbackFlow{
+    override fun userCreate(auth: User): Flow<ResultState<String>> = callbackFlow{
         trySend(ResultState.Loading)
 
         authdb.createUserWithEmailAndPassword(
@@ -33,7 +33,7 @@ class AuthRepoImpl @Inject constructor(
         }
     }
 
-    override fun loginUser(auth: User): Flow<ResultState<String>> = callbackFlow{
+    override fun userLogin(auth: User): Flow<ResultState<String>> = callbackFlow{
         trySend(ResultState.Loading)
 
         authdb.signInWithEmailAndPassword(

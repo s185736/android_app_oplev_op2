@@ -28,7 +28,4 @@ sealed class Screen(val route: String, @StringRes val resourceId: Int, val icon:
 
     object User: Screen("user", R.string.start_page, null)
 
-    object SignIn: Screen("sign_in", R.string.create_account, null)
-
-
 }

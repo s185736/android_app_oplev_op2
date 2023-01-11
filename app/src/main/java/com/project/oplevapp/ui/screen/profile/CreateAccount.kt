@@ -12,6 +12,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -21,13 +22,31 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.project.oplevapp.R
+import com.project.oplevapp.data.user.ResultState
+import com.project.oplevapp.data.user.User
+import com.project.oplevapp.data.user.ui.AuthViewModel
+import com.project.oplevapp.data.user.utils.showMsg
 import com.project.oplevapp.ui.shared.components.MyTextField
 import com.project.oplevapp.ui.shared.components.PasswordVisibilityField
-
+import com.project.oplevapp.ui.shared.components.ProgressIndicator
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+//Der kan tastes mail og adgangskode, hvor den så opretter til firebase.
 @Preview(showBackground = true)
 @Composable
-fun CreateAccount() {
+fun CreateAccount(
+    viewModel: AuthViewModel = hiltViewModel()
+) {
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    val scope = rememberCoroutineScope()
+    val context = LocalContext.current
+    var isDialog by remember { mutableStateOf(false) }
+    if (isDialog)
+        ProgressIndicator()
+
     Scaffold {
         Box {
 
@@ -46,6 +65,7 @@ fun CreateAccount() {
                 Spacer(modifier = Modifier.padding(bottom = 30.dp))
 
 
+                /*
                 var email by remember {
                     mutableStateOf("")
                 }
@@ -53,6 +73,8 @@ fun CreateAccount() {
                 var password by rememberSaveable {
                     mutableStateOf("")
                 }
+
+                 */
                 var passwordVisible by rememberSaveable {
                     mutableStateOf(false)
                 }
@@ -179,9 +201,30 @@ fun CreateAccount() {
                     Button(
                         colors = ButtonDefaults.buttonColors(backgroundColor = Color(5,54,103)),
                         modifier = Modifier.padding(70.dp) ,
-
-
-                        onClick = { /** TO DO */ },
+                        onClick = {
+                            scope.launch(Dispatchers.Main) {
+                                viewModel.userCreate(
+                                      User(
+                                          email,
+                                          password
+                                      )
+                                  ).collect {
+                                      isDialog = when (it) {
+                                          is ResultState.Success -> {
+                                              context.showMsg(it.data)
+                                              false
+                                          }
+                                          is ResultState.Failure -> {
+                                              context.showMsg(it.msg.toString())
+                                              false
+                                          }
+                                          ResultState.Loading -> {
+                                              true
+                                          }
+                                      }
+                                  }
+                              }
+                                  },
 
                         ) {
                         Text("Opret")
@@ -193,8 +236,6 @@ fun CreateAccount() {
                         Text(text = "Har du allerede en konto? Login", fontSize = 12.sp)
 
                     }
-
-
             }
         }
     }
