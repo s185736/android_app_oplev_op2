@@ -90,19 +90,19 @@ fun MainNavHost() {
             Modifier.padding(innerPadding)
         ) {
 
-                composable(Screen.Profile.route) { Profile() }
-                composable(Screen.CountriesList.route) { CountriesList(navController) }
-                composable(Screen.Country.route) {
-                    //receiving data
-                    val country =
-                        navController.previousBackStackEntry?.savedStateHandle?.get<Country>("country")
-                    if (country != null) {
-                        CountryPage(country = country, navController = navController)
-                        println("Details page loaded successfully")
-                    } else {
-                        println("No data in country")
-                    }
+            composable(Screen.Profile.route) { Profile() }
+            composable(Screen.CountriesList.route) { CountriesList(navController) }
+            composable(Screen.Country.route) {
+                //receiving data
+                val country =
+                    navController.previousBackStackEntry?.savedStateHandle?.get<Country>("country")
+                if (country != null) {
+                    CountryPage(country = country, navController = navController)
+                    println("Details page loaded successfully")
+                } else {
+                    println("No data in country")
                 }
+            }
             /*
                 composable(Screen.EditCountry.route) {
                     //receiving data
@@ -158,40 +158,56 @@ fun MainNavHost() {
 
             composable(Screen.EditCountry.route) {
                 //receiving data
-                val country = navController.previousBackStackEntry?.savedStateHandle?.get<Country>("country")
-                if (country != null){
-                    EditCountry(country = country, navController = navController, countryRepository = countryRepository)
+                val country =
+                    navController.previousBackStackEntry?.savedStateHandle?.get<Country>("country")
+                if (country != null) {
+                    EditCountry(
+                        country = country,
+                        navController = navController,
+                        countryRepository = countryRepository
+                    )
                     println("Edit page loaded successfully")
-                }
-                else{
+                } else {
                     println("No data in country")
                 }
             }
-            composable(Screen.Login.route){ LoginPage(navController, auth) }
-            composable(Screen.Note.route){ writeNotes(navController = navController) }
-            composable(Screen.AddCountry.route){ AddCountry(navController, countryRepository) }
+            composable(Screen.Login.route) { LoginPage(navController, auth) }
+            composable(Screen.Note.route) { writeNotes(navController = navController) }
+            composable(Screen.AddCountry.route) { AddCountry(navController, countryRepository) }
 
-            composable(Screen.LandingPage.route){ LandingPage(navController) }
+            composable(Screen.LandingPage.route) { LandingPage(navController) }
 
-            composable(Screen.TripList.route){ TripListScreen(navController = navController, countryRepository = countryRepository) }
-            composable(Screen.CreateAccount.route){ CreateAccountScreen(navController = navController, auth = auth) }
+            composable(Screen.TripList.route) {
+                TripListScreen(
+                    navController = navController,
+                    countryRepository = countryRepository
+                )
+            }
+            composable(Screen.CreateAccount.route) {
+                CreateAccountScreen(
+                    navController = navController,
+                    auth = auth
+                )
+            }
             composable(Screen.IdeaScreen.route) { PortalScreen(navController = navController) }
             composable(
                 route = Screen.ModifyInIdeaMessageScreen.route + "?ideaId={ideaId}&ideaColor={ideaColor}",
                 arguments = listOf(
                     navArgument(name = "ideaId") {
-                    type = NavType.IntType
-                    defaultValue = -1
-                },
+                        type = NavType.IntType
+                        defaultValue = -1
+                    },
                     navArgument(name = "ideaColor") {
                         type = NavType.IntType
                         defaultValue = -1
                     },
-                )) {
+                )
+            ) {
                 val color = it.arguments?.getInt("ideaColor") ?: -1
                 ModifyPortal(navController = navController, ideaColor = color)
             }
 
 
         }
+    }
 }

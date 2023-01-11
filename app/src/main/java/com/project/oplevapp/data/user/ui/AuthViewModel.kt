@@ -13,7 +13,7 @@ class AuthViewModel @Inject constructor(
 
     fun createUser(user: User) = repo.createUser(user)
 
-    fun loginUser(authUser: User) = repo.loginUser(authUser)
+    fun loginUser(user: User) = repo.loginUser(user)
 
 
 }
