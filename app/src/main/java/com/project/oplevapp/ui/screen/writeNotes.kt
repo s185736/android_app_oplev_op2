@@ -1,10 +1,13 @@
 package com.project.oplevapp.ui.screen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.*
@@ -47,7 +50,10 @@ Row(
     horizontalArrangement = Arrangement.SpaceBetween
 
 ) {
-    BlackPreviousButton ({})
+    Icon(imageVector = Icons.Default.ArrowBack,
+        contentDescription = null,
+        modifier = Modifier.padding(10.dp).clickable { navController.popBackStack() },
+    )
     Spacer(modifier = Modifier.padding(30.dp))
    Text(text = "Notesbog", fontSize = 30.sp, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
 }

@@ -23,9 +23,6 @@ import com.project.oplevapp.ui.theme.OplevAppTheme
 
 
 // AuthScreen virker kun hvis der står @AndroidEntryPoint som den gør nu
-
-import com.project.oplevapp.nav.MainNavHost
-import com.project.oplevapp.ui.theme.OplevAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 
