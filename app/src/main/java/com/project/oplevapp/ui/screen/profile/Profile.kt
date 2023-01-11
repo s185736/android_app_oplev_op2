@@ -5,6 +5,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -45,18 +46,28 @@ import com.project.oplevapp.ui.theme.LightRed
 //@Preview(showBackground = true)
 @Composable
 fun Profile(navController: NavController) {
+    LazyColumn {
+        item {
+            ProfileInfo(navController = navController)
+        }
+    }
+}
+@Composable
+fun ProfileInfo(navController: NavController) {
     Scaffold {
         Box {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(27.dp)
+                    .padding(24.dp)
             ) {
                 Row {
                     Icon(imageVector = Icons.Default.ArrowBack,
                         contentDescription = null,
-                        modifier = Modifier.padding(20.dp).clickable { navController.popBackStack() },
+                        modifier = Modifier
+                            .padding(20.dp)
+                            .clickable { navController.popBackStack() },
                     )
                     Text(
                         text = "Profil",
@@ -240,6 +251,9 @@ fun Profile(navController: NavController) {
         }
     }
 }
+
+
+
     @Composable
     private fun ShowProfileImage(modifier: Modifier = Modifier) {
         Surface(
