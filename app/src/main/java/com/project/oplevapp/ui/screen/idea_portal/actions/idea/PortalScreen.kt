@@ -14,6 +14,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -75,6 +76,10 @@ fun PortalScreen(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
+                    Icon(imageVector = Icons.Default.ArrowBack,
+                        contentDescription = null,
+                        modifier = Modifier.padding(20.dp).clickable { navController.popBackStack() },
+                    )
                     Text(
                         text = "Ide Portalen",
                         style = MaterialTheme.typography.h2,

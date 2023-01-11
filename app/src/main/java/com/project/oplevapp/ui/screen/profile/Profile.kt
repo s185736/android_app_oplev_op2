@@ -3,11 +3,13 @@ package com.project.oplevapp.ui.screen.profile
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
@@ -28,6 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.R
@@ -39,30 +42,37 @@ import com.project.oplevapp.ui.theme.LightRed
 
 
 
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
-fun Profile() {
+fun Profile(navController: NavController) {
     Scaffold {
         Box {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.padding(27.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(27.dp)
             ) {
                 Row {
-                    BlackPreviousButton({})
+                    Icon(imageVector = Icons.Default.ArrowBack,
+                        contentDescription = null,
+                        modifier = Modifier.padding(20.dp).clickable { navController.popBackStack() },
+                    )
                     Text(
                         text = "Profil",
                         color = Color(5, 54, 103),
                         fontWeight = FontWeight.ExtraBold,
-                        fontSize = 35.sp,
+                        fontSize = 40.sp,
                         textAlign = TextAlign.Center
                     )
-                    Spacer(modifier = Modifier.padding(start = 140.dp))
+                    Spacer(modifier = Modifier
+                        .padding(start = 140.dp))
 
                     AlertDialogLogOut()
                 }
 
-                Spacer(modifier = Modifier.padding(bottom = 1.dp))
+                Spacer(modifier = Modifier
+                    .padding(bottom = 1.dp))
                 ShowProfileImage()
 
                 var email by remember {
@@ -93,14 +103,16 @@ fun Profile() {
                         style = MaterialTheme.typography.h4,
                         text = Name
                     )
-                    Spacer(modifier = Modifier.padding(bottom = 1.dp))
+                    Spacer(modifier = Modifier
+                        .padding(bottom = 1.dp))
                     Text(
                         color = Color.Black,
                         fontSize = 16.sp,
                         style = MaterialTheme.typography.h4,
                         text = "Herunder kan du opdatere dine oplysninger.."
                     )
-                    Spacer(modifier = Modifier.padding(bottom = 30.dp))
+                    Spacer(modifier = Modifier
+                        .padding(bottom = 30.dp))
 
                     MyTextField(
                         text = Name,
@@ -116,7 +128,8 @@ fun Profile() {
                         Color.Gray,
                         vectorPainter = painterResource(id = R.drawable.ic_outline_person_24),
                     )
-                    Spacer(modifier = Modifier.padding(bottom = 27.dp))
+                    Spacer(modifier = Modifier
+                        .padding(bottom = 27.dp))
 
                     UneditableTextField(
                         text = email,
@@ -142,7 +155,8 @@ fun Profile() {
 
 
 
-                    Spacer(modifier = Modifier.padding(bottom = 27.dp))
+                    Spacer(modifier = Modifier
+                        .padding(bottom = 27.dp))
 
                     UneditableTextField(
                         text = phone,
@@ -164,7 +178,8 @@ fun Profile() {
                             )
                         }
                     )
-                    Spacer(modifier = Modifier.padding(bottom = 27.dp))
+                    Spacer(modifier = Modifier
+                        .padding(bottom = 27.dp))
 
                     PasswordVisibilityField(
                         text = password,
@@ -190,9 +205,11 @@ fun Profile() {
                             }
                         }
                     )
-                    Spacer(modifier = Modifier.padding(bottom = 50.dp))
+                    Spacer(modifier = Modifier
+                        .padding(bottom = 50.dp))
                     AlertDialogDeleteAccount()
-                    Spacer(modifier = Modifier.padding(bottom = 10.dp))
+                    Spacer(modifier = Modifier
+                        .padding(bottom = 10.dp))
                     Row {
                         Button(
                             colors = ButtonDefaults.buttonColors(
