@@ -15,6 +15,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -26,7 +27,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.R
+import com.project.oplevapp.data.CountryRepository
 import com.project.oplevapp.data.NotesRepository
 import com.project.oplevapp.model.Country
 import com.project.oplevapp.model.Notes
@@ -37,8 +41,10 @@ import com.project.oplevapp.ui.shared.components.BlackPreviousButton
 import com.project.oplevapp.ui.theme.LightRed
 
 @Composable
-fun writeNotes(navController: NavController) {
-
+fun writeNotes(navController: NavController, notesRepository: NotesRepository) {
+    var noteWriting by remember { mutableStateOf("") }
+    val content = LocalContext.current
+    //var db = Firebase.firestore.collection("notes")
 
 
         Box(
@@ -87,7 +93,7 @@ fun writeNotes(navController: NavController) {
         }
 
 
-    var noteWriting by remember { mutableStateOf("") }
+
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -95,9 +101,23 @@ fun writeNotes(navController: NavController) {
             modifier = Modifier
                 .padding(start = 0.dp, top = 75.dp),
         ) {
+
+            val NotesToSave = Notes(
+                id = null,
+                text = noteWriting
+
+            )
             Scaffold(
                 floatingActionButton = {
-                    FloatingActionButton(onClick = { /**TO DO */ },
+                    FloatingActionButton(onClick = {
+
+                        if (NotesToSave.text != ""){
+
+
+                            notesRepository.saveNotes(NotesToSave, content)
+
+                        }
+                    },
                         content = {
                             Icon(imageVector = Icons.Default.Save,
                                 contentDescription = null,
@@ -130,21 +150,12 @@ fun writeNotes(navController: NavController) {
                     )
             }
 
-            val NotesToSave = Notes(
-                id = null,
-                text = noteWriting
-
-            )
 
 
 
-            /*
-                                            if (NotesToSave.text != ""){
 
-                                                NotesRepository.saveNotes
-                                                //saveCountry(countryToSave, content)
-                                                navController.navigate(Screen.TripList.route)
-                                            }*/
+
+
 
 
     }

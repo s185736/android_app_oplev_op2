@@ -16,7 +16,7 @@ class NotesRepository(): ViewModel() {
         notes: Notes,
         context: Context
     ) = CoroutineScope(Dispatchers.IO).launch {
-        var db = Firebase.firestore.collection("Notes")
+        var db = Firebase.firestore.collection("notes")
         try {
             if (notes.id != null) {
                 db.document(notes.id).set(notes)
