@@ -34,6 +34,7 @@ import com.project.oplevapp.nav.Screen
 import com.project.oplevapp.ui.screen.idea_portal.actions.idea.IdeaActions.Restore
 import com.project.oplevapp.ui.screen.idea_portal.components.PortalSlots
 import com.project.oplevapp.ui.theme.LightRed
+import com.project.oplevapp.ui.theme.WhiteBackground
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -68,7 +69,7 @@ fun PortalScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(color = colorResource(id = R.color.oplev_dark_blue))
+                    .background(color = WhiteBackground)
                     .padding(7.dp)
             ) {
                 Row(

@@ -7,6 +7,9 @@ val Purple500 = Color(0xFF6200EE)
 val Purple700 = Color(0xFF3700B3)
 val Teal200 = Color(0xFF03DAC5)
 
+/*White background*/
+val WhiteBackground = Color(0xFFFFFFFF)
+
 /*Idea-Portal Squares*/
 val SquareColorOne = Color(0xFFB0CFCB)
 val SquareColorTwo = Color(0xFFA4CFCA)

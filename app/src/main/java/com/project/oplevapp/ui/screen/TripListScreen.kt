@@ -72,7 +72,7 @@ fun TripListScreen(
         ){
             CountryList(navController = navController, countries)
         }
-        }
+    }
     else{
         Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
             CircularProgressIndicator()
