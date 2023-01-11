@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             OplevAppTheme {
                 MainNavHost()
-
+                println("Hello")
             }
         }
     }
