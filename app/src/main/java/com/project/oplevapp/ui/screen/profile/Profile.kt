@@ -1,6 +1,9 @@
 /*Source: https://firebase.google.com/docs/auth/android/manage-users*/
 package com.project.oplevapp.ui.screen.profile
 
+import android.content.ContentValues
+import android.os.Parcelable
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -28,30 +31,42 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.R
-import com.project.oplevapp.ui.shared.components.BlackPreviousButton
 import com.project.oplevapp.ui.shared.components.MyTextField
 import com.project.oplevapp.ui.shared.components.PasswordVisibilityField
 import com.project.oplevapp.ui.shared.components.UneditableTextField
 import com.project.oplevapp.ui.theme.LightRed
+import kotlinx.parcelize.Parcelize
 
+private var firebaseDatabase: FirebaseDatabase?= null
+private var databaseReference: DatabaseReference? = null
 
+@Parcelize
+class Profiles(
+    val id: String?,
+    val name: String,
+    var email: String,
+    var password: String,
+    var phone: String
+) : Parcelable
 
 //@Preview(showBackground = true)
 @Composable
 fun Profile(navController: NavController) {
-    LazyColumn {
+    LazyColumn() {//modifier = Modifier.heightIn(100.dp, 48.dp)) {
         item {
             ProfileInfo(navController = navController)
         }
     }
 }
+
 @Composable
 fun ProfileInfo(navController: NavController) {
     Scaffold {
@@ -63,7 +78,8 @@ fun ProfileInfo(navController: NavController) {
                     .padding(24.dp)
             ) {
                 Row {
-                    Icon(imageVector = Icons.Default.ArrowBack,
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
                         contentDescription = null,
                         modifier = Modifier
                             .padding(20.dp)
@@ -76,14 +92,18 @@ fun ProfileInfo(navController: NavController) {
                         fontSize = 40.sp,
                         textAlign = TextAlign.Center
                     )
-                    Spacer(modifier = Modifier
-                        .padding(start = 140.dp))
+                    Spacer(
+                        modifier = Modifier
+                            .padding(start = 140.dp)
+                    )
 
                     AlertDialogLogOut()
                 }
 
-                Spacer(modifier = Modifier
-                    .padding(bottom = 1.dp))
+                Spacer(
+                    modifier = Modifier
+                        .padding(bottom = 1.dp)
+                )
                 ShowProfileImage()
 
                 var email by remember {
@@ -114,16 +134,20 @@ fun ProfileInfo(navController: NavController) {
                         style = MaterialTheme.typography.h4,
                         text = Name
                     )
-                    Spacer(modifier = Modifier
-                        .padding(bottom = 1.dp))
+                    Spacer(
+                        modifier = Modifier
+                            .padding(bottom = 1.dp)
+                    )
                     Text(
                         color = Color.Black,
                         fontSize = 16.sp,
                         style = MaterialTheme.typography.h4,
                         text = "Herunder kan du opdatere dine oplysninger.."
                     )
-                    Spacer(modifier = Modifier
-                        .padding(bottom = 30.dp))
+                    Spacer(
+                        modifier = Modifier
+                            .padding(bottom = 30.dp)
+                    )
 
                     MyTextField(
                         text = Name,
@@ -139,8 +163,10 @@ fun ProfileInfo(navController: NavController) {
                         Color.Gray,
                         vectorPainter = painterResource(id = R.drawable.ic_outline_person_24),
                     )
-                    Spacer(modifier = Modifier
-                        .padding(bottom = 27.dp))
+                    Spacer(
+                        modifier = Modifier
+                            .padding(bottom = 27.dp)
+                    )
 
                     UneditableTextField(
                         text = email,
@@ -156,18 +182,17 @@ fun ProfileInfo(navController: NavController) {
                         placeHolderColor = Color.Gray,
                         vectorPainter = painterResource(id = R.drawable.ic_outline_mail_outline_24),
                         trailingIcon = {
-                                    Icon(
-                                        imageVector = Icons.Default.Lock,
-                                        contentDescription = "Locked"
-                                    )
-                            }
+                            Icon(
+                                imageVector = Icons.Default.Lock,
+                                contentDescription = "Locked"
+                            )
+                        }
                     )
 
-
-
-
-                    Spacer(modifier = Modifier
-                        .padding(bottom = 27.dp))
+                    Spacer(
+                        modifier = Modifier
+                            .padding(bottom = 27.dp)
+                    )
 
                     UneditableTextField(
                         text = phone,
@@ -189,8 +214,10 @@ fun ProfileInfo(navController: NavController) {
                             )
                         }
                     )
-                    Spacer(modifier = Modifier
-                        .padding(bottom = 27.dp))
+                    Spacer(
+                        modifier = Modifier
+                            .padding(bottom = 27.dp)
+                    )
 
                     PasswordVisibilityField(
                         text = password,
@@ -211,16 +238,20 @@ fun ProfileInfo(navController: NavController) {
                             else Icons.Filled.VisibilityOff
 
                             val content = if (passwordVisible) "Skjul kodeord." else "Vis kodeord."
-                            IconButton(onClick = {passwordVisible = !passwordVisible}){
-                                Icon(imageVector  = icon, content)
+                            IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                                Icon(imageVector = icon, content)
                             }
                         }
                     )
-                    Spacer(modifier = Modifier
-                        .padding(bottom = 50.dp))
+                    Spacer(
+                        modifier = Modifier
+                            .padding(bottom = 50.dp)
+                    )
                     AlertDialogDeleteAccount()
-                    Spacer(modifier = Modifier
-                        .padding(bottom = 10.dp))
+                    Spacer(
+                        modifier = Modifier
+                            .padding(bottom = 10.dp)
+                    )
                     Row {
                         Button(
                             colors = ButtonDefaults.buttonColors(
@@ -242,8 +273,6 @@ fun ProfileInfo(navController: NavController) {
                                 color = Color.White,
                                 fontSize = 16.sp
                             )
-
-
                         }
                     }
                 }
@@ -251,9 +280,6 @@ fun ProfileInfo(navController: NavController) {
         }
     }
 }
-
-
-
     @Composable
     private fun ShowProfileImage(modifier: Modifier = Modifier) {
         Surface(
