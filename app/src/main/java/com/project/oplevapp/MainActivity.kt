@@ -7,9 +7,6 @@ import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.compose.rememberNavController
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.nav.MainNavHost
 import com.project.oplevapp.ui.theme.OplevAppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,7 +19,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             OplevAppTheme {
                 MainNavHost()
-
             }
         }
     }

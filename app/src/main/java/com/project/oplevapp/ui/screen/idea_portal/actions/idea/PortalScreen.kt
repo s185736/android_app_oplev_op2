@@ -24,7 +24,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.project.oplevapp.R
@@ -78,13 +80,15 @@ fun PortalScreen(
                 ) {
                     Icon(imageVector = Icons.Default.ArrowBack,
                         contentDescription = null,
-                        modifier = Modifier.padding(20.dp).clickable { navController.popBackStack() },
+                        modifier = Modifier.padding(10.dp).clickable { navController.popBackStack() },
                     )
                     Text(
                         text = "Ide Portalen",
                         style = MaterialTheme.typography.h2,
                         color = Color.White,
-                        fontWeight = FontWeight.ExtraBold
+                        fontWeight = FontWeight.ExtraBold,
+                        fontSize = 40.sp,
+                        textAlign = TextAlign.Center
                     )
                 }
                 this.AnimatedVisibility(
