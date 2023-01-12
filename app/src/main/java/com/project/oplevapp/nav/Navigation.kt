@@ -23,6 +23,7 @@ import androidx.navigation.navArgument
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.data.CountryRepository
+import com.project.oplevapp.data.user.UserRepository
 import com.project.oplevapp.model.Country
 import com.project.oplevapp.ui.screen.*
 import com.project.oplevapp.ui.screen.profile.LoginPage
@@ -42,6 +43,7 @@ fun MainNavHost() {
     val items = listOf(Screen.Profile, Screen.TripList, Screen.Note)
     val navController = rememberNavController()
     val countryRepository = CountryRepository()
+    val userRepository = UserRepository()
 
     val auth by lazy {
         Firebase.auth
@@ -83,7 +85,7 @@ fun MainNavHost() {
             }
         }
     ) { innerPadding ->
-        NavHost(navController, startDestination = Screen.Login.route, Modifier.padding(innerPadding)) {
+        NavHost(navController, startDestination = Screen.LandingPage.route, Modifier.padding(innerPadding)) {
             composable(Screen.Profile.route) { Profile(navController = navController) }
 
             composable(Screen.CountriesList.route) { CountriesList(navController) }
@@ -179,7 +181,7 @@ fun MainNavHost() {
                 )
             }
             composable(Screen.CreateAccount.route) {
-                CreateAccount()
+                CreateAccount(userRepository = userRepository)
             }
             composable(Screen.IdeaScreen.route) { PortalScreen(navController = navController) }
             composable(

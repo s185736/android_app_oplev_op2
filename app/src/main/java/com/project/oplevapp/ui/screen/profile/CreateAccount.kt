@@ -19,13 +19,16 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.R
 import com.project.oplevapp.data.user.utils.ResultState
 import com.project.oplevapp.data.user.User
+import com.project.oplevapp.data.user.UserData
+import com.project.oplevapp.data.user.UserRepository
 import com.project.oplevapp.data.user.ui.UserViewModel
 import com.project.oplevapp.data.user.utils.showMsg
 import com.project.oplevapp.ui.shared.components.MyTextField
@@ -34,13 +37,18 @@ import com.project.oplevapp.ui.shared.components.ProgressIndicator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 //Der kan tastes mail og adgangskode, hvor den så opretter til firebase.
-@Preview(showBackground = true)
+
 @Composable
 fun CreateAccount(
-    viewModel: UserViewModel = hiltViewModel()
+    viewModel: UserViewModel = hiltViewModel(),
+    userRepository: UserRepository
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var name by remember { mutableStateOf("") }
+    var number by remember { mutableStateOf("") }
+    var userID by remember { mutableStateOf("") }
+
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
     var isDialog by remember { mutableStateOf(false) }
@@ -65,24 +73,8 @@ fun CreateAccount(
                 Spacer(modifier = Modifier.padding(bottom = 30.dp))
 
 
-                /*
-                var email by remember {
-                    mutableStateOf("")
-                }
-
-                var password by rememberSaveable {
-                    mutableStateOf("")
-                }
-
-                 */
                 var passwordVisible by rememberSaveable {
                     mutableStateOf(false)
-                }
-                var Name by remember {
-                    mutableStateOf("")
-                }
-                var phone by remember {
-                    mutableStateOf("")
                 }
 
                 var confirmPassword by remember {
@@ -90,9 +82,9 @@ fun CreateAccount(
                 }
 
                 MyTextField(
-                    text = Name,
+                    text = name,
                     textSize = 15,
-                    onValueChange = { Name = it },
+                    onValueChange = { name = it },
                     placeHolder = "Navn",
                     width = 320,
                     height = 57,
@@ -120,14 +112,12 @@ fun CreateAccount(
                     vectorPainter = painterResource(id = R.drawable.ic_outline_mail_outline_24),
                 )
 
-
-
                 Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
                 MyTextField(
-                    text = phone,
+                    text = number,
                     textSize = 15,
-                    onValueChange = { phone = it },
+                    onValueChange = { number = it },
                     placeHolder = "Telefon",
                     width = 320,
                     height = 57,
@@ -195,7 +185,7 @@ fun CreateAccount(
 
                     }
                 }
-                    Spacer(modifier = Modifier.padding(bottom = 27.dp))
+                    //Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
 
                     Button(
@@ -206,7 +196,8 @@ fun CreateAccount(
                                 viewModel.userCreate(
                                       User(
                                           email,
-                                          password
+                                          password,
+
                                       )
                                   ).collect {
                                       isDialog = when (it) {
@@ -228,8 +219,23 @@ fun CreateAccount(
 
                         ) {
                         Text("Opret")
-
                     }
+
+                //se om det kan sætte i en knap måske, hvor den gemmer først når brugeren er oprettet
+                Button(
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color(5,54,103)),
+                    onClick = {
+                    val userData = UserData(
+                        userID = Firebase.auth.currentUser?.uid.toString(),
+                        email = email,
+                        password = password ,
+                        name = name,
+                        number = number.toInt()
+                    )
+                    userRepository.saveUser(userData = userData, context = context)
+                }) {
+                    Text(text = "Gem profil i database")
+                }
 
                     TextButton(onClick = {}) {
 

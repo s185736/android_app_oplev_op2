@@ -1,5 +1,6 @@
 package com.project.oplevapp.ui.screen.profile
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -25,6 +26,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.R
 import com.project.oplevapp.data.user.utils.ResultState
 import com.project.oplevapp.data.user.User
@@ -178,6 +181,9 @@ fun LoginPage(
                     ) {
                         Text("Login")
                     }
+                    //Dette skaffer UID fra den nuværende bruger.
+                    val uid = Firebase.auth.currentUser?.uid.toString()
+                    Log.i("main", uid)
 
                     TextButton(onClick = {navController.navigate(Screen.CreateAccount.route)}) {
                         Text(text = "Har du ikke en konto? Opret", fontSize = 12.sp)
