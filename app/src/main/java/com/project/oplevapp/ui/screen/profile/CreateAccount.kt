@@ -168,7 +168,7 @@ fun CreateProgress(
 
                 Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
-                MyTextField(
+                PasswordVisibilityField(
                     text = confirmPassword,
                     textSize = 15,
                     onValueChange = { confirmPassword = it },
@@ -176,11 +176,22 @@ fun CreateProgress(
                     width = 320,
                     height = 57,
                     KeyboardType.Password,
-                    visualTransformation = PasswordVisualTransformation(),
+                    visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                     Color.DarkGray,
                     Color.LightGray,
                     Color.Gray,
-                    vectorPainter = painterResource(id = R.drawable.ic_outline_lock_24)
+                    vectorPainter = painterResource(id = R.drawable.ic_outline_lock_24),
+                    trailingIcon = {
+                        val icon = if (passwordVisible)
+                            Icons.Filled.Visibility
+                        else Icons.Filled.VisibilityOff
+
+                        val content = if (passwordVisible) "Skjul kodeord." else "Vis kodeord."
+                        IconButton(onClick = {passwordVisible = !passwordVisible}){
+                            Icon(imageVector  = icon, content)
+                        }
+                    }
+
                 )
 
 
