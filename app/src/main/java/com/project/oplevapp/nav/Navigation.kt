@@ -24,6 +24,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.data.CountryRepository
 import com.project.oplevapp.data.user.UserRepository
+import com.project.oplevapp.data.NotesRepository
 import com.project.oplevapp.model.Country
 import com.project.oplevapp.ui.screen.*
 import com.project.oplevapp.ui.screen.profile.LoginPage
@@ -44,6 +45,7 @@ fun MainNavHost() {
     val navController = rememberNavController()
     val countryRepository = CountryRepository()
     val userRepository = UserRepository()
+    val notesRepository = NotesRepository()
 
     val auth by lazy {
         Firebase.auth
@@ -168,9 +170,10 @@ fun MainNavHost() {
                     println("No data in country")
                 }
             }
-            composable(Screen.Login.route) { LoginPage(navController) }
-            composable(Screen.Note.route) { writeNotes(navController = navController) }
-            composable(Screen.AddCountry.route) { AddCountry(navController, countryRepository) }
+
+            composable(Screen.Login.route){ LoginPage(navController) }
+            composable(Screen.Note.route){ writeNotes(navController = navController, notesRepository ) }
+            composable(Screen.AddCountry.route){ AddCountry(navController, countryRepository) }
 
             composable(Screen.LandingPage.route) { LandingPage(navController) }
 
