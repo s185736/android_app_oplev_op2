@@ -46,6 +46,22 @@ class UserRepository(): ViewModel() {
         }
     }
 
+    fun updateUser(userData: UserData, context: Context) = CoroutineScope(Dispatchers.IO).launch{
+        var db = Firebase.firestore.collection("users")
+        try {
+            if (userData.userID != null){
+                db.document(userData.userID).set(userData)
+                    .addOnSuccessListener{ Toast.makeText(context,"Brugeren er blevet opdateret.", Toast.LENGTH_SHORT).show()
+                    }
+            }
+            else{
+                Toast.makeText(context,"Handlingen mislykkedes.", Toast.LENGTH_SHORT).show()}
+        }
+        catch (e: Exception){
+            Toast.makeText(context,e.message,Toast.LENGTH_SHORT).show()
+        }
+    }
+
     fun getUsers(data: (MutableList<UserData>) -> Unit
     ) = CoroutineScope(Dispatchers.IO).launch{
 

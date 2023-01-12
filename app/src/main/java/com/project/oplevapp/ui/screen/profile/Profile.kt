@@ -231,7 +231,7 @@ fun ProfileInfo(userData: UserData, navController: NavController, userRepository
                                         name = name,
                                         number = number//.toInt()
                                     )
-                                    userRepository.saveUser(userData = userData, context = context)
+                                    userRepository.updateUser(userData = userData, context = context)
                                 },
 
                                 ) {
