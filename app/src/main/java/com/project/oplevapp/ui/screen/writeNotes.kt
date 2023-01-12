@@ -28,7 +28,7 @@ import com.project.oplevapp.data.NotesRepository
 import com.project.oplevapp.model.NotesInfo
 
 @Composable
-fun WriteNotes(navController: NavController, notesRepository: NotesRepository) {
+fun writeNotes(navController: NavController, notesRepository: NotesRepository) {
     val content = LocalContext.current
     var db = Firebase.firestore.collection("notes")
 

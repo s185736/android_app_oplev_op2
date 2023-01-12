@@ -102,7 +102,7 @@ fun MainNavHost() {
                 }
             }
             composable(Screen.Login.route){ LoginPage(navController, auth) }
-            composable(Screen.Note.route){ WriteNotes(navController = navController, notesRepository ) }
+            composable(Screen.Note.route){ writeNotes(navController = navController, notesRepository ) }
             composable(Screen.AddCountry.route){ AddCountry(navController, countryRepository) }
 
             composable(Screen.LandingPage.route){ LandingPage(navController) }
