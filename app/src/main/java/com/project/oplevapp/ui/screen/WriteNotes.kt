@@ -9,8 +9,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Save
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,68 +27,19 @@ import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.data.NotesRepository
 import com.project.oplevapp.model.NotesInfo
 
-
-
 @Composable
 fun WriteNotes(navController: NavController, notesRepository: NotesRepository) {
-    var noteWriting by remember { mutableStateOf("") }
     val content = LocalContext.current
     var db = Firebase.firestore.collection("notes")
-    var myNotes  = remember {
-        mutableStateListOf<NotesInfo>()
-    }
+
+    var notesId by remember { mutableStateOf("") }
+    var noteWriting by remember { mutableStateOf("") }
+
     var isLoading by remember {
         mutableStateOf(true)
     }
 
-
-        Box(
-            modifier = Modifier
-                .background(
-                    Color.White
-                )
-                .fillMaxSize()
-        )
-        Column(
-
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(start = 20.dp, end = 20.dp, bottom = 20.dp, top = 10.dp)
-        ) {
-            Row(
-
-                Modifier
-                    .padding(0.dp)
-                    .height(45.dp),
-
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-
-            ) {
-
-
-
-
-              //  BlackPreviousButton({})
-                Spacer(modifier = Modifier.padding(55.dp))
-                Text(
-                    text = "Notesbog",
-                    fontSize = 30.sp,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center
-                )
-            }
-            Text(
-                text = "Min Personlige Noter",
-                fontSize = 15.sp,
-                fontWeight = FontWeight.Bold,
-                textAlign = TextAlign.Center
-            )
-
-        }
-
-
-
+        NoteHeader()
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -100,21 +49,17 @@ fun WriteNotes(navController: NavController, notesRepository: NotesRepository) {
         ) {
 
             val notesToSave = NotesInfo(
-                id = null,
+                id = notesId,
                 text = noteWriting
-
             )
+
             if (!isLoading) {
                 Scaffold(
                     floatingActionButton = {
                         FloatingActionButton(
                             onClick = {
-
                                 if (notesToSave.text != "") {
-
-
                                     notesRepository.saveNotes(notesToSave, content)
-
                                 }
                             },
                             content = {
@@ -126,8 +71,6 @@ fun WriteNotes(navController: NavController, notesRepository: NotesRepository) {
                             },
                             backgroundColor = Color(0xFF053667)
                         )
-
-
                     },
                     modifier = Modifier.padding()
 
@@ -146,33 +89,27 @@ fun WriteNotes(navController: NavController, notesRepository: NotesRepository) {
                         Color.DarkGray,
                         Color.LightGray,
                         Color.Gray,
-
                         )
                 }
-
             }
-
             else{
                 Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
                     CircularProgressIndicator()
-
 
                     try {
                         db.addSnapshotListener{snapshot, e ->
                             if(snapshot != null){
                                 for (document in snapshot){
-
+                                println("WORKING")
                                     Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
                                     val id = document.id
-                                    val notes = document.data["notes"] as String
+                                    val notes = document.data["text"] as String
 
-                                    myNotes.add(
-                                        NotesInfo(
-                                            id = id,
-                                          text = notes)
-                                    )
+                                    notesId = id
+                                    noteWriting = notes
                                 }
                                 isLoading = false
+
                             } else {
                                 if (e != null) {
                                     println(e.message)
@@ -183,19 +120,54 @@ fun WriteNotes(navController: NavController, notesRepository: NotesRepository) {
                     }catch (e: Exception){
                         Log.w(ContentValues.TAG, "Error getting documents.", e)
                     }
-
-
-
                 }
-
-
             }
+    }
+}
 
+@Composable
+fun NoteHeader(){
+    Box(
+        modifier = Modifier
+            .background(
+                Color.White
+            )
+            .fillMaxSize()
+    )
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(start = 20.dp, end = 20.dp, bottom = 20.dp, top = 10.dp)
+    ) {
+        Row(
 
+            Modifier
+                .padding(0.dp)
+                .height(45.dp),
 
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
 
+        ) {
+            //  BlackPreviousButton({})
+            Spacer(modifier = Modifier.padding(55.dp))
+            Text(
+                text = "Notesbog",
+                fontSize = 30.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center
+            )
+        }
+        Text(
+            text = "Min Personlige Noter",
+            fontSize = 15.sp,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Center
+        )
 
     }
+
+
 }
 
 @Composable
@@ -262,5 +234,3 @@ fun MyNotesField(
             )
         }
     }}
-
-
