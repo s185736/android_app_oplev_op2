@@ -32,9 +32,9 @@ import com.project.oplevapp.ui.shared.components.WhitePreviousButton
 @Composable
 
 fun AddCountry(navController: NavController, countryRepository: CountryRepository) {
-    Scaffold() {
+    Scaffold {
 
-        Box() {
+        Box {
             Image(
                 painter = painterResource(id = R.drawable.blue1),
                 contentDescription = "Background Image",
@@ -304,7 +304,7 @@ fun AddCountryButton() {
             .height(38.dp)
             .width(130.dp)
     ) {
-        Row() {
+        Row {
             Text(
                 "Tilføj",
                 color = Color.White,

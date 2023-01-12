@@ -1,5 +1,6 @@
 package com.project.oplevapp.ui.screen
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.util.Log
 import androidx.annotation.StringRes
@@ -37,6 +38,7 @@ import com.project.oplevapp.data.CountryRepository
 import com.project.oplevapp.model.Country
 import com.project.oplevapp.nav.Screen
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun TripListScreen(
     navController: NavController,
@@ -72,7 +74,8 @@ fun TripListScreen(
         ){
             CountryList(navController = navController, countries)
         }
-    }
+
+        }
     else{
         Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
             CircularProgressIndicator()
@@ -101,6 +104,7 @@ fun TripListScreen(
                                     imageUrl = imageUrl,
                                     info = info)
                             )
+
                         }
                         isLoading = false
                     } else {
@@ -113,12 +117,7 @@ fun TripListScreen(
             }catch (e: Exception){
                 Log.w(ContentValues.TAG, "Error getting documents.", e)
             }
-
-
-           
         }
-
-             
     }
 }
 
