@@ -1,16 +1,12 @@
 /*Source: https://firebase.google.com/docs/auth/android/manage-users*/
 package com.project.oplevapp.ui.screen.profile
 
-import android.content.ContentValues
-import android.os.Parcelable
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -24,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -34,41 +31,28 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.R
+import com.project.oplevapp.data.user.UserData
+import com.project.oplevapp.data.user.UserRepository
 import com.project.oplevapp.ui.shared.components.MyTextField
 import com.project.oplevapp.ui.shared.components.PasswordVisibilityField
 import com.project.oplevapp.ui.shared.components.UneditableTextField
 import com.project.oplevapp.ui.theme.LightRed
-import kotlinx.parcelize.Parcelize
-
-private var firebaseDatabase: FirebaseDatabase?= null
-private var databaseReference: DatabaseReference? = null
-
-@Parcelize
-class Profiles(
-    val id: String?,
-    val name: String,
-    var email: String,
-    var password: String,
-    var phone: String
-) : Parcelable
 
 //@Preview(showBackground = true)
 @Composable
-fun Profile(navController: NavController) {
+fun Profile(userData: UserData, navController: NavController, userRepository: UserRepository) {
     LazyColumn() {//modifier = Modifier.heightIn(100.dp, 48.dp)) {
         item {
-            ProfileInfo(navController = navController)
+            ProfileInfo(userData = userData, navController = navController, userRepository = userRepository)
         }
     }
 }
 
 @Composable
-fun ProfileInfo(navController: NavController) {
+fun ProfileInfo(userData: UserData, navController: NavController, userRepository: UserRepository) {
     Scaffold {
         Box {
             Column(
@@ -107,20 +91,21 @@ fun ProfileInfo(navController: NavController) {
                 ShowProfileImage()
 
                 var email by remember {
-                    mutableStateOf("Hans@mail.com")
+                    mutableStateOf(userData.email)
                 }
                 var password by rememberSaveable {
-                    mutableStateOf("123456")
+                    mutableStateOf(userData.password)
                 }
                 var passwordVisible by rememberSaveable {
                     mutableStateOf(false)
                 }
-                var Name by remember {
-                    mutableStateOf("Hans Ole")
+                var name by remember {
+                    mutableStateOf(userData.name)
                 }
-                var phone by remember {
-                    mutableStateOf("42424242")
+                var number by remember {
+                    mutableStateOf("")//userData.number)
                 }
+                val context = LocalContext.current
 
                 Column(
                     modifier = Modifier
@@ -132,7 +117,7 @@ fun ProfileInfo(navController: NavController) {
                         color = Color.Blue,
                         fontSize = 24.sp,
                         style = MaterialTheme.typography.h4,
-                        text = Name
+                        text = name
                     )
                     Spacer(
                         modifier = Modifier
@@ -150,9 +135,9 @@ fun ProfileInfo(navController: NavController) {
                     )
 
                     MyTextField(
-                        text = Name,
+                        text = name,
                         textSize = 15,
-                        onValueChange = { Name = it },
+                        onValueChange = { name = it },
                         placeHolder = "Navn",
                         width = 320,
                         height = 57,
@@ -195,9 +180,9 @@ fun ProfileInfo(navController: NavController) {
                     )
 
                     UneditableTextField(
-                        text = phone,
+                        text = number,
                         textSize = 15,
-                        onValueChange = { phone = it },
+                        onValueChange = { number = it },
                         placeHolder = "Telefon",
                         width = 320,
                         height = 57,
@@ -253,26 +238,20 @@ fun ProfileInfo(navController: NavController) {
                             .padding(bottom = 10.dp)
                     )
                     Row {
+                        //se om det kan sætte i en knap måske, hvor den gemmer først når brugeren er oprettet
                         Button(
-                            colors = ButtonDefaults.buttonColors(
-                                backgroundColor = Color(
-                                    5,
-                                    54,
-                                    103
+                            colors = ButtonDefaults.buttonColors(backgroundColor = Color(5,54,103)),
+                            onClick = {
+                                val userData = UserData(
+                                    userID = Firebase.auth.currentUser?.uid.toString(),
+                                    email = email,
+                                    password = password ,
+                                    name = name,
+                                    number = number.toInt()
                                 )
-                            ),
-                            shape = RoundedCornerShape(60),
-                            modifier = Modifier
-                                .height(45.dp)
-                                .width(189.dp),
-                            onClick = { /** TO DO */ },
-
-                            ) {
-                            Text(
-                                "Opdater",
-                                color = Color.White,
-                                fontSize = 16.sp
-                            )
+                                userRepository.saveUser(userData = userData, context = context)
+                            }) {
+                            Text(text = "Gem profil i database")
                         }
                     }
                 }
