@@ -33,6 +33,7 @@ import com.project.oplevapp.data.user.UserData
 import com.project.oplevapp.data.user.UserRepository
 import com.project.oplevapp.data.user.ui.UserViewModel
 import com.project.oplevapp.data.user.utils.showMsg
+import com.project.oplevapp.nav.Screen
 import com.project.oplevapp.ui.shared.components.MyTextField
 import com.project.oplevapp.ui.shared.components.PasswordVisibilityField
 import com.project.oplevapp.ui.shared.components.ProgressIndicator
@@ -41,16 +42,16 @@ import kotlinx.coroutines.launch
 //Der kan tastes mail og adgangskode, hvor den så opretter til firebase.
 
 @Composable
-fun CreateAccount(  viewModel: UserViewModel = hiltViewModel(), userRepository: UserRepository) {
+fun CreateAccount(  viewModel: UserViewModel = hiltViewModel(), navController: NavController, userRepository: UserRepository) {
     LazyColumn() {
         item {
-            CreateProgress(userRepository = userRepository)        }
+            CreateProgress(navController = navController, userRepository = userRepository)        }
     }
 }
 
 @Composable
 fun CreateProgress(
-    viewModel: UserViewModel = hiltViewModel(),
+    navController: NavController, viewModel: UserViewModel = hiltViewModel(),
     userRepository: UserRepository
 ) {
     var email by remember { mutableStateOf("") }
@@ -254,6 +255,7 @@ fun CreateProgress(
                         number = number//.toInt()
                     )
                     userRepository.saveUser(userData = userData, context = context)
+                        navController.navigate(Screen.Login.route)
                 }) {
                     Text(text = "Gem profil i database")
                 }

@@ -185,7 +185,7 @@ fun MainNavHost() {
                 )
             }
             composable(Screen.CreateAccount.route) {
-                CreateAccount(userRepository = userRepository)
+                CreateAccount(navController = navController, userRepository = userRepository)
             }
             composable(Screen.IdeaScreen.route) { PortalScreen(navController = navController) }
             composable(
