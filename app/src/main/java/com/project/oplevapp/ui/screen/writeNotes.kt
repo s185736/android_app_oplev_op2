@@ -1,13 +1,13 @@
 package com.project.oplevapp.ui.screen
 
-import androidx.compose.foundation.Image
+import android.content.ContentValues
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -16,35 +16,32 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.project.oplevapp.R
-import com.project.oplevapp.data.CountryRepository
 import com.project.oplevapp.data.NotesRepository
-import com.project.oplevapp.model.Country
-import com.project.oplevapp.model.Notes
-import com.project.oplevapp.nav.Screen
-import com.project.oplevapp.ui.screen.idea_portal.actions.IdeaActions
-import com.project.oplevapp.ui.screen.idea_portal.actions.idea.ModifyViewModel
-import com.project.oplevapp.ui.shared.components.BlackPreviousButton
-import com.project.oplevapp.ui.theme.LightRed
+import com.project.oplevapp.model.NotesInfo
+
+
 
 @Composable
 fun writeNotes(navController: NavController, notesRepository: NotesRepository) {
     var noteWriting by remember { mutableStateOf("") }
     val content = LocalContext.current
-    //var db = Firebase.firestore.collection("notes")
+    var db = Firebase.firestore.collection("notes")
+    var myNotes  = remember {
+        mutableStateListOf<NotesInfo>()
+    }
+    var isLoading by remember {
+        mutableStateOf(true)
+    }
 
 
         Box(
@@ -102,57 +99,97 @@ fun writeNotes(navController: NavController, notesRepository: NotesRepository) {
                 .padding(start = 0.dp, top = 75.dp),
         ) {
 
-            val NotesToSave = Notes(
+            val NotesToSave = NotesInfo(
                 id = null,
                 text = noteWriting
 
             )
-            Scaffold(
-                floatingActionButton = {
-                    FloatingActionButton(onClick = {
+            if (!isLoading) {
+                Scaffold(
+                    floatingActionButton = {
+                        FloatingActionButton(
+                            onClick = {
 
-                        if (NotesToSave.text != ""){
+                                if (NotesToSave.text != "") {
 
 
-                            notesRepository.saveNotes(NotesToSave, content)
+                                    notesRepository.saveNotes(NotesToSave, content)
 
-                        }
+                                }
+                            },
+                            content = {
+                                Icon(
+                                    imageVector = Icons.Default.Save,
+                                    contentDescription = null,
+                                    tint = Color.White
+                                )
+                            },
+                            backgroundColor = Color(0xFF053667)
+                        )
+
+
                     },
-                        content = {
-                            Icon(imageVector = Icons.Default.Save,
-                                contentDescription = null,
-                                tint = Color.White
-                            )
-                        },
-                        backgroundColor = Color(0xFF053667)
-                    )
+                    modifier = Modifier.padding()
 
+                ) {
+                    // Write notes
 
-                },
-                modifier = Modifier.padding()
+                    MyNotesField(
+                        text = noteWriting,
+                        textSize = 15,
+                        onValueChange = { noteWriting = it },
+                        placeHolder = "Skriv her",
+                        width = 300,
+                        height = 51,
+                        KeyboardType.Text,
+                        visualTransformation = VisualTransformation.None,
+                        Color.DarkGray,
+                        Color.LightGray,
+                        Color.Gray,
 
-            ) {
-                // Write notes
+                        )
+                }
 
-                MyNotesField(
-                    text = noteWriting,
-                    textSize = 15,
-                    onValueChange = { noteWriting = it },
-                    placeHolder = "Skriv her",
-                    width = 300,
-                    height = 51,
-                    KeyboardType.Text,
-                    visualTransformation = VisualTransformation.None,
-                    Color.DarkGray,
-                    Color.LightGray,
-                    Color.Gray,
-
-                    )
             }
 
+            else{
+                Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
+                    CircularProgressIndicator()
+
+
+                    try {
+                        db.addSnapshotListener{snapshot, e ->
+                            if(snapshot != null){
+                                for (document in snapshot){
+
+                                    Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
+                                    val id = document.id
+                                    val notes = document.data["notes"] as String
+
+                                    myNotes.add(
+                                        NotesInfo(
+                                            id = id,
+                                          text = notes)
+                                    )
+                                }
+                                isLoading = false
+                            } else {
+                                if (e != null) {
+                                    println(e.message)
+                                    Log.w(ContentValues.TAG, "Error getting documents.", e)
+                                }
+                            }
+                        }
+                    }catch (e: Exception){
+                        Log.w(ContentValues.TAG, "Error getting documents.", e)
+                    }
 
 
 
+                }
+
+
+            }
 
 
 

@@ -101,6 +101,7 @@ fun TripListScreen(
                                     imageUrl = imageUrl,
                                     info = info)
                             )
+
                         }
                         isLoading = false
                     } else {

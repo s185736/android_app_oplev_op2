@@ -27,9 +27,6 @@ val Denmark = Country(
 )
 
 
-@Parcelize
-class Notes(
-    val id: String?,
-    var text: String,
 
-) : Parcelable
+
+
