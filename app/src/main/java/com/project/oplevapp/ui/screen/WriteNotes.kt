@@ -32,7 +32,7 @@ import com.project.oplevapp.model.NotesInfo
 
 
 @Composable
-fun writeNotes(navController: NavController, notesRepository: NotesRepository) {
+fun WriteNotes(navController: NavController, notesRepository: NotesRepository) {
     var noteWriting by remember { mutableStateOf("") }
     val content = LocalContext.current
     var db = Firebase.firestore.collection("notes")
@@ -99,7 +99,7 @@ fun writeNotes(navController: NavController, notesRepository: NotesRepository) {
                 .padding(start = 0.dp, top = 75.dp),
         ) {
 
-            val NotesToSave = NotesInfo(
+            val notesToSave = NotesInfo(
                 id = null,
                 text = noteWriting
 
@@ -110,10 +110,10 @@ fun writeNotes(navController: NavController, notesRepository: NotesRepository) {
                         FloatingActionButton(
                             onClick = {
 
-                                if (NotesToSave.text != "") {
+                                if (notesToSave.text != "") {
 
 
-                                    notesRepository.saveNotes(NotesToSave, content)
+                                    notesRepository.saveNotes(notesToSave, content)
 
                                 }
                             },
