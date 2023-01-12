@@ -30,12 +30,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import com.google.firebase.auth.FirebaseAuth
 import com.project.oplevapp.data.user.ui.UserViewModel
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.R
 import com.project.oplevapp.data.user.UserData
 import com.project.oplevapp.data.user.UserRepository
+import com.project.oplevapp.nav.Screen
 import com.project.oplevapp.ui.shared.components.MyTextField
 import com.project.oplevapp.ui.shared.components.PasswordVisibilityField
 import com.project.oplevapp.ui.shared.components.UneditableTextField
@@ -44,19 +49,19 @@ import com.project.oplevapp.ui.theme.LightRed
 
 
 @Composable
-fun Profile(userData: UserData, userRepository: UserRepository) {
+fun Profile(userData: UserData, navController: NavController, userRepository: UserRepository) {
     LazyColumn() {//modifier = Modifier.heightIn(100.dp, 48.dp)) {
         item {
-            ProfileInfo(userData = userData, userRepository = userRepository)
+            ProfileInfo(userData = userData, navController = navController, userRepository = userRepository)
         }
     }
 }
 
 @Composable
-fun ProfileInfo(userData: UserData, viewModel: UserViewModel = hiltViewModel(), userRepository: UserRepository) {
+fun ProfileInfo(userData: UserData, navController: NavController, userRepository: UserRepository) {
     val context = LocalContext.current
     var email by remember {
-        mutableStateOf(userData.email)
+        mutableStateOf(""+userData.email+"")
     }
     var password by rememberSaveable {
         mutableStateOf(userData.password)
@@ -86,7 +91,7 @@ fun ProfileInfo(userData: UserData, viewModel: UserViewModel = hiltViewModel(), 
                     )
                     Spacer(modifier = Modifier.padding(start = 140.dp))
 
-                    AlertDialogLogOut()
+                    AlertDialogLogOut(navController)
                 }
 
                 Spacer(modifier = Modifier.padding(bottom = 1.dp))
@@ -202,7 +207,7 @@ fun ProfileInfo(userData: UserData, viewModel: UserViewModel = hiltViewModel(), 
                         }
                     )
                     Spacer(modifier = Modifier.padding(bottom = 50.dp))
-                    AlertDialogDeleteAccount()
+                    AlertDialogDeleteAccount(navController)
                     Spacer(modifier = Modifier.padding(bottom = 10.dp))
 
                     Row {
@@ -265,7 +270,7 @@ private fun ShowProfileImage(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun AlertDialogLogOut() {
+fun AlertDialogLogOut(navController: NavController) {
     MaterialTheme {
         Row(modifier = Modifier.fillMaxWidth()) {
             val openBox = remember { mutableStateOf(false)  }
@@ -283,7 +288,11 @@ fun AlertDialogLogOut() {
                 AlertDialog(onDismissRequest = { openBox.value = false },
                     title = { Text(text = "Log Ud") },
                     text = { Text("Du er ved, at logge dig selv ud af appen. Er du sikker på det?") },
-                    confirmButton = { Button( onClick = { openBox.value = false }) {
+                    confirmButton = { Button(
+                        onClick = {
+                            openBox.value = false
+                            FirebaseAuth.getInstance().signOut()
+                            navController.navigate(Screen.Login.route)}) {
                         Text("Ja")
                     }
                     },
@@ -298,19 +307,27 @@ fun AlertDialogLogOut() {
 }
 
 @Composable
-fun AlertDialogDeleteAccount() {
+fun AlertDialogDeleteAccount(navController: NavController) {
+    val db = FirebaseFirestore.getInstance()
     MaterialTheme {
         Column {
             val openBox = remember { mutableStateOf(false)  }
             Button(onClick = {
-                openBox.value = true}) {
+                openBox.value = true
+            }
+            ) {
                 Text("Slet Bruger")
             }
             if (openBox.value) {
                 AlertDialog(onDismissRequest = { openBox.value = false },
                     title = { Text(text = "Slet Bruger") },
                     text = { Text("Hovsa, du er ved at slette din bruger permanent. Er du sikker på det?") },
-                    confirmButton = { Button( onClick = { openBox.value = false }) {
+                    confirmButton = { Button(
+                        onClick = {
+                            openBox.value = false
+                            db.collection("users").document(FirebaseAuth.getInstance().currentUser!!.uid).delete()
+                            navController.navigate(Screen.Login.route)
+                                }) {
                         Text("Ja, slet")
                     }
                     },
