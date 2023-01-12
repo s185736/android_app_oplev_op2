@@ -2,6 +2,7 @@ package com.project.oplevapp.ui.screen.profile
 
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -22,6 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.R
@@ -39,7 +41,15 @@ import kotlinx.coroutines.launch
 //Der kan tastes mail og adgangskode, hvor den så opretter til firebase.
 
 @Composable
-fun CreateAccount(
+fun CreateAccount(  viewModel: UserViewModel = hiltViewModel(), userRepository: UserRepository) {
+    LazyColumn() {
+        item {
+            CreateProgress(userRepository = userRepository)        }
+    }
+}
+
+@Composable
+fun CreateProgress(
     viewModel: UserViewModel = hiltViewModel(),
     userRepository: UserRepository
 ) {
@@ -230,7 +240,7 @@ fun CreateAccount(
                         email = email,
                         password = password ,
                         name = name,
-                        number = number.toInt()
+                        number = number//.toInt()
                     )
                     userRepository.saveUser(userData = userData, context = context)
                 }) {
