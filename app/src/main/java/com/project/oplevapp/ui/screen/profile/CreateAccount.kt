@@ -2,6 +2,7 @@ package com.project.oplevapp.ui.screen.profile
 
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -22,6 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.R
@@ -31,6 +33,7 @@ import com.project.oplevapp.data.user.UserData
 import com.project.oplevapp.data.user.UserRepository
 import com.project.oplevapp.data.user.ui.UserViewModel
 import com.project.oplevapp.data.user.utils.showMsg
+import com.project.oplevapp.nav.Screen
 import com.project.oplevapp.ui.shared.components.MyTextField
 import com.project.oplevapp.ui.shared.components.PasswordVisibilityField
 import com.project.oplevapp.ui.shared.components.ProgressIndicator
@@ -39,8 +42,16 @@ import kotlinx.coroutines.launch
 //Der kan tastes mail og adgangskode, hvor den så opretter til firebase.
 
 @Composable
-fun CreateAccount(
-    viewModel: UserViewModel = hiltViewModel(),
+fun CreateAccount(  viewModel: UserViewModel = hiltViewModel(), navController: NavController, userRepository: UserRepository) {
+    LazyColumn() {
+        item {
+            CreateProgress(navController = navController, userRepository = userRepository)        }
+    }
+}
+
+@Composable
+fun CreateProgress(
+    navController: NavController, viewModel: UserViewModel = hiltViewModel(),
     userRepository: UserRepository
 ) {
     var email by remember { mutableStateOf("") }
@@ -158,7 +169,7 @@ fun CreateAccount(
 
                 Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
-                MyTextField(
+                PasswordVisibilityField(
                     text = confirmPassword,
                     textSize = 15,
                     onValueChange = { confirmPassword = it },
@@ -166,11 +177,22 @@ fun CreateAccount(
                     width = 320,
                     height = 57,
                     KeyboardType.Password,
-                    visualTransformation = PasswordVisualTransformation(),
+                    visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                     Color.DarkGray,
                     Color.LightGray,
                     Color.Gray,
-                    vectorPainter = painterResource(id = R.drawable.ic_outline_lock_24)
+                    vectorPainter = painterResource(id = R.drawable.ic_outline_lock_24),
+                    trailingIcon = {
+                        val icon = if (passwordVisible)
+                            Icons.Filled.Visibility
+                        else Icons.Filled.VisibilityOff
+
+                        val content = if (passwordVisible) "Skjul kodeord." else "Vis kodeord."
+                        IconButton(onClick = {passwordVisible = !passwordVisible}){
+                            Icon(imageVector  = icon, content)
+                        }
+                    }
+
                 )
 
 
@@ -230,9 +252,10 @@ fun CreateAccount(
                         email = email,
                         password = password ,
                         name = name,
-                        number = number.toInt()
+                        number = number//.toInt()
                     )
                     userRepository.saveUser(userData = userData, context = context)
+                        navController.navigate(Screen.Login.route)
                 }) {
                     Text(text = "Gem profil i database")
                 }

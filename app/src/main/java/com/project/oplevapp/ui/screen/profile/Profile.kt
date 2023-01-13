@@ -3,14 +3,12 @@ package com.project.oplevapp.ui.screen.profile
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
@@ -21,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -28,14 +27,20 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.FirebaseAuth
+import com.project.oplevapp.data.user.ui.UserViewModel
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.R
-import com.project.oplevapp.ui.shared.components.BlackPreviousButton
+import com.project.oplevapp.data.user.UserData
+import com.project.oplevapp.data.user.UserRepository
+import com.project.oplevapp.nav.Screen
 import com.project.oplevapp.ui.shared.components.MyTextField
 import com.project.oplevapp.ui.shared.components.PasswordVisibilityField
 import com.project.oplevapp.ui.shared.components.UneditableTextField
@@ -43,64 +48,54 @@ import com.project.oplevapp.ui.theme.LightRed
 
 
 
-//@Preview(showBackground = true)
 @Composable
-fun Profile(navController: NavController) {
-    LazyColumn {
+fun Profile(userData: UserData, navController: NavController, userRepository: UserRepository) {
+    LazyColumn() {//modifier = Modifier.heightIn(100.dp, 48.dp)) {
         item {
-            ProfileInfo(navController = navController)
+            ProfileInfo(userData = userData, navController = navController, userRepository = userRepository)
         }
     }
 }
+
 @Composable
-fun ProfileInfo(navController: NavController) {
+fun ProfileInfo(userData: UserData, navController: NavController, userRepository: UserRepository) {
+    val context = LocalContext.current
+    var email by remember {
+        mutableStateOf(""+userData.email+"")
+    }
+    var password by rememberSaveable {
+        mutableStateOf(userData.password)
+    }
+    var passwordVisible by rememberSaveable {
+        mutableStateOf(false)
+    }
+    var name by remember {
+        mutableStateOf(userData.name)
+    }
+    var number by remember {
+        mutableStateOf(userData.number)
+    }
     Scaffold {
         Box {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(24.dp)
+                modifier = Modifier.padding(27.dp)
             ) {
                 Row {
-                    Icon(imageVector = Icons.Default.ArrowBack,
-                        contentDescription = null,
-                        modifier = Modifier
-                            .padding(20.dp)
-                            .clickable { navController.popBackStack() },
-                    )
                     Text(
                         text = "Profil",
                         color = Color(5, 54, 103),
                         fontWeight = FontWeight.ExtraBold,
-                        fontSize = 40.sp,
+                        fontSize = 35.sp,
                         textAlign = TextAlign.Center
                     )
-                    Spacer(modifier = Modifier
-                        .padding(start = 140.dp))
+                    Spacer(modifier = Modifier.padding(start = 140.dp))
 
-                    AlertDialogLogOut()
+                    AlertDialogLogOut(navController)
                 }
 
-                Spacer(modifier = Modifier
-                    .padding(bottom = 1.dp))
+                Spacer(modifier = Modifier.padding(bottom = 1.dp))
                 ShowProfileImage()
-
-                var email by remember {
-                    mutableStateOf("Hans@mail.com")
-                }
-                var password by rememberSaveable {
-                    mutableStateOf("123456")
-                }
-                var passwordVisible by rememberSaveable {
-                    mutableStateOf(false)
-                }
-                var Name by remember {
-                    mutableStateOf("Hans Ole")
-                }
-                var phone by remember {
-                    mutableStateOf("42424242")
-                }
 
                 Column(
                     modifier = Modifier
@@ -112,23 +107,21 @@ fun ProfileInfo(navController: NavController) {
                         color = Color.Blue,
                         fontSize = 24.sp,
                         style = MaterialTheme.typography.h4,
-                        text = Name
+                        text = name
                     )
-                    Spacer(modifier = Modifier
-                        .padding(bottom = 1.dp))
+                    Spacer(modifier = Modifier.padding(bottom = 1.dp))
                     Text(
                         color = Color.Black,
                         fontSize = 16.sp,
                         style = MaterialTheme.typography.h4,
                         text = "Herunder kan du opdatere dine oplysninger.."
                     )
-                    Spacer(modifier = Modifier
-                        .padding(bottom = 30.dp))
+                    Spacer(modifier = Modifier.padding(bottom = 30.dp))
 
                     MyTextField(
-                        text = Name,
+                        text = name,
                         textSize = 15,
-                        onValueChange = { Name = it },
+                        onValueChange = { name = it },
                         placeHolder = "Navn",
                         width = 320,
                         height = 57,
@@ -139,8 +132,7 @@ fun ProfileInfo(navController: NavController) {
                         Color.Gray,
                         vectorPainter = painterResource(id = R.drawable.ic_outline_person_24),
                     )
-                    Spacer(modifier = Modifier
-                        .padding(bottom = 27.dp))
+                    Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
                     UneditableTextField(
                         text = email,
@@ -156,23 +148,22 @@ fun ProfileInfo(navController: NavController) {
                         placeHolderColor = Color.Gray,
                         vectorPainter = painterResource(id = R.drawable.ic_outline_mail_outline_24),
                         trailingIcon = {
-                                    Icon(
-                                        imageVector = Icons.Default.Lock,
-                                        contentDescription = "Locked"
-                                    )
-                            }
+                            Icon(
+                                imageVector = Icons.Default.Lock,
+                                contentDescription = "Locked"
+                            )
+                        }
                     )
 
 
 
 
-                    Spacer(modifier = Modifier
-                        .padding(bottom = 27.dp))
+                    Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
                     UneditableTextField(
-                        text = phone,
+                        text = number,
                         textSize = 15,
-                        onValueChange = { phone = it },
+                        onValueChange = { number = it },
                         placeHolder = "Telefon",
                         width = 320,
                         height = 57,
@@ -189,8 +180,7 @@ fun ProfileInfo(navController: NavController) {
                             )
                         }
                     )
-                    Spacer(modifier = Modifier
-                        .padding(bottom = 27.dp))
+                    Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
                     PasswordVisibilityField(
                         text = password,
@@ -216,67 +206,71 @@ fun ProfileInfo(navController: NavController) {
                             }
                         }
                     )
-                    Spacer(modifier = Modifier
-                        .padding(bottom = 50.dp))
-                    AlertDialogDeleteAccount()
-                    Spacer(modifier = Modifier
-                        .padding(bottom = 10.dp))
+                    Spacer(modifier = Modifier.padding(bottom = 50.dp))
+                    AlertDialogDeleteAccount(navController)
+                    Spacer(modifier = Modifier.padding(bottom = 10.dp))
+
                     Row {
-                        Button(
-                            colors = ButtonDefaults.buttonColors(
-                                backgroundColor = Color(
-                                    5,
-                                    54,
-                                    103
+                            Button(
+                                colors = ButtonDefaults.buttonColors(
+                                    backgroundColor = Color(
+                                        5,
+                                        54,
+                                        103
+                                    )
+                                ),
+                                shape = RoundedCornerShape(60),
+                                modifier = Modifier
+                                    .height(45.dp)
+                                    .width(189.dp),
+                                onClick = {
+                                    val userData = UserData(
+                                        userID = Firebase.auth.currentUser?.uid.toString(),
+                                        email = email,
+                                        password = password,
+                                        name = name,
+                                        number = number//.toInt()
+                                    )
+                                    userRepository.updateUser(userData = userData, context = context)
+                                },
+
+                                ) {
+                                Text(
+                                    "Opdater",
+                                    color = Color.White,
+                                    fontSize = 16.sp
                                 )
-                            ),
-                            shape = RoundedCornerShape(60),
-                            modifier = Modifier
-                                .height(45.dp)
-                                .width(189.dp),
-                            onClick = { /** TO DO */ },
-
-                            ) {
-                            Text(
-                                "Opdater",
-                                color = Color.White,
-                                fontSize = 16.sp
-                            )
-
-
+                            }
                         }
                     }
                 }
             }
         }
     }
-}
-
-
-
-    @Composable
-    private fun ShowProfileImage(modifier: Modifier = Modifier) {
-        Surface(
-            modifier = Modifier
-                .size(100.dp)
-                .padding(5.dp),
-            shape = CircleShape,
-            border = BorderStroke(0.5.dp, Color.LightGray),
-            elevation = 4.dp,
-            color = MaterialTheme.colors.onSurface.copy(alpha = 0.5f)
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.transparent_logo),
-                contentDescription = "profil billede.",
-                modifier = modifier.size(100.dp),
-                contentScale = ContentScale.Crop
-            )
-
-        }
-    }
 
 @Composable
-fun AlertDialogLogOut() {
+private fun ShowProfileImage(modifier: Modifier = Modifier) {
+    Surface(
+        modifier = Modifier
+            .size(100.dp)
+            .padding(5.dp),
+        shape = CircleShape,
+        border = BorderStroke(0.5.dp, Color.LightGray),
+        elevation = 4.dp,
+        color = MaterialTheme.colors.onSurface.copy(alpha = 0.5f)
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.transparent_logo),
+            contentDescription = "profil billede.",
+            modifier = modifier.size(100.dp),
+            contentScale = ContentScale.Crop
+        )
+
+    }
+}
+
+@Composable
+fun AlertDialogLogOut(navController: NavController) {
     MaterialTheme {
         Row(modifier = Modifier.fillMaxWidth()) {
             val openBox = remember { mutableStateOf(false)  }
@@ -294,7 +288,11 @@ fun AlertDialogLogOut() {
                 AlertDialog(onDismissRequest = { openBox.value = false },
                     title = { Text(text = "Log Ud") },
                     text = { Text("Du er ved, at logge dig selv ud af appen. Er du sikker på det?") },
-                    confirmButton = { Button( onClick = { openBox.value = false }) {
+                    confirmButton = { Button(
+                        onClick = {
+                            openBox.value = false
+                            FirebaseAuth.getInstance().signOut()
+                            navController.navigate(Screen.Login.route)}) {
                         Text("Ja")
                     }
                     },
@@ -309,25 +307,33 @@ fun AlertDialogLogOut() {
 }
 
 @Composable
-fun AlertDialogDeleteAccount() {
+fun AlertDialogDeleteAccount(navController: NavController) {
+    val db = FirebaseFirestore.getInstance()
     MaterialTheme {
         Column {
             val openBox = remember { mutableStateOf(false)  }
             Button(onClick = {
-                openBox.value = true}) {
+                openBox.value = true
+            }
+            ) {
                 Text("Slet Bruger")
             }
             if (openBox.value) {
                 AlertDialog(onDismissRequest = { openBox.value = false },
                     title = { Text(text = "Slet Bruger") },
                     text = { Text("Hovsa, du er ved at slette din bruger permanent. Er du sikker på det?") },
-                    confirmButton = { Button( onClick = { openBox.value = false }) {
-                            Text("Ja, slet")
-                        }
+                    confirmButton = { Button(
+                        onClick = {
+                            openBox.value = false
+                            db.collection("users").document(FirebaseAuth.getInstance().currentUser!!.uid).delete()
+                            navController.navigate(Screen.Login.route)
+                                }) {
+                        Text("Ja, slet")
+                    }
                     },
                     dismissButton = { Button( onClick = { openBox.value = false }) {
-                            Text("Nej, fortryd")
-                        }
+                        Text("Nej, fortryd")
+                    }
                     }
                 )
             }
