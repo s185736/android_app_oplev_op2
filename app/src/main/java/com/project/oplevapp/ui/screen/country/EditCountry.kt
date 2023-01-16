@@ -46,7 +46,7 @@ fun TextFieldsCountry(country: Country, countryRepository: CountryRepository, na
     country.returnDate = TextFieldWithIcons(textValue = country.returnDate, label = "Hjemrejse Dato", Icons.Default.DateRange)
     country.info = TextFieldWithIcons(textValue = country.info, label = "Information", Icons.Default.Info)
 
-    AddToShareBoardButton(title = "Redigere"){
+    AddToShareBoardButton(title = "Opdater"){
         countryRepository.saveCountry(context = context, country = country)
         navController.popBackStack()
     }
