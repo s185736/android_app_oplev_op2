@@ -46,11 +46,6 @@ fun MainNavHost() {
     val countryRepository = CountryRepository()
     val userRepository = UserRepository()
     val notesRepository = NotesRepository()
-    val userData = UserData()
-
-    val auth by lazy {
-        Firebase.auth
-    }
 
     Scaffold(
         bottomBar = {
@@ -104,59 +99,6 @@ fun MainNavHost() {
                     println("No data in country")
                 }
             }
-            /*
-                composable(Screen.EditCountry.route) {
-                    //receiving data
-                    val country =
-                        navController.previousBackStackEntry?.savedStateHandle?.get<Country>("country")
-                    if (country != null) {
-                        EditCountry(
-                            country = country,
-                            navController = navController,
-                            countryRepository = countryRepository
-                        )
-                        println("Edit page loaded successfully")
-                    } else {
-                        println("No data in country")
-                    }
-                }
-                composable(Screen.Login.route) { LoginPage(navController, auth) }
-                composable(Screen.Note.route) { writeNotes(navController = navController) }
-                composable(Screen.AddCountry.route) { AddCountry(navController, countryRepository) }
-                composable(Screen.Login.route) { LoginPage(navController, auth) }
-                composable(Screen.Note.route) { writeNotes(navController = navController) }
-                composable(Screen.AddCountry.route) { AddCountry(navController, countryRepository) }
-
-                composable(Screen.LandingPage.route) { LandingPage(navController) }
-
-                composable(Screen.TripList.route) {
-                    TripListScreen(
-                        navController = navController,
-                        countryRepository = countryRepository
-                    )
-                }
-                composable(Screen.CreateAccount.route) {
-                    CreateAccountScreen(
-                        navController = navController,
-                        auth = auth
-                    )
-                }
-
-
-
-
-
-                composable(Screen.CreateAccount.route) {
-                    CreateAccountScreen(
-                        navController = navController,
-                        auth = auth
-                    )
-                }
-                composable(Screen.SignIn.route) {}
-            }
-
-             */
-
             composable(Screen.EditCountry.route) {
                 //receiving data
                 val country =
@@ -205,8 +147,6 @@ fun MainNavHost() {
                 val color = it.arguments?.getInt("ideaColor") ?: -1
                 ModifyPortal(navController = navController, ideaColor = color)
             }
-
-
         }
     }
 }

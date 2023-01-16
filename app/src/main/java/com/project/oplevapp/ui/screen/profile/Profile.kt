@@ -71,7 +71,6 @@ fun ProfileInfo(navController: NavController, userRepository: UserRepository) {
     var number by remember {
         mutableStateOf("")
     }
-
     val userID = Firebase.auth.currentUser?.uid.toString()
 
     userRepository.getUser(
@@ -84,6 +83,8 @@ fun ProfileInfo(navController: NavController, userRepository: UserRepository) {
         number = data.number
         password = data.password
     }
+
+
     Scaffold {
         Box {
             Column(
@@ -181,13 +182,8 @@ fun ProfileInfo(navController: NavController, userRepository: UserRepository) {
                         myTextColor = Color.DarkGray,
                         backgroundColor = Color.LightGray,
                         placeHolderColor = Color.Gray,
-                        vectorPainter = painterResource(id = R.drawable.ic_outline_phone_24),
-                        /*trailingIcon = {
-                            Icon(
-                                imageVector = Icons.Default.Lock,
-                                contentDescription = "Locked"
-                            )
-                        }*/
+                        vectorPainter = painterResource(id = R.drawable.ic_outline_phone_24)
+
                     )
                     Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
@@ -216,6 +212,7 @@ fun ProfileInfo(navController: NavController, userRepository: UserRepository) {
                         }
                     )
                     Spacer(modifier = Modifier.padding(bottom = 50.dp))
+                    
                     AlertDialogDeleteAccount(navController, userRepository)
                     Spacer(modifier = Modifier.padding(bottom = 10.dp))
 
@@ -250,6 +247,7 @@ fun ProfileInfo(navController: NavController, userRepository: UserRepository) {
                                     fontSize = 16.sp
                                 )
                             }
+
                         }
                     }
                 }
