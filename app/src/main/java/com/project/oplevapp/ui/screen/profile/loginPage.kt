@@ -87,7 +87,7 @@ fun LoginPage(
                     modifier = Modifier.padding(27.dp)
                 ) {
                     Text(
-                        text = "Login",
+                        text = "Log Ind",
                         color = Color(5,54,103),
                         fontWeight = FontWeight.ExtraBold,
                         fontSize = 25.sp,
@@ -103,7 +103,7 @@ fun LoginPage(
                         placeHolder = "Email",
                         width = 320,
                         height = 57,
-                        KeyboardType.Text,
+                        KeyboardType.Email,
                         visualTransformation = VisualTransformation.None,
                         Color.DarkGray ,
                         Color.LightGray ,
@@ -120,7 +120,7 @@ fun LoginPage(
                         placeHolder = "Adgangskode",
                         width = 320,
                         height = 57,
-                        KeyboardType.Text,
+                        KeyboardType.Password,
                         visualTransformation = VisualTransformation.None,
                         Color.DarkGray ,
                         Color.LightGray ,
@@ -164,7 +164,7 @@ fun LoginPage(
                                     isDialog = when(it){
                                         is ResultState.Success -> {
                                             context.showMsg(it.data)
-                                            navController.navigate(Screen.Profile.route)
+                                            navController.navigate(Screen.TripList.route)
                                             false
                                         }
                                         is ResultState.Failure->{
@@ -180,7 +180,7 @@ fun LoginPage(
 
                         },
                     ) {
-                        Text("Login")
+                        Text("Log Ind")
                     }
                     //Dette skaffer UID fra den nuværende bruger.
                     val uid = Firebase.auth.currentUser?.uid.toString()
@@ -208,7 +208,7 @@ fun LoginButton(navController: NavController) {
             .width(130.dp)
         ) {
         Row {
-            Text(text = "Login",
+            Text(text = "Log Ind",
                 color= Color.White,
                 fontSize= 12.sp,
                 modifier= Modifier.padding()
