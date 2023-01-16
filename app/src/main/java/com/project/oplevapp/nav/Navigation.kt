@@ -6,10 +6,10 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -89,7 +89,8 @@ fun MainNavHost() {
         }
     ) { innerPadding ->
         NavHost(navController, startDestination = Screen.LandingPage.route, Modifier.padding(innerPadding)) {
-            composable(Screen.Profile.route) { Profile(userData = userData, navController = navController, userRepository = userRepository) }
+
+            composable(Screen.Profile.route) { Profile(navController = navController, userRepository = userRepository) }
 
             composable(Screen.CountriesList.route) { CountriesList(navController) }
             composable(Screen.Country.route) {

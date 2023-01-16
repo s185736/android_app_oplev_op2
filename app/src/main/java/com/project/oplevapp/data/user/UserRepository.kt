@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -61,6 +62,32 @@ class UserRepository(): ViewModel() {
             Toast.makeText(context,e.message,Toast.LENGTH_SHORT).show()
         }
     }
+
+    fun getUser(
+        userID: String,
+        context: Context,
+        data: (UserData) -> Unit
+    ) = CoroutineScope(Dispatchers.IO).launch {
+        var db = Firebase.firestore
+            .collection("users")
+            .document(userID)
+        try {
+            db.get()
+                .addOnSuccessListener {
+                    if (it.exists()){
+                        var userData = it.toObject<UserData>()!!
+                        data(userData)
+                    }
+                    else{
+                        Toast.makeText(context,"Ingen bruger data fundet", Toast.LENGTH_SHORT).show()
+                    }
+                }
+        }
+        catch (e: Exception){
+            Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
     fun getUsers(data: (MutableList<UserData>) -> Unit
     ) = CoroutineScope(Dispatchers.IO).launch{

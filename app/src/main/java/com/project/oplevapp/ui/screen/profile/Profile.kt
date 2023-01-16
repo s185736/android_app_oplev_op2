@@ -49,10 +49,10 @@ import com.project.oplevapp.ui.theme.LightRed
 
 
 @Composable
-fun Profile(userData: UserData, navController: NavController, userRepository: UserRepository) {
+fun Profile( navController: NavController, userRepository: UserRepository) {
     LazyColumn() {//modifier = Modifier.heightIn(100.dp, 48.dp)) {
         item {
-            ProfileInfo(userData = userData, navController = navController, userRepository = userRepository)
+            ProfileInfo2(navController = navController, userRepository = userRepository)
         }
     }
 }
@@ -75,6 +75,7 @@ fun ProfileInfo(userData: UserData, navController: NavController, userRepository
     var number by remember {
         mutableStateOf(userData.number)
     }
+
     Scaffold {
         Box {
             Column(
@@ -247,6 +248,213 @@ fun ProfileInfo(userData: UserData, navController: NavController, userRepository
             }
         }
     }
+
+
+@Composable
+fun ProfileInfo2(navController: NavController, userRepository: UserRepository) {
+    val context = LocalContext.current
+    var email by remember {
+        mutableStateOf("")
+    }
+    var password by rememberSaveable {
+        mutableStateOf("")
+    }
+    var passwordVisible by rememberSaveable {
+        mutableStateOf(false)
+    }
+    var name by remember {
+        mutableStateOf("")
+    }
+    var number by remember {
+        mutableStateOf("")
+    }
+    val userID = Firebase.auth.currentUser?.uid.toString()
+
+
+    userRepository.getUser(
+        userID = userID,
+        context = context
+    ){
+        data ->
+        name = data.name
+        email = data.email
+        number = data.number
+    }
+
+    Scaffold {
+        Box {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.padding(27.dp)
+            ) {
+                Row {
+                    Text(
+                        text = "Profil",
+                        color = Color(5, 54, 103),
+                        fontWeight = FontWeight.ExtraBold,
+                        fontSize = 35.sp,
+                        textAlign = TextAlign.Center
+                    )
+                    Spacer(modifier = Modifier.padding(start = 140.dp))
+
+                    AlertDialogLogOut(navController)
+                }
+
+                Spacer(modifier = Modifier.padding(bottom = 1.dp))
+                ShowProfileImage()
+
+                Column(
+                    modifier = Modifier
+                        .padding(5.dp),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        color = Color.Blue,
+                        fontSize = 24.sp,
+                        style = MaterialTheme.typography.h4,
+                        text = name
+                    )
+                    Spacer(modifier = Modifier.padding(bottom = 1.dp))
+                    Text(
+                        color = Color.Black,
+                        fontSize = 16.sp,
+                        style = MaterialTheme.typography.h4,
+                        text = "Herunder kan du opdatere dine oplysninger.."
+                    )
+                    Spacer(modifier = Modifier.padding(bottom = 30.dp))
+
+                    MyTextField(
+                        text = name,
+                        textSize = 15,
+                        onValueChange = { name = it },
+                        placeHolder = "Navn",
+                        width = 320,
+                        height = 57,
+                        KeyboardType.Text,
+                        visualTransformation = VisualTransformation.None,
+                        Color.DarkGray,
+                        Color.LightGray,
+                        Color.Gray,
+                        vectorPainter = painterResource(id = R.drawable.ic_outline_person_24),
+                    )
+                    Spacer(modifier = Modifier.padding(bottom = 27.dp))
+
+                    UneditableTextField(
+                        text = email,
+                        textSize = 15,
+                        onValueChange = { email = it },
+                        placeHolder = "Email",
+                        width = 320,
+                        height = 57,
+                        KeyboardType.Email,
+                        visualTransformation = VisualTransformation.None,
+                        myTextColor = Color.DarkGray,
+                        backgroundColor = Color.LightGray,
+                        placeHolderColor = Color.Gray,
+                        vectorPainter = painterResource(id = R.drawable.ic_outline_mail_outline_24),
+                        trailingIcon = {
+                            Icon(
+                                imageVector = Icons.Default.Lock,
+                                contentDescription = "Locked"
+                            )
+                        }
+                    )
+
+
+
+
+                    Spacer(modifier = Modifier.padding(bottom = 27.dp))
+
+                    UneditableTextField(
+                        text = number,
+                        textSize = 15,
+                        onValueChange = { number = it },
+                        placeHolder = "Telefon",
+                        width = 320,
+                        height = 57,
+                        KeyboardType.Phone,
+                        visualTransformation = VisualTransformation.None,
+                        myTextColor = Color.DarkGray,
+                        backgroundColor = Color.LightGray,
+                        placeHolderColor = Color.Gray,
+                        vectorPainter = painterResource(id = R.drawable.ic_outline_phone_24),
+                        trailingIcon = {
+                            Icon(
+                                imageVector = Icons.Default.Lock,
+                                contentDescription = "Locked"
+                            )
+                        }
+                    )
+                    Spacer(modifier = Modifier.padding(bottom = 27.dp))
+
+                    PasswordVisibilityField(
+                        text = password,
+                        textSize = 15,
+                        onValueChange = { password = it },
+                        placeHolder = "Adgangskode",
+                        width = 320,
+                        height = 57,
+                        KeyboardType.Password,
+                        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                        Color.DarkGray,
+                        Color.LightGray,
+                        Color.Gray,
+                        vectorPainter = painterResource(id = R.drawable.ic_outline_vpn_key_24),
+                        trailingIcon = {
+                            val icon = if (passwordVisible)
+                                Icons.Filled.Visibility
+                            else Icons.Filled.VisibilityOff
+
+                            val content = if (passwordVisible) "Skjul kodeord." else "Vis kodeord."
+                            IconButton(onClick = {passwordVisible = !passwordVisible}){
+                                Icon(imageVector  = icon, content)
+                            }
+                        }
+                    )
+                    Spacer(modifier = Modifier.padding(bottom = 50.dp))
+                    AlertDialogDeleteAccount(navController)
+                    Spacer(modifier = Modifier.padding(bottom = 10.dp))
+
+                    Row {
+                        Button(
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = Color(
+                                    5,
+                                    54,
+                                    103
+                                )
+                            ),
+                            shape = RoundedCornerShape(60),
+                            modifier = Modifier
+                                .height(45.dp)
+                                .width(189.dp),
+                            onClick = {
+                                val userData = UserData(
+                                    userID = Firebase.auth.currentUser?.uid.toString(),
+                                    email = email,
+                                    password = password,
+                                    name = name,
+                                    number = number//.toInt()
+                                )
+                                userRepository.updateUser(userData = userData, context = context)
+                            },
+
+                            ) {
+                            Text(
+                                "Opdater",
+                                color = Color.White,
+                                fontSize = 16.sp
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
 
 @Composable
 private fun ShowProfileImage(modifier: Modifier = Modifier) {
