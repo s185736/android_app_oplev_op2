@@ -29,19 +29,13 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.google.firebase.auth.FirebaseAuth
-import com.project.oplevapp.data.user.ui.UserViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.R
-import com.project.oplevapp.data.user.User
 import com.project.oplevapp.data.user.UserData
 import com.project.oplevapp.data.user.UserRepository
-import com.project.oplevapp.data.user.repo.UserRepoImpl
 import com.project.oplevapp.nav.Screen
 import com.project.oplevapp.ui.shared.components.MyTextField
 import com.project.oplevapp.ui.shared.components.PasswordVisibilityField
@@ -286,6 +280,7 @@ private fun ShowProfileImage(modifier: Modifier = Modifier) {
 
 @Composable
 fun AlertDialogLogOut(navController: NavController, userRepository: UserRepository) {
+    val context = LocalContext.current
     MaterialTheme {
         Row(modifier = Modifier.fillMaxWidth()) {
             val openBox = remember { mutableStateOf(false)  }
@@ -306,7 +301,7 @@ fun AlertDialogLogOut(navController: NavController, userRepository: UserReposito
                     confirmButton = { Button(
                         onClick = {
                             openBox.value = false
-                            userRepository.UserLoggedOut(navController = navController)
+                            userRepository.signUserOut(navController = navController, context = context)
                         }) {
                         Text("Ja")
                     }
@@ -322,7 +317,7 @@ fun AlertDialogLogOut(navController: NavController, userRepository: UserReposito
 }
 @Composable
 fun AlertDialogDeleteAccount(navController: NavController, userRepository: UserRepository) {
-    val db = FirebaseFirestore.getInstance()
+    val context = LocalContext.current
     MaterialTheme {
         Column {
             val openBox = remember { mutableStateOf(false)  }
@@ -339,7 +334,7 @@ fun AlertDialogDeleteAccount(navController: NavController, userRepository: UserR
                     confirmButton = { Button(
                         onClick = {
                             openBox.value = false
-                            userRepository.UserDeletedAccount(navController = navController)
+                            userRepository.deleteUser(navController = navController, context = context)
                                 }) {
                         Text("Ja, slet")
                     }

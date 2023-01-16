@@ -1,4 +1,4 @@
-package com.project.oplevapp.ui.shared.components
+package com.project.oplevapp.ui.shared
 
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.runtime.Composable

@@ -166,16 +166,19 @@ class UserRepository(): ViewModel() {
 
     }
 
-    fun UserLoggedOut(navController: NavController) {
-        FirebaseAuth.getInstance().signOut()
-        userState.value = userState.value.copy(isSignedIn = false)
-        navController.navigate(Screen.Login.route)
+    fun deleteUser(navController: NavController, context: Context) {
+        userState.value = userState.value.copy(isSignedIn = false) //remove this
+        FirebaseAuth.getInstance().currentUser?.uid?.let {
+            db.collection("users").document(it).delete()
+        }
+        navController.navigate(Screen.LandingPage.route)
+        Toast.makeText(context, "Din bruger er nu slettet fra databasen.", Toast.LENGTH_SHORT).show()
     }
 
-    fun UserDeletedAccount(navController: NavController) {
-        userState.value = userState.value.copy(isSignedIn = false) //remove this
-        FirebaseAuth.getInstance().currentUser?.uid?.let { db.collection("users").document(it).delete() }
-        //Firebase.auth.currentUser?.delete()
-        navController.navigate(Screen.LandingPage.route)
+    fun signUserOut(navController: NavController, context: Context) {
+        userState.value = userState.value.copy(isSignedIn = false)
+        FirebaseAuth.getInstance().signOut()
+        navController.navigate(Screen.Login.route)
+        Toast.makeText(context, "Du er nu logget ud.", Toast.LENGTH_SHORT).show()
     }
 }

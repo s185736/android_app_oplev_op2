@@ -6,6 +6,9 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.*
@@ -20,6 +23,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -36,7 +40,8 @@ import com.project.oplevapp.data.user.ui.UserViewModel
 import com.project.oplevapp.data.user.utils.showMsg
 import com.project.oplevapp.nav.Screen
 import com.project.oplevapp.ui.screen.country.MyTextField
-import com.project.oplevapp.ui.shared.components.ProgressIndicator
+import com.project.oplevapp.ui.shared.ProgressIndicator
+import com.project.oplevapp.ui.shared.components.PasswordVisibilityField
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -48,16 +53,14 @@ fun LoginPage(
     viewModel: UserViewModel = hiltViewModel()
     ) {
     var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+    var password by rememberSaveable { mutableStateOf("") }
+    var passwordVisible by rememberSaveable { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
     var isDialog by remember { mutableStateOf(false) }
     if (isDialog)
         ProgressIndicator()
 
-    var passwordVisible by rememberSaveable {
-        mutableStateOf(false)
-    }
     val focusManager = LocalFocusManager.current
 
     Scaffold {
@@ -113,19 +116,29 @@ fun LoginPage(
 
                     Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
-                    MyTextField(
+                    PasswordVisibilityField(
                         text = password,
                         textSize = 15,
-                        onValueChange = {password=it},
+                        onValueChange = { password = it },
                         placeHolder = "Adgangskode",
                         width = 320,
                         height = 57,
                         KeyboardType.Password,
-                        visualTransformation = VisualTransformation.None,
-                        Color.DarkGray ,
-                        Color.LightGray ,
+                        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                        Color.DarkGray,
+                        Color.LightGray,
                         Color.Gray,
-                        vectorPainter = painterResource(id = R.drawable.ic_outline_vpn_key_24)
+                        vectorPainter = painterResource(id = R.drawable.ic_outline_vpn_key_24),
+                        trailingIcon = {
+                            val icon = if (passwordVisible)
+                                Icons.Filled.Visibility
+                            else Icons.Filled.VisibilityOff
+
+                            val content = if (passwordVisible) "Skjul kodeord." else "Vis kodeord."
+                            IconButton(onClick = {passwordVisible = !passwordVisible}){
+                                Icon(imageVector  = icon, content)
+                            }
+                        }
                     )
 
 
