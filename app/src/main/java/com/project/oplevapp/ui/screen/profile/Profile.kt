@@ -29,13 +29,9 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.google.firebase.auth.FirebaseAuth
-import com.project.oplevapp.data.user.ui.UserViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.R
 import com.project.oplevapp.data.user.UserData
@@ -77,16 +73,17 @@ fun ProfileInfo(navController: NavController, userRepository: UserRepository) {
     }
     val userID = Firebase.auth.currentUser?.uid.toString()
 
-
     userRepository.getUser(
         userID = userID,
         context = context
     ){
-        data ->
+            data ->
         name = data.name
         email = data.email
         number = data.number
+        password = data.password
     }
+
 
     Scaffold {
         Box {
@@ -104,7 +101,7 @@ fun ProfileInfo(navController: NavController, userRepository: UserRepository) {
                     )
                     Spacer(modifier = Modifier.padding(start = 140.dp))
 
-                    AlertDialogLogOut(navController)
+                    AlertDialogLogOut(navController, userRepository)
                 }
 
                 Spacer(modifier = Modifier.padding(bottom = 1.dp))
@@ -173,7 +170,7 @@ fun ProfileInfo(navController: NavController, userRepository: UserRepository) {
 
                     Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
-                    UneditableTextField(
+                    MyTextField(
                         text = number,
                         textSize = 15,
                         onValueChange = { number = it },
@@ -185,13 +182,8 @@ fun ProfileInfo(navController: NavController, userRepository: UserRepository) {
                         myTextColor = Color.DarkGray,
                         backgroundColor = Color.LightGray,
                         placeHolderColor = Color.Gray,
-                        vectorPainter = painterResource(id = R.drawable.ic_outline_phone_24),
-                        trailingIcon = {
-                            Icon(
-                                imageVector = Icons.Default.Lock,
-                                contentDescription = "Locked"
-                            )
-                        }
+                        vectorPainter = painterResource(id = R.drawable.ic_outline_phone_24)
+
                     )
                     Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
@@ -220,48 +212,48 @@ fun ProfileInfo(navController: NavController, userRepository: UserRepository) {
                         }
                     )
                     Spacer(modifier = Modifier.padding(bottom = 50.dp))
-                    AlertDialogDeleteAccount(navController)
+                    
+                    AlertDialogDeleteAccount(navController, userRepository)
                     Spacer(modifier = Modifier.padding(bottom = 10.dp))
 
                     Row {
-                        Button(
-                            colors = ButtonDefaults.buttonColors(
-                                backgroundColor = Color(
-                                    5,
-                                    54,
-                                    103
-                                )
-                            ),
-                            shape = RoundedCornerShape(60),
-                            modifier = Modifier
-                                .height(45.dp)
-                                .width(189.dp),
-                            onClick = {
-                                val userData = UserData(
-                                    userID = Firebase.auth.currentUser?.uid.toString(),
-                                    email = email,
-                                    password = password,
-                                    name = name,
-                                    number = number//.toInt()
-                                )
-                                userRepository.updateUser(userData = userData, context = context)
-                            },
+                            Button(
+                                colors = ButtonDefaults.buttonColors(
+                                    backgroundColor = Color(
+                                        5,
+                                        54,
+                                        103
+                                    )
+                                ),
+                                shape = RoundedCornerShape(60),
+                                modifier = Modifier
+                                    .height(45.dp)
+                                    .width(189.dp),
+                                onClick = {
+                                    val userData = UserData(
+                                        userID = Firebase.auth.currentUser?.uid.toString(),
+                                        email = email,
+                                        password = password,
+                                        name = name,
+                                        number = number//.toInt()
+                                    )
+                                    userRepository.updateUser(userData = userData, context = context)
+                                },
 
-                            ) {
-                            Text(
-                                "Opdater",
-                                color = Color.White,
-                                fontSize = 16.sp
-                            )
+                                ) {
+                                Text(
+                                    "Opdater",
+                                    color = Color.White,
+                                    fontSize = 16.sp
+                                )
+                            }
+
                         }
                     }
                 }
             }
         }
     }
-}
-
-
 
 @Composable
 private fun ShowProfileImage(modifier: Modifier = Modifier) {
@@ -285,7 +277,8 @@ private fun ShowProfileImage(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun AlertDialogLogOut(navController: NavController) {
+fun AlertDialogLogOut(navController: NavController, userRepository: UserRepository) {
+    val context = LocalContext.current
     MaterialTheme {
         Row(modifier = Modifier.fillMaxWidth()) {
             val openBox = remember { mutableStateOf(false)  }
@@ -306,8 +299,8 @@ fun AlertDialogLogOut(navController: NavController) {
                     confirmButton = { Button(
                         onClick = {
                             openBox.value = false
-                            FirebaseAuth.getInstance().signOut()
-                            navController.navigate(Screen.Login.route)}) {
+                            userRepository.signUserOut(navController = navController, context = context)
+                        }) {
                         Text("Ja")
                     }
                     },
@@ -320,10 +313,9 @@ fun AlertDialogLogOut(navController: NavController) {
         }
     }
 }
-
 @Composable
-fun AlertDialogDeleteAccount(navController: NavController) {
-    val db = FirebaseFirestore.getInstance()
+fun AlertDialogDeleteAccount(navController: NavController, userRepository: UserRepository) {
+    val context = LocalContext.current
     MaterialTheme {
         Column {
             val openBox = remember { mutableStateOf(false)  }
@@ -340,8 +332,7 @@ fun AlertDialogDeleteAccount(navController: NavController) {
                     confirmButton = { Button(
                         onClick = {
                             openBox.value = false
-                            db.collection("users").document(FirebaseAuth.getInstance().currentUser!!.uid).delete()
-                            navController.navigate(Screen.Login.route)
+                            userRepository.deleteUser(navController = navController, context = context)
                                 }) {
                         Text("Ja, slet")
                     }

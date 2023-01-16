@@ -36,7 +36,7 @@ import com.project.oplevapp.data.user.utils.showMsg
 import com.project.oplevapp.nav.Screen
 import com.project.oplevapp.ui.shared.components.MyTextField
 import com.project.oplevapp.ui.shared.components.PasswordVisibilityField
-import com.project.oplevapp.ui.shared.components.ProgressIndicator
+import com.project.oplevapp.ui.shared.ProgressIndicator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 //Der kan tastes mail og adgangskode, hvor den så opretter til firebase.
@@ -55,7 +55,7 @@ fun CreateProgress(
     userRepository: UserRepository
 ) {
     var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+    var password by rememberSaveable { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
     var number by remember { mutableStateOf("") }
     var userID by remember { mutableStateOf("") }

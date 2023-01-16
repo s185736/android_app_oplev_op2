@@ -92,7 +92,7 @@ fun LandingPage(navController: NavController) {
                         )
                     ) {
                         Text(
-                            "Login",
+                            "Log Ind",
                             modifier = Modifier.padding(horizontal = 40.dp, vertical = 4.dp),
                             fontSize = 15.sp,
                             fontWeight = FontWeight.SemiBold
