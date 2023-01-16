@@ -75,7 +75,7 @@ fun LandingPage(navController: NavController) {
 
                     Spacer(modifier = Modifier.padding(bottom = 27.dp))
                     Button(
-                        onClick = { navController.navigate(Screen.TripList.route) },
+                        onClick = { navController.navigate(Screen.Login.route) },
                         shape = RoundedCornerShape(percent = 50),
                         modifier = Modifier.border(
                             width = 1.dp,
@@ -92,7 +92,7 @@ fun LandingPage(navController: NavController) {
                         )
                     ) {
                         Text(
-                            "SE REJSER",
+                            "Login",
                             modifier = Modifier.padding(horizontal = 40.dp, vertical = 4.dp),
                             fontSize = 15.sp,
                             fontWeight = FontWeight.SemiBold
