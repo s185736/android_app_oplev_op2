@@ -164,6 +164,7 @@ fun LoginPage(
                                     isDialog = when(it){
                                         is ResultState.Success -> {
                                             context.showMsg(it.data)
+                                            navController.navigate(Screen.Profile.route)
                                             false
                                         }
                                         is ResultState.Failure->{

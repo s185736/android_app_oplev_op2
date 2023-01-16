@@ -255,7 +255,7 @@ fun CreateProgress(
                         number = number//.toInt()
                     )
                     userRepository.saveUser(userData = userData, context = context)
-                        navController.navigate(Screen.Login.route)
+                        navController.navigate(Screen.Profile.route)
                 }) {
                     Text(text = "Gem profil i database")
                 }
