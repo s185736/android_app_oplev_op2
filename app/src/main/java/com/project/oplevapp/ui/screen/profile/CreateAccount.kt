@@ -58,13 +58,19 @@ fun CreateProgress(
     var password by rememberSaveable { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
     var number by remember { mutableStateOf("") }
-    var userID by remember { mutableStateOf("") }
 
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
     var isDialog by remember { mutableStateOf(false) }
     if (isDialog)
         ProgressIndicator()
+
+    var check by remember {
+        mutableStateOf(false)
+    }
+    var openDialog by remember {
+        mutableStateOf(false)
+    }
 
     Scaffold {
         Box {
@@ -106,6 +112,7 @@ fun CreateProgress(
                     Color.Gray,
                     vectorPainter = painterResource(id = R.drawable.ic_outline_person_24),
                 )
+
                 Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
                 MyTextField(
@@ -139,8 +146,8 @@ fun CreateProgress(
                     Color.Gray,
                     vectorPainter = painterResource(id = R.drawable.ic_outline_phone_24)
                 )
-                Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
+                Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
                 PasswordVisibilityField(
                     text = password,
@@ -195,32 +202,61 @@ fun CreateProgress(
 
                 )
 
-
                 Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
                 Row(
                     modifier = Modifier.fillMaxWidth(), Arrangement.SpaceBetween
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
-                        Checkbox(checked = true, onCheckedChange = {})
-                        Text(text = "Agree with terms and conditions", fontSize = 12.sp)
+                        Checkbox(checked = check, onCheckedChange = { check = it })
+                        TextButton(
+                            onClick = { openDialog = true }) {
+                            Text(
+                                text = "Bekræfter vilkår, betingelser og GDPR regler",
+                                fontSize = 12.sp
+                            )
+                        }
+                        if (openDialog) {
+                            AlertDialog(
+                                onDismissRequest = {
+                                    openDialog = false
+                                },
+                                title = {
+                                    Text(text = "Vilkår, betingelser og GDPR")
+                                },
+                                text = {
+                                    Text(
+                                        text = "Jeg giver OPLEV APS samtykke til at opbevare mine\n" +
+                                                "kontaktinformationer. Informationer må bruges til forbedring af appen\n" +
+                                                "og markedsføring."
+                                    )
+                                },
+                                confirmButton = {
+                                    Button(
+
+                                        onClick = {
+                                            openDialog = false
+                                        }) {
+                                        Text("Luk besked")
+                                    }
+                                },
+                            )
+                        }
 
                     }
                 }
-                //Spacer(modifier = Modifier.padding(bottom = 27.dp))
-
+                Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
                 Button(
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color(5, 54, 103)),
-                    modifier = Modifier.padding(70.dp),
+                    //modifier = Modifier.padding(27.dp),
                     onClick = {
                         scope.launch(Dispatchers.Main) {
                             viewModel.userCreate(
                                 User(
                                     email,
                                     password,
-
-                                    )
+                                )
                             ).collect {
                                 var temp = false
                                 isDialog = when (it) {
@@ -251,22 +287,21 @@ fun CreateProgress(
                                 }
                             }
                         }
-                    },
+                    }, enabled = check
 
                     ) {
                     Text("Opret")
                 }
 
-                TextButton(onClick = {}) {
+                Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
+                TextButton(onClick = { navController.navigate(Screen.Login.route) }) {
                     Text(text = "Har du allerede en konto? Login", fontSize = 12.sp)
-
                 }
             }
         }
     }
 }
-
 
     @Composable
     fun OpretButton() {
