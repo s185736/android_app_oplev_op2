@@ -124,9 +124,14 @@ fun ResetPassword(
                             .fillMaxWidth()
                             .padding(30.dp),
 
-
                         onClick = {
-
+                                Firebase.auth.sendPasswordResetEmail(email)
+                                    .addOnCompleteListener { task ->
+                                        if (task.isSuccessful) {
+                                            Toast.makeText(context, "Nulstilling af kodeord er sendt til mailen.", Toast.LENGTH_SHORT).show()
+                                            navController.navigate(Screen.Login.route)
+                                        }
+                                    }
                             },
                     ) {
                         Text("Nulstil Adgangskode")
