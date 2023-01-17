@@ -161,8 +161,8 @@ fun CreateProgress(
                         else Icons.Filled.VisibilityOff
 
                         val content = if (passwordVisible) "Skjul kodeord." else "Vis kodeord."
-                        IconButton(onClick = {passwordVisible = !passwordVisible}){
-                            Icon(imageVector  = icon, content)
+                        IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                            Icon(imageVector = icon, content)
                         }
                     }
                 )
@@ -188,8 +188,8 @@ fun CreateProgress(
                         else Icons.Filled.VisibilityOff
 
                         val content = if (passwordVisible) "Skjul kodeord." else "Vis kodeord."
-                        IconButton(onClick = {passwordVisible = !passwordVisible}){
-                            Icon(imageVector  = icon, content)
+                        IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                            Icon(imageVector = icon, content)
                         }
                     }
 
@@ -207,67 +207,65 @@ fun CreateProgress(
 
                     }
                 }
-                    //Spacer(modifier = Modifier.padding(bottom = 27.dp))
+                //Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
 
-                    Button(
-                        colors = ButtonDefaults.buttonColors(backgroundColor = Color(5,54,103)),
-                        modifier = Modifier.padding(70.dp) ,
-                        onClick = {
-                            scope.launch(Dispatchers.Main) {
-                                viewModel.userCreate(
-                                      User(
-                                          email,
-                                          password,
-
-                                      )
-                                  ).collect {
-                                      isDialog = when (it) {
-                                          is ResultState.Success -> {
-                                              context.showMsg(it.data)
-                                              false
-                                          }
-                                          is ResultState.Failure -> {
-                                              context.showMsg(it.msg.toString())
-                                              false
-                                          }
-                                          ResultState.Loading -> {
-                                              true
-                                          }
-                                      }
-                                  }
-                              }
-                                  },
-
-                        ) {
-                        Text("Opret")
-                    }
-
-                //se om det kan sætte i en knap måske, hvor den gemmer først når brugeren er oprettet
                 Button(
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color(5,54,103)),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color(5, 54, 103)),
+                    modifier = Modifier.padding(70.dp),
                     onClick = {
-                    val userData = UserData(
-                        userID = Firebase.auth.currentUser?.uid.toString(),
-                        email = email,
-                        password = password ,
-                        name = name,
-                        number = number//.toInt()
-                    )
-                    userRepository.saveUser(userData = userData, context = context)
-                        navController.navigate(Screen.Profile.route)
-                }) {
-                    Text(text = "Gem profil i database")
+                        scope.launch(Dispatchers.Main) {
+                            viewModel.userCreate(
+                                User(
+                                    email,
+                                    password,
+
+                                    )
+                            ).collect {
+                                var temp = false
+                                isDialog = when (it) {
+                                    is ResultState.Success -> {
+                                        context.showMsg(it.data)
+                                        temp = true
+                                        false
+                                    }
+                                    is ResultState.Failure -> {
+                                        context.showMsg(it.msg.toString())
+                                        false
+                                    }
+                                    ResultState.Loading -> {
+                                        true
+                                    }
+                                }
+                                if (temp) {
+                                    val userData = UserData(
+                                        userID = Firebase.auth.currentUser?.uid.toString(),
+                                        email = email,
+                                        password = password,
+                                        name = name,
+                                        number = number//.toInt()
+                                    )
+                                    userRepository.saveUser(userData = userData, context = context)
+                                    navController.navigate(Screen.Profile.route)
+                                    temp = false
+                                }
+                            }
+                        }
+                    },
+
+                    ) {
+                    Text("Opret")
                 }
 
-                    TextButton(onClick = {}) {
+                TextButton(onClick = {}) {
 
-                        Text(text = "Har du allerede en konto? Login", fontSize = 12.sp)
+                    Text(text = "Har du allerede en konto? Login", fontSize = 12.sp)
 
-                    }
+                }
             }
         }
     }
+}
 
 
     @Composable
@@ -289,10 +287,10 @@ fun CreateProgress(
                 )
 
             }
-
         }
     }
-}
+
+
 
 
 
