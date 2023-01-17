@@ -19,6 +19,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.project.oplevapp.ui.screen.country.ShareTrip
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.data.CountryRepository
@@ -99,6 +100,7 @@ fun MainNavHost() {
                     println("No data in country")
                 }
             }
+
             composable(Screen.EditCountry.route) {
                 //receiving data
                 val country =
@@ -147,6 +149,11 @@ fun MainNavHost() {
                 val color = it.arguments?.getInt("ideaColor") ?: -1
                 ModifyPortal(navController = navController, ideaColor = color)
             }
+
+
+            composable(Screen.TripShare.route){ ShareTrip(navController) }
+
+
         }
     }
 }

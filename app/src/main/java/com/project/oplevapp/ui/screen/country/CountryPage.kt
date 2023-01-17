@@ -32,7 +32,7 @@ fun CountryPage(country: Country, navController: NavController) {
         item {
             ParallaxToolbar(country, navController)
             BasisInfo(country, navController)
-            Description(country)
+            Description(country, navController)
             AddToShareBoardButton("Idea Portal"){
                 navController.navigate(Screen.IdeaScreen.route)
             }
@@ -114,7 +114,7 @@ fun OptionBar(country: Country){
 }
 
 @Composable
-fun Description(country: Country){
+fun Description(country: Country, navController: NavController){
     Box(modifier = Modifier.height(16.dp)) {
     }
     TitleStandard(text = "Info:")
@@ -130,6 +130,7 @@ fun Description(country: Country){
     TitleStandard(text = "Tilføj deltagere:")
     Button(
         onClick = {
+                  navController.navigate(Screen.TripShare.route)
         },
         elevation = null,
         colors = ButtonDefaults.buttonColors(
