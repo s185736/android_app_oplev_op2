@@ -88,7 +88,7 @@ fun MainNavHost() {
         NavHost(navController, startDestination = Screen.LandingPage.route, Modifier.padding(innerPadding)) {
 
             composable(Screen.Profile.route) { Profile(navController = navController, userRepository = userRepository) }
-            composable(Screen.ResetPassword.route) { ResetPassword(navController = navController, userRepository = userRepository) }
+            composable(Screen.ResetPassword.route) { ResetPassword(navController = navController) }
             composable(Screen.CountriesList.route) { CountriesList(navController) }
             composable(Screen.Country.route) {
                 //receiving data
