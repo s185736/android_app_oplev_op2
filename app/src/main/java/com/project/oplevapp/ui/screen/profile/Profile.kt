@@ -241,13 +241,10 @@ fun ProfileInfo(navController: NavController, userRepository: UserRepository) {
                                         name = name,
                                         number = number//.toInt()
                                     )
-                                    userRepository.updateUser(userData = userData, context = context)
                                     val user = Firebase.auth.currentUser
                                     user!!.updatePassword(password).addOnCompleteListener { task ->
                                             if (task.isSuccessful) {
-                                                Toast.makeText(context,
-                                                    "Din profil er nu opdateret.",
-                                                    Toast.LENGTH_SHORT).show()
+                                                userRepository.updateUser(userData = userData, context = context)
                                             }
                                         }
                                 },

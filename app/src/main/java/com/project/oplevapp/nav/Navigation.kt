@@ -36,6 +36,7 @@ import com.project.oplevapp.ui.screen.idea_portal.actions.ModifyPortal
 import com.project.oplevapp.ui.screen.idea_portal.actions.idea.PortalScreen
 import com.project.oplevapp.ui.screen.profile.CreateAccount
 import com.project.oplevapp.ui.screen.profile.Profile
+import com.project.oplevapp.ui.screen.profile.ResetPassword
 
 
 @RequiresApi(Build.VERSION_CODES.N)
@@ -86,7 +87,7 @@ fun MainNavHost() {
         NavHost(navController, startDestination = Screen.LandingPage.route, Modifier.padding(innerPadding)) {
 
             composable(Screen.Profile.route) { Profile(navController = navController, userRepository = userRepository) }
-
+            composable(Screen.ResetPassword.route) { ResetPassword(navController = navController, userRepository = userRepository) }
             composable(Screen.CountriesList.route) { CountriesList(navController) }
             composable(Screen.Country.route) {
                 //receiving data
@@ -115,7 +116,7 @@ fun MainNavHost() {
                 }
             }
 
-            composable(Screen.Login.route){ LoginPage(navController) }
+            composable(Screen.Login.route){ LoginPage(userRepository, navController) }
             composable(Screen.Note.route){ writeNotes(navController = navController, notesRepository ) }
             composable(Screen.AddCountry.route){ AddCountry(navController, countryRepository) }
 

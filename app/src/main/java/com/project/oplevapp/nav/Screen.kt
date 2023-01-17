@@ -11,6 +11,8 @@ import com.project.oplevapp.R
 
 sealed class Screen(val route: String, @StringRes val resourceId: Int, val icon: ImageVector?) {
 
+    object ResetPassword : Screen("Nulstil Adgangskode", R.string.resetpassword, null)
+
     object Profile : Screen("profile", R.string.profile, Icons.Default.Person)
 
     object LandingPage : Screen("landingpage", R.string.landingpage, null)
