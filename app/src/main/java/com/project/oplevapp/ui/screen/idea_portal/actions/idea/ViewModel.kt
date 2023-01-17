@@ -2,6 +2,7 @@
 /*Source: https://www.geeksforgeeks.org/mvvm-model-view-viewmodel-architecture-pattern-in-android*/
 package com.project.oplevapp.ui.screen.idea_portal.actions.idea
 
+import android.annotation.SuppressLint
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.compose.ui.graphics.toArgb
@@ -11,6 +12,10 @@ import androidx.lifecycle.viewModelScope
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.platform.LocalContext
+import com.project.oplevapp.data.IdeaRepository
+import com.project.oplevapp.data.user.UserRepository
+import com.project.oplevapp.model.NotesInfo
 import com.project.oplevapp.ui.screen.idea_portal.actions.MainActions
 import com.project.oplevapp.ui.screen.idea_portal.actions.MessageField
 import kotlinx.coroutines.Job
@@ -79,6 +84,8 @@ class ModifyViewModel @Inject constructor(
     private val ideaColorBackground = mutableStateOf(Idea.ideaColors.random().toArgb())
     private val ideaSharedFlow = MutableSharedFlow<UserInterfaceAction>()
     private var getIdeaID: Int? = null
+    val ideaRepository = IdeaRepository()
+
     private val ideaTitleField = mutableStateOf(
 
         MessageField(slot = "Skriv en kort titel.")
@@ -90,6 +97,14 @@ class ModifyViewModel @Inject constructor(
      val ideaMessage: State<MessageField> = ideaMessageField
      val ideaColor: State<Int> = ideaColorBackground
     val ideaFlow = ideaSharedFlow.asSharedFlow()
+
+    val ideaSave = Idea(
+        ideaTitle = ideaTitle.value.message,
+        ideaSuggestionText = ideaMessage.value.message,
+        ideaTimeCreated = System.currentTimeMillis(),
+        ideaColorStatus = ideaColor.value,
+        id = getIdeaID
+    )
 
     constructor(parcel: Parcel) : this(
         TODO("mainActions"),
@@ -161,6 +176,8 @@ class ModifyViewModel @Inject constructor(
                             )
                         )
                         ideaSharedFlow.emit(UserInterfaceAction.SaveObject)
+                        ideaRepository.saveIdea(ideaSave)
+
                     } catch(e: IdeaException) {
                         ideaSharedFlow.emit(
                             UserInterfaceAction.ShowSnackBar(

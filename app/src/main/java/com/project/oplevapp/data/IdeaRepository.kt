@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -15,25 +16,24 @@ import kotlinx.coroutines.launch
 
 class IdeaRepository(): ViewModel() {
 
-    fun saveIdea(idea: Idea, context: Context) = CoroutineScope(Dispatchers.IO).launch {
+    fun saveIdea(idea: Idea) = CoroutineScope(Dispatchers.IO).launch {
         var db = Firebase.firestore.collection("ideaPortal")
+
         try {
             if (idea.id != null) {
                 db.document(idea.id.toString()).set(idea)
                     .addOnSuccessListener {
-                        Toast.makeText(context, "Successfully saved.", Toast.LENGTH_SHORT)
-                            .show()
+                     //   Toast.makeText(context, "Successfully saved.", Toast.LENGTH_SHORT).show()
                     }
             } else {
                 db.add(idea)
                     .addOnSuccessListener {
-                        Toast.makeText(context, "Successfully saved.", Toast.LENGTH_SHORT)
-                            .show()
+                       // Toast.makeText(context, "Successfully saved.", Toast.LENGTH_SHORT).show()
                     }
             }
 
         } catch (e: Exception) {
-            Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
         }
     }
 
