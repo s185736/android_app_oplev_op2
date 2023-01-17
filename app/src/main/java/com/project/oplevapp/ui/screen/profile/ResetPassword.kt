@@ -45,22 +45,14 @@ import com.project.oplevapp.ui.shared.ProgressIndicator
 @SuppressLint("UnrememberedMutableState")
 @Composable
 fun ResetPassword(
-    userRepository: UserRepository,
     navController: NavController,
-    viewModel: UserViewModel = hiltViewModel()
 ) {
 
-    val uid = Firebase.auth.currentUser?.uid.toString()
-    val user = Firebase.auth.currentUser
     var email by remember { mutableStateOf("") }
-    val scope = rememberCoroutineScope()
     val context = LocalContext.current
     var isDialog by remember { mutableStateOf(false) }
     if (isDialog)
         ProgressIndicator()
-
-    val userState = mutableStateOf(User())
-    val focusManager = LocalFocusManager.current
 
     Scaffold {
         Box {

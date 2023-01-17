@@ -66,7 +66,6 @@ fun LoginPage(
     if (isDialog)
         ProgressIndicator()
 
-    val focusManager = LocalFocusManager.current
 
     Scaffold {
         Box {
