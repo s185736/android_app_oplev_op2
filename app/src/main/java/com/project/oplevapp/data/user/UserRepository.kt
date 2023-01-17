@@ -173,6 +173,14 @@ class UserRepository(): ViewModel() {
         FirebaseAuth.getInstance().currentUser?.uid?.let {
             db.collection("users").document(it).delete()
         }
+        val user = Firebase.auth.currentUser!!
+        user.delete()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d(TAG, "User account deleted.")
+                }
+            }
+        System.out.println("Successfully deleted user.");
         navController.navigate(Screen.LandingPage.route)
         Toast.makeText(context, "Din bruger er nu slettet fra databasen.", Toast.LENGTH_SHORT).show()
     }
