@@ -1,6 +1,8 @@
 /*Source: https://firebase.google.com/docs/auth/android/manage-users*/
 package com.project.oplevapp.ui.screen.profile
 
+import android.content.ContentValues
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -211,8 +213,10 @@ fun ProfileInfo(navController: NavController, userRepository: UserRepository) {
                             }
                         }
                     )
+                    Spacer(modifier = Modifier.padding(bottom = 27.dp))
+                    val confirmNewPass = UpdateSaveNewPassword()
+
                     Spacer(modifier = Modifier.padding(bottom = 50.dp))
-                    
                     AlertDialogDeleteAccount(navController, userRepository)
                     Spacer(modifier = Modifier.padding(bottom = 10.dp))
 
@@ -238,6 +242,13 @@ fun ProfileInfo(navController: NavController, userRepository: UserRepository) {
                                         number = number//.toInt()
                                     )
                                     userRepository.updateUser(userData = userData, context = context)
+                                    val user = Firebase.auth.currentUser
+                                    user!!.updatePassword(password)
+                                        .addOnCompleteListener { task ->
+                                            if (task.isSuccessful) {
+                                                Log.d(ContentValues.TAG, "Kodeordet er ændret")
+                                            }
+                                        }
                                 },
 
                                 ) {
@@ -346,3 +357,32 @@ fun AlertDialogDeleteAccount(navController: NavController, userRepository: UserR
         }
     }
 }
+
+@Composable
+fun UpdateSaveNewPassword() {
+    var confirmNewPass by remember { mutableStateOf("") }
+    TextField(
+        value = confirmNewPass,
+        colors = TextFieldDefaults.textFieldColors(
+            backgroundColor = Color.White,
+            cursorColor = Color.Black,
+            focusedIndicatorColor = Color.Black,
+            unfocusedIndicatorColor = Color.Transparent),
+        modifier = Modifier
+            .height(49.dp)
+            .width(250.dp)
+            .offset(x = 2.dp),
+        shape = RoundedCornerShape(8.dp),
+        onValueChange = {newText ->
+            confirmNewPass = newText},
+        label ={
+            Text(text = "Gentag nyt kodeord:",
+                color = Color.Gray,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Bold)
+        },
+
+        )
+
+}
+

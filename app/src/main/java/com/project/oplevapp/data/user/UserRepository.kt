@@ -1,6 +1,8 @@
 package com.project.oplevapp.data.user
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
@@ -181,4 +183,5 @@ class UserRepository(): ViewModel() {
         navController.navigate(Screen.Login.route)
         Toast.makeText(context, "Du er nu logget ud.", Toast.LENGTH_SHORT).show()
     }
+
 }

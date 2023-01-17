@@ -1,6 +1,7 @@
 package com.project.oplevapp.data
 
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
@@ -19,6 +20,9 @@ class IdeaRepository(): ViewModel() {
     fun saveIdea(idea: Idea) = CoroutineScope(Dispatchers.IO).launch {
         var db = Firebase.firestore.collection("ideaPortal")
 
+        //db.collection("cities").set(city)
+         //   .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
+         //   .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
         try {
             if (idea.id != null) {
                 db.document(idea.id.toString()).set(idea)
