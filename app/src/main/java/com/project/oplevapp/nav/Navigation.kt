@@ -1,16 +1,15 @@
 package com.project.oplevapp.nav
 
-
 import android.os.Build
 import androidx.annotation.RequiresApi
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -26,6 +25,7 @@ import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.data.CountryRepository
 import com.project.oplevapp.data.user.UserRepository
 import com.project.oplevapp.data.NotesRepository
+import com.project.oplevapp.data.user.UserData
 import com.project.oplevapp.model.Country
 import com.project.oplevapp.ui.screen.*
 import com.project.oplevapp.ui.screen.profile.LoginPage
@@ -47,10 +47,6 @@ fun MainNavHost() {
     val countryRepository = CountryRepository()
     val userRepository = UserRepository()
     val notesRepository = NotesRepository()
-
-    val auth by lazy {
-        Firebase.auth
-    }
 
     Scaffold(
         bottomBar = {
@@ -89,7 +85,8 @@ fun MainNavHost() {
         }
     ) { innerPadding ->
         NavHost(navController, startDestination = Screen.LandingPage.route, Modifier.padding(innerPadding)) {
-            composable(Screen.Profile.route) { Profile(navController = navController) }
+
+            composable(Screen.Profile.route) { Profile(navController = navController, userRepository = userRepository) }
 
             composable(Screen.CountriesList.route) { CountriesList(navController) }
             composable(Screen.Country.route) {
@@ -133,7 +130,7 @@ fun MainNavHost() {
                 )
             }
             composable(Screen.CreateAccount.route) {
-                CreateAccount(userRepository = userRepository)
+                CreateAccount(navController = navController, userRepository = userRepository)
             }
             composable(Screen.IdeaScreen.route) { PortalScreen(navController = navController) }
             composable(
@@ -152,6 +149,7 @@ fun MainNavHost() {
                 val color = it.arguments?.getInt("ideaColor") ?: -1
                 ModifyPortal(navController = navController, ideaColor = color)
             }
+
 
             composable(Screen.TripShare.route){ ShareTrip(navController) }
 

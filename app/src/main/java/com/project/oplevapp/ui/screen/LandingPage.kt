@@ -36,7 +36,9 @@ fun LandingPage(navController: NavController) {
             Image(
                 painter= painterResource(id = R.drawable.image1),
                 contentDescription = "Logo",
-                modifier = Modifier.fillMaxWidth().padding(30.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(30.dp),
                 contentScale = ContentScale.Crop
             )
 
@@ -44,18 +46,19 @@ fun LandingPage(navController: NavController) {
 
 
 
+
             Column(
                 Modifier
-                    .padding(horizontal = 32.dp, vertical = 80.dp)
+                    .padding(horizontal = 32.dp, vertical = 48.dp)
                     .fillMaxSize()
             ) {
 
 
-                Spacer(Modifier.fillMaxHeight(0.3f))
+                Spacer(Modifier.fillMaxHeight(0.14f))
 
                 Column(
                     horizontalAlignment=Alignment.CenterHorizontally,
-                    modifier = Modifier.padding(27.dp)
+                    modifier = Modifier.padding(60.dp)
                 ) {
 
 
@@ -75,7 +78,7 @@ fun LandingPage(navController: NavController) {
 
                     Spacer(modifier = Modifier.padding(bottom = 27.dp))
                     Button(
-                        onClick = { navController.navigate(Screen.TripList.route) },
+                        onClick = { navController.navigate(Screen.Login.route) },
                         shape = RoundedCornerShape(percent = 50),
                         modifier = Modifier.border(
                             width = 1.dp,
@@ -92,22 +95,25 @@ fun LandingPage(navController: NavController) {
                         )
                     ) {
                         Text(
-                            "SE REJSER",
+                            "Log Ind",
                             modifier = Modifier.padding(horizontal = 40.dp, vertical = 4.dp),
                             fontSize = 15.sp,
                             fontWeight = FontWeight.SemiBold
                         )
                     }
-                    Spacer(modifier = Modifier.padding( 27.dp))
+                    Spacer(modifier = Modifier.padding( 20.dp))
 
                     Image(
                         painter = painterResource(id = R.drawable.rejse),
                         contentDescription = "travel Image",
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = Modifier.fillMaxWidth(),
                         contentScale = ContentScale.Crop
                     )
 
                 }
+
+
+
 
             }
         }

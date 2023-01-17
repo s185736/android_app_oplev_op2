@@ -29,6 +29,8 @@ data class Idea(
             parcel.readValue(Int::class.java.classLoader) as? Int
             )
 
+
+
     /*Colors that can be chosen for created idea.
     * Purpose: To make it look colorful and different..*/
     companion object {

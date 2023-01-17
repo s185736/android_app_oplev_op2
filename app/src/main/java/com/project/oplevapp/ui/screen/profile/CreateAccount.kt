@@ -2,6 +2,7 @@ package com.project.oplevapp.ui.screen.profile
 
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -22,6 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.R
@@ -31,20 +33,29 @@ import com.project.oplevapp.data.user.UserData
 import com.project.oplevapp.data.user.UserRepository
 import com.project.oplevapp.data.user.ui.UserViewModel
 import com.project.oplevapp.data.user.utils.showMsg
+import com.project.oplevapp.nav.Screen
 import com.project.oplevapp.ui.shared.components.MyTextField
 import com.project.oplevapp.ui.shared.components.PasswordVisibilityField
-import com.project.oplevapp.ui.shared.components.ProgressIndicator
+import com.project.oplevapp.ui.shared.ProgressIndicator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 //Der kan tastes mail og adgangskode, hvor den så opretter til firebase.
 
 @Composable
-fun CreateAccount(
-    viewModel: UserViewModel = hiltViewModel(),
+fun CreateAccount(  viewModel: UserViewModel = hiltViewModel(), navController: NavController, userRepository: UserRepository) {
+    LazyColumn() {
+        item {
+            CreateProgress(navController = navController, userRepository = userRepository)        }
+    }
+}
+
+@Composable
+fun CreateProgress(
+    navController: NavController, viewModel: UserViewModel = hiltViewModel(),
     userRepository: UserRepository
 ) {
     var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+    var password by rememberSaveable { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
     var number by remember { mutableStateOf("") }
     var userID by remember { mutableStateOf("") }
@@ -150,15 +161,15 @@ fun CreateAccount(
                         else Icons.Filled.VisibilityOff
 
                         val content = if (passwordVisible) "Skjul kodeord." else "Vis kodeord."
-                        IconButton(onClick = {passwordVisible = !passwordVisible}){
-                            Icon(imageVector  = icon, content)
+                        IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                            Icon(imageVector = icon, content)
                         }
                     }
                 )
 
                 Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
-                MyTextField(
+                PasswordVisibilityField(
                     text = confirmPassword,
                     textSize = 15,
                     onValueChange = { confirmPassword = it },
@@ -166,11 +177,22 @@ fun CreateAccount(
                     width = 320,
                     height = 57,
                     KeyboardType.Password,
-                    visualTransformation = PasswordVisualTransformation(),
+                    visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                     Color.DarkGray,
                     Color.LightGray,
                     Color.Gray,
-                    vectorPainter = painterResource(id = R.drawable.ic_outline_lock_24)
+                    vectorPainter = painterResource(id = R.drawable.ic_outline_lock_24),
+                    trailingIcon = {
+                        val icon = if (passwordVisible)
+                            Icons.Filled.Visibility
+                        else Icons.Filled.VisibilityOff
+
+                        val content = if (passwordVisible) "Skjul kodeord." else "Vis kodeord."
+                        IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                            Icon(imageVector = icon, content)
+                        }
+                    }
+
                 )
 
 
@@ -185,66 +207,65 @@ fun CreateAccount(
 
                     }
                 }
-                    //Spacer(modifier = Modifier.padding(bottom = 27.dp))
+                //Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
 
-                    Button(
-                        colors = ButtonDefaults.buttonColors(backgroundColor = Color(5,54,103)),
-                        modifier = Modifier.padding(70.dp) ,
-                        onClick = {
-                            scope.launch(Dispatchers.Main) {
-                                viewModel.userCreate(
-                                      User(
-                                          email,
-                                          password,
-
-                                      )
-                                  ).collect {
-                                      isDialog = when (it) {
-                                          is ResultState.Success -> {
-                                              context.showMsg(it.data)
-                                              false
-                                          }
-                                          is ResultState.Failure -> {
-                                              context.showMsg(it.msg.toString())
-                                              false
-                                          }
-                                          ResultState.Loading -> {
-                                              true
-                                          }
-                                      }
-                                  }
-                              }
-                                  },
-
-                        ) {
-                        Text("Opret")
-                    }
-
-                //se om det kan sætte i en knap måske, hvor den gemmer først når brugeren er oprettet
                 Button(
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color(5,54,103)),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color(5, 54, 103)),
+                    modifier = Modifier.padding(70.dp),
                     onClick = {
-                    val userData = UserData(
-                        userID = Firebase.auth.currentUser?.uid.toString(),
-                        email = email,
-                        password = password ,
-                        name = name,
-                        number = number.toInt()
-                    )
-                    userRepository.saveUser(userData = userData, context = context)
-                }) {
-                    Text(text = "Gem profil i database")
+                        scope.launch(Dispatchers.Main) {
+                            viewModel.userCreate(
+                                User(
+                                    email,
+                                    password,
+
+                                    )
+                            ).collect {
+                                var temp = false
+                                isDialog = when (it) {
+                                    is ResultState.Success -> {
+                                        context.showMsg(it.data)
+                                        temp = true
+                                        false
+                                    }
+                                    is ResultState.Failure -> {
+                                        context.showMsg(it.msg.toString())
+                                        false
+                                    }
+                                    ResultState.Loading -> {
+                                        true
+                                    }
+                                }
+                                if (temp) {
+                                    val userData = UserData(
+                                        userID = Firebase.auth.currentUser?.uid.toString(),
+                                        email = email,
+                                        password = password,
+                                        name = name,
+                                        number = number//.toInt()
+                                    )
+                                    userRepository.saveUser(userData = userData, context = context)
+                                    navController.navigate(Screen.Profile.route)
+                                    temp = false
+                                }
+                            }
+                        }
+                    },
+
+                    ) {
+                    Text("Opret")
                 }
 
-                    TextButton(onClick = {}) {
+                TextButton(onClick = {}) {
 
-                        Text(text = "Har du allerede en konto? Login", fontSize = 12.sp)
+                    Text(text = "Har du allerede en konto? Login", fontSize = 12.sp)
 
-                    }
+                }
             }
         }
     }
+}
 
 
     @Composable
@@ -266,10 +287,10 @@ fun CreateAccount(
                 )
 
             }
-
         }
     }
-}
+
+
 
 
 
