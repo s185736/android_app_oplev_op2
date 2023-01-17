@@ -1,6 +1,8 @@
 package com.project.oplevapp.data.user
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
@@ -171,6 +173,14 @@ class UserRepository(): ViewModel() {
         FirebaseAuth.getInstance().currentUser?.uid?.let {
             db.collection("users").document(it).delete()
         }
+        val user = Firebase.auth.currentUser!!
+        user.delete()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d(TAG, "User account deleted.")
+                }
+            }
+        System.out.println("Successfully deleted user.");
         navController.navigate(Screen.LandingPage.route)
         Toast.makeText(context, "Din bruger er nu slettet fra databasen.", Toast.LENGTH_SHORT).show()
     }
@@ -181,4 +191,5 @@ class UserRepository(): ViewModel() {
         navController.navigate(Screen.Login.route)
         Toast.makeText(context, "Du er nu logget ud.", Toast.LENGTH_SHORT).show()
     }
+
 }

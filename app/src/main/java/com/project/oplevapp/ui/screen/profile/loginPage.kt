@@ -209,7 +209,6 @@ fun LoginPage(
     }
 }
 
-
 @Composable
 fun LoginButton(navController: NavController) {
     Button(
