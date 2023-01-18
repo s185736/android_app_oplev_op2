@@ -60,6 +60,12 @@ fun CreateProgress(
     var password by rememberSaveable { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
     var number by remember { mutableStateOf("") }
+    var passwordVisible by rememberSaveable {
+        mutableStateOf(false)
+    }
+    var confirmPassword by remember {
+        mutableStateOf("")
+    }
 
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
@@ -73,13 +79,19 @@ fun CreateProgress(
     var openDialog by remember {
         mutableStateOf(false)
     }
+    var identicalPassword by remember {
+        mutableStateOf(true)
+    }
+
 
     Scaffold {
         Box {
 
             Icon(imageVector = Icons.Default.ArrowBack,
                 contentDescription = null,
-                modifier = Modifier.padding(20.dp).clickable { navController.popBackStack() },
+                modifier = Modifier
+                    .padding(20.dp)
+                    .clickable { navController.popBackStack() },
             )
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -94,15 +106,6 @@ fun CreateProgress(
                 )
 
                 Spacer(modifier = Modifier.padding(bottom = 30.dp))
-
-
-                var passwordVisible by rememberSaveable {
-                    mutableStateOf(false)
-                }
-
-                var confirmPassword by remember {
-                    mutableStateOf("")
-                }
 
                 MyTextField(
                     text = name,
@@ -205,7 +208,6 @@ fun CreateProgress(
                             Icon(imageVector = icon, content)
                         }
                     }
-
                 )
 
                 Spacer(modifier = Modifier.padding(bottom = 27.dp))
@@ -251,6 +253,10 @@ fun CreateProgress(
 
                     }
                 }
+                //Tjekker hvis password er det samme som confirmpassword
+                //skal få lavet så¨man få besked på hvis koden ikke er identisk
+                identicalPassword = password == confirmPassword
+
                 Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
                 Button(
@@ -293,7 +299,7 @@ fun CreateProgress(
                                 }
                             }
                         }
-                    }, enabled = check
+                    }, enabled = check && identicalPassword
 
                     ) {
                     Text("Opret")
