@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.R
@@ -33,6 +34,7 @@ import com.project.oplevapp.data.user.utils.ResultState
 import com.project.oplevapp.data.user.User
 import com.project.oplevapp.data.user.UserData
 import com.project.oplevapp.data.user.UserRepository
+import com.project.oplevapp.data.user.repo.UserRepoImpl
 import com.project.oplevapp.data.user.ui.UserViewModel
 import com.project.oplevapp.data.user.utils.showMsg
 import com.project.oplevapp.nav.Screen

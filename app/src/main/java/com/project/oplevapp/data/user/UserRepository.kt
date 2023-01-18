@@ -48,19 +48,6 @@ class UserRepository(): ViewModel() {
                     }
             }
         }
-        /*
-        val fireStoreRef = Firebase.firestore
-            .collection("users")
-            .document(user.userID)
-
-        try {
-            fireStoreRef.set(user)
-                .addOnSuccessListener {
-                    Toast.makeText(context,"Fuldendt",Toast.LENGTH_SHORT).show()
-                }
-        }
-
-         */
         catch (e: Exception) {
             Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
         }
