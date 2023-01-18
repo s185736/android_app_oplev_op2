@@ -78,7 +78,9 @@ fun ModifyPortal(navController: NavController, ideaColor: Int, viewModel: Modify
                         val colorID: Int = it.toArgb()
                         Box(
                             modifier = Modifier
-                                .size(45.dp)
+                                //.size(45.dp)
+                                .height(25.dp)
+                                .width(45.dp)
                                 .shadow(20.dp, RectangleShape)
                                 .clip(RectangleShape)
                                 .background(it)
