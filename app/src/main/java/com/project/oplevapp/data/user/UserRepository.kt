@@ -187,8 +187,8 @@ class UserRepository(): ViewModel() {
     }
 
     fun signUserOut(navController: NavController, context: Context) {
-        userState.value = userState.value.copy(isSignedIn = false)
         FirebaseAuth.getInstance().signOut()
+        userState.value = userState.value.copy(isSignedIn = false)
         navController.navigate(Screen.Login.route)
         Toast.makeText(context, "Du er nu logget ud.", Toast.LENGTH_SHORT).show()
         //act.startActivity(Intent.makeRestartActivityTask(act?.intent?.component))
