@@ -7,6 +7,5 @@ data class UserData(
     val email: String = "",
     val password: String = "",
     val name: String = "",
-    // skal fikses til at være int senere
     val number: String = ""
 )

@@ -1,10 +1,11 @@
 package com.project.oplevapp.data.user
 
+import android.app.Activity
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
@@ -22,6 +23,8 @@ import kotlinx.coroutines.launch
 class UserRepository(): ViewModel() {
     val db = FirebaseFirestore.getInstance()
     val userState = mutableStateOf(User())
+    val act = Activity()
+
     fun saveUser(
         userData: UserData,
         context: Context
@@ -69,7 +72,7 @@ class UserRepository(): ViewModel() {
             if (userData.userID != null) {
                 db.document(userData.userID).set(userData)
                     .addOnSuccessListener {
-                        Toast.makeText(context, "Brugeren er blevet opdateret.", Toast.LENGTH_SHORT)
+                        Toast.makeText(context, "Din profil er blevet opdateret.", Toast.LENGTH_SHORT)
                             .show()
                     }
             } else {
@@ -171,6 +174,14 @@ class UserRepository(): ViewModel() {
         FirebaseAuth.getInstance().currentUser?.uid?.let {
             db.collection("users").document(it).delete()
         }
+        val user = Firebase.auth.currentUser!!
+        user.delete()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d(TAG, "User account deleted.")
+                }
+            }
+        System.out.println("Successfully deleted user.");
         navController.navigate(Screen.LandingPage.route)
         Toast.makeText(context, "Din bruger er nu slettet fra databasen.", Toast.LENGTH_SHORT).show()
     }
@@ -180,5 +191,17 @@ class UserRepository(): ViewModel() {
         FirebaseAuth.getInstance().signOut()
         navController.navigate(Screen.Login.route)
         Toast.makeText(context, "Du er nu logget ud.", Toast.LENGTH_SHORT).show()
+        //act.startActivity(Intent.makeRestartActivityTask(act?.intent?.component))
+    }
+
+    fun ResetPassword() {
+        userState.value.email?.let {
+            Firebase.auth.sendPasswordResetEmail(it)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Log.d(TAG, "Nulstilling af kodeord er sendt til mailen.")
+                    }
+                }
+        }
     }
 }

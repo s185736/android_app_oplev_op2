@@ -1,11 +1,13 @@
 package com.project.oplevapp.ui.screen.profile
 
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
@@ -75,6 +77,10 @@ fun CreateProgress(
     Scaffold {
         Box {
 
+            Icon(imageVector = Icons.Default.ArrowBack,
+                contentDescription = null,
+                modifier = Modifier.padding(20.dp).clickable { navController.popBackStack() },
+            )
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.padding(27.dp)
@@ -282,7 +288,7 @@ fun CreateProgress(
                                         number = number//.toInt()
                                     )
                                     userRepository.saveUser(userData = userData, context = context)
-                                    navController.navigate(Screen.Profile.route)
+                                    navController.navigate(Screen.Login.route)
                                     temp = false
                                 }
                             }

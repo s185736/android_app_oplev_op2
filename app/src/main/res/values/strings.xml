@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Oplev App</string>
+    <string name="resetpassword">Nulstil Adgangskode</string>
     <string name="landingpage">Profile</string>
     <string name="profile">Profile</string>
     <string name="country_list">Countries</string>
@@ -17,5 +18,6 @@
     <string name="add_country">Add Country</string>
     <string name="start_page">Startside</string>
     <string name="create_account">Opret profil</string>
+    <string name="trip_share">Trip Share</string>
     <string name="profile_image" />
 </resources>

@@ -19,6 +19,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.project.oplevapp.ui.screen.country.ShareTrip
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.data.CountryRepository
@@ -36,6 +37,7 @@ import com.project.oplevapp.ui.screen.idea_portal.actions.ModifyPortal
 import com.project.oplevapp.ui.screen.idea_portal.actions.idea.PortalScreen
 import com.project.oplevapp.ui.screen.profile.CreateAccount
 import com.project.oplevapp.ui.screen.profile.Profile
+import com.project.oplevapp.ui.screen.profile.ResetPassword
 
 
 @RequiresApi(Build.VERSION_CODES.N)
@@ -86,7 +88,7 @@ fun MainNavHost() {
         NavHost(navController, startDestination = Screen.LandingPage.route, Modifier.padding(innerPadding)) {
 
             composable(Screen.Profile.route) { Profile(navController = navController, userRepository = userRepository) }
-
+            composable(Screen.ResetPassword.route) { ResetPassword(navController = navController) }
             composable(Screen.CountriesList.route) { CountriesList(navController) }
             composable(Screen.Country.route) {
                 //receiving data
@@ -99,6 +101,7 @@ fun MainNavHost() {
                     println("No data in country")
                 }
             }
+
             composable(Screen.EditCountry.route) {
                 //receiving data
                 val country =
@@ -115,7 +118,7 @@ fun MainNavHost() {
                 }
             }
 
-            composable(Screen.Login.route){ LoginPage(navController) }
+            composable(Screen.Login.route){ LoginPage(userRepository, navController) }
             composable(Screen.Note.route){ writeNotes(navController = navController, notesRepository ) }
             composable(Screen.AddCountry.route){ AddCountry(navController, countryRepository) }
 
@@ -147,6 +150,11 @@ fun MainNavHost() {
                 val color = it.arguments?.getInt("ideaColor") ?: -1
                 ModifyPortal(navController = navController, ideaColor = color)
             }
+
+
+            composable(Screen.TripShare.route){ ShareTrip(navController) }
+
+
         }
     }
 }

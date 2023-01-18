@@ -1,6 +1,9 @@
 /*Source: https://firebase.google.com/docs/auth/android/manage-users*/
 package com.project.oplevapp.ui.screen.profile
 
+import android.content.ContentValues
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -211,8 +214,9 @@ fun ProfileInfo(navController: NavController, userRepository: UserRepository) {
                             }
                         }
                     )
+                    Spacer(modifier = Modifier.padding(bottom = 27.dp))
+
                     Spacer(modifier = Modifier.padding(bottom = 50.dp))
-                    
                     AlertDialogDeleteAccount(navController, userRepository)
                     Spacer(modifier = Modifier.padding(bottom = 10.dp))
 
@@ -237,7 +241,12 @@ fun ProfileInfo(navController: NavController, userRepository: UserRepository) {
                                         name = name,
                                         number = number//.toInt()
                                     )
-                                    userRepository.updateUser(userData = userData, context = context)
+                                    val user = Firebase.auth.currentUser
+                                    user!!.updatePassword(password).addOnCompleteListener { task ->
+                                            if (task.isSuccessful) {
+                                                userRepository.updateUser(userData = userData, context = context)
+                                            }
+                                        }
                                 },
 
                                 ) {
@@ -318,7 +327,7 @@ fun AlertDialogDeleteAccount(navController: NavController, userRepository: UserR
     val context = LocalContext.current
     MaterialTheme {
         Column {
-            val openBox = remember { mutableStateOf(false)  }
+            val openBox = remember { mutableStateOf(false) }
             Button(onClick = {
                 openBox.value = true
             }
@@ -329,20 +338,26 @@ fun AlertDialogDeleteAccount(navController: NavController, userRepository: UserR
                 AlertDialog(onDismissRequest = { openBox.value = false },
                     title = { Text(text = "Slet Bruger") },
                     text = { Text("Hovsa, du er ved at slette din bruger permanent. Er du sikker på det?") },
-                    confirmButton = { Button(
-                        onClick = {
-                            openBox.value = false
-                            userRepository.deleteUser(navController = navController, context = context)
-                                }) {
-                        Text("Ja, slet")
-                    }
+                    confirmButton = {
+                        Button(
+                            onClick = {
+                                openBox.value = false
+                                userRepository.deleteUser(
+                                    navController = navController,
+                                    context = context
+                                )
+                            }) {
+                            Text("Ja, slet")
+                        }
                     },
-                    dismissButton = { Button( onClick = { openBox.value = false }) {
-                        Text("Nej, fortryd")
-                    }
+                    dismissButton = {
+                        Button(onClick = { openBox.value = false }) {
+                            Text("Nej, fortryd")
+                        }
                     }
                 )
             }
         }
     }
 }
+

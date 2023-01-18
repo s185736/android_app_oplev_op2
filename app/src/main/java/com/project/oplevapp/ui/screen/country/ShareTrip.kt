@@ -1,9 +1,12 @@
-package com.example.sharetrip
+package com.project.oplevapp.ui.screen.country
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,22 +19,35 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.project.oplevapp.R
 
 
-@Preview(showBackground = true)
 @Composable
-fun ShareTrip() {
+fun ShareTrip(navController: NavController) {
     Scaffold {
-        Box {
 
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.padding(27.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(27.dp),
+                verticalArrangement = Arrangement.Center
             ) {
+
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.TopStart
+                ){
+                    Icon(imageVector = Icons.Default.ArrowBack,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .padding(20.dp)
+                            .clickable { navController.popBackStack() },
+                    )
+                }
                 Text(
                     text = "Del rejsen med andre",
                     color = Color(5, 54, 103),
@@ -61,7 +77,6 @@ fun ShareTrip() {
                     placeHolder = "Skriv deltager her ",
                     width = 320,
                     height = 300,
-                    KeyboardType.Text,
                     visualTransformation = VisualTransformation.None,
                     Color.DarkGray,
                     Color.LightGray,
@@ -85,6 +100,7 @@ fun ShareTrip() {
                     mutableStateOf("")
                 }
 
+
                 MyTextField(
                     text = email,
                     textSize = 15,
@@ -92,57 +108,19 @@ fun ShareTrip() {
                     placeHolder = "Mail@mail.dk",
                     width = 320,
                     height = 57,
-                    KeyboardType.Text,
                     visualTransformation = VisualTransformation.None,
                     Color.DarkGray,
                     Color.LightGray,
                     Color.Gray,
                     vectorPainter = painterResource(id = R.drawable.ic_outline_mail_outline_24),
                 )
-
-                Spacer(modifier = Modifier.padding(bottom = 5.dp))
-
-                Button(
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color(5, 54, 103)),
-                    shape = RoundedCornerShape(60),
-                    modifier = Modifier.padding(70.dp),
-
-
-                    onClick = { /** TO DO */ },
-
-                    ) {
-                    Text(
-                        "Invitere nu",
-                        color = Color.White,
-                    )
-
+                
+                AddToShareBoardButton(title = "Invitere nu") {
+                    
                 }
 
-
-                @Composable
-                fun InviteButton() {
-                    Button(
-                        onClick = {},
-                        shape = RoundedCornerShape(60),
-                        colors = ButtonDefaults.buttonColors(backgroundColor = Color(5, 54, 103)),
-                        modifier = Modifier
-                            .height(38.dp)
-                            .width(130.dp)
-                    ) {
-                        Row {
-                            Text(
-                                text = "Invitere nu",
-                                color = Color.White,
-                                fontSize = 12.sp,
-                                modifier = Modifier.padding()
-                            )
-
-                        }
-
-                    }
-                }
             }
-        }
+
     }
 }
 
@@ -155,14 +133,11 @@ fun MyTextField(
     placeHolder: String,
     width: Int,
     height: Int,
-    keyboardType: KeyboardType,
     visualTransformation: VisualTransformation,
     myTextColor: Color,
     backgroundColor: Color,
     placeHolderColor: Color,
     vectorPainter: Painter
-
-
 ) {
 
     Surface(
@@ -201,8 +176,8 @@ fun MyTextField(
 
                 visualTransformation = visualTransformation,
                 keyboardOptions = KeyboardOptions(
-                    keyboardType = keyboardType
-                ),
+                    keyboardType = KeyboardType.Text,
+                    ),
 
                 modifier = Modifier.fillMaxSize(),
 

@@ -35,6 +35,8 @@ import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.R
 import com.project.oplevapp.data.user.utils.ResultState
 import com.project.oplevapp.data.user.User
+import com.project.oplevapp.data.user.UserData
+import com.project.oplevapp.data.user.UserRepository
 import com.project.oplevapp.data.user.ui.UserViewModel
 
 import com.project.oplevapp.data.user.utils.showMsg
@@ -49,9 +51,12 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun LoginPage(
+    userRepository: UserRepository,
     navController: NavController,
     viewModel: UserViewModel = hiltViewModel()
     ) {
+    val uid = Firebase.auth.currentUser?.uid.toString()
+    val user = Firebase.auth.currentUser
     var email by remember { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
@@ -61,7 +66,6 @@ fun LoginPage(
     if (isDialog)
         ProgressIndicator()
 
-    val focusManager = LocalFocusManager.current
 
     Scaffold {
         Box {
@@ -151,7 +155,7 @@ fun LoginPage(
                             Text(text = "Gem adgangskode", fontSize=12.sp)
 
                         }
-                        TextButton(onClick = {/*TODO*/}) {
+                        TextButton(onClick = { navController.navigate(Screen.ResetPassword.route)}) {
                             Text(text = "Glemt adgangskode?", fontSize=12.sp)
                         }
 
@@ -177,6 +181,7 @@ fun LoginPage(
                                     isDialog = when(it){
                                         is ResultState.Success -> {
                                             context.showMsg(it.data)
+                                            user?.uid
                                             navController.navigate(Screen.TripList.route)
                                             false
                                         }
@@ -196,7 +201,6 @@ fun LoginPage(
                         Text("Log Ind")
                     }
                     //Dette skaffer UID fra den nuværende bruger.
-                    val uid = Firebase.auth.currentUser?.uid.toString()
                     Log.i("main", uid)
 
                     TextButton(onClick = {navController.navigate(Screen.CreateAccount.route)}) {
@@ -208,7 +212,6 @@ fun LoginPage(
         }
     }
 }
-
 
 @Composable
 fun LoginButton(navController: NavController) {
