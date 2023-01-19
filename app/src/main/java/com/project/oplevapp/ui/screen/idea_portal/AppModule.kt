@@ -5,9 +5,6 @@ package com.project.oplevapp.ui.screen.idea_portal
 
 import android.app.Application
 import androidx.room.Room
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.ui.screen.idea_portal.actions.*
 import com.project.oplevapp.data.ideaPortal.RoomDB
 import com.project.oplevapp.data.ideaPortal.Utils
