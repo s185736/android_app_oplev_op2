@@ -130,7 +130,7 @@ fun AddCountry(navController: NavController, countryRepository: CountryRepositor
                )
                Spacer(modifier = Modifier.size(20.dp))
 
-               //CityName
+               //DateDepature
                var dateDeparture by remember { mutableStateOf("") }
                MyTextField(
                    text = dateDeparture,
