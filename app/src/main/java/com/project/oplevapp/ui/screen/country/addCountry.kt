@@ -299,27 +299,3 @@ fun MyTextField(
         }
     }}
 
-@Composable
-fun AddCountryButton() {
-    Button(
-        onClick = { /*TODO*/ },
-        shape = RoundedCornerShape(60),
-        colors = ButtonDefaults.buttonColors(backgroundColor = Color(5, 54, 103)),
-        modifier = Modifier
-            .height(38.dp)
-            .width(130.dp)
-    ) {
-        Row {
-            Text(
-                "Tilføj",
-                color = Color.White,
-                fontSize = 12.sp,
-                modifier = Modifier.padding(start = 0.dp)
-            )
-        }
-
-    }
-
-}
-
-
