@@ -55,12 +55,15 @@ fun LoginPage(
     ) {
     val uid = Firebase.auth.currentUser?.uid.toString()
     val user = Firebase.auth.currentUser
+    val scope = rememberCoroutineScope()
+    val context = LocalContext.current
+
     var email by remember { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
-    val scope = rememberCoroutineScope()
-    val context = LocalContext.current
     var isDialog by remember { mutableStateOf(false) }
+
+
     if (isDialog)
         ProgressIndicator()
 
@@ -193,7 +196,6 @@ fun LoginPage(
                                     }
                                 }
                             }
-
                         },
                     ) {
                         Text("Log Ind")
@@ -211,34 +213,4 @@ fun LoginPage(
     }
 }
 
-@Composable
-fun LoginButton(navController: NavController) {
-    Button(
-        onClick = { navController.navigate(Screen.TripList.route) },
-    shape= RoundedCornerShape(60),
-        colors = ButtonDefaults.buttonColors(backgroundColor=Color(5,54,103)),
-        modifier = Modifier
-            .height(38.dp)
-            .width(130.dp)
-        ) {
-        Row {
-            Text(text = "Log Ind",
-                color= Color.White,
-                fontSize= 12.sp,
-                modifier= Modifier.padding()
-            )
-
-        }
-
-    }
-}
-
-/*
-@Preview
-@Composable
-fun LoginPagePreview(){
-    LoginPage(navController = rememberNavController())
-}
-
- */
 

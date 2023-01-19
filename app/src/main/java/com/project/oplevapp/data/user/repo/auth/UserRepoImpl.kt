@@ -41,7 +41,7 @@ class UserRepoImpl @Inject constructor(
             user.password!!
         ).addOnSuccessListener {
             trySend(ResultState.Success("Du er nu logget ind."))
-            UpdateUserUI(true)
+            updateUserUI(true)
             Log.d("main", "current user id: ${authDB.currentUser?.uid}")
         }.addOnFailureListener {
             trySend(ResultState.Failure(it))
@@ -51,7 +51,7 @@ class UserRepoImpl @Inject constructor(
         }
     }
 
-    fun UpdateUserUI(isOn : Boolean) {
+    fun updateUserUI(isOn : Boolean) {
         userState.value = userState.value.copy(isSignedIn = isOn)
     }
 }

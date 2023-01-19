@@ -54,22 +54,13 @@ fun Profile( navController: NavController, userRepository: UserRepository) {
 @Composable
 fun ProfileInfo(navController: NavController, userRepository: UserRepository) {
     val context = LocalContext.current
-    var email by remember {
-        mutableStateOf("")
-    }
-    var password by rememberSaveable {
-        mutableStateOf("")
-    }
-    var passwordVisible by rememberSaveable {
-        mutableStateOf(false)
-    }
-    var name by remember {
-        mutableStateOf("")
-    }
-    var number by remember {
-        mutableStateOf("")
-    }
     val userID = Firebase.auth.currentUser?.uid.toString()
+
+    var email by remember { mutableStateOf("") }
+    var password by rememberSaveable { mutableStateOf("") }
+    var passwordVisible by rememberSaveable { mutableStateOf(false) }
+    var name by remember { mutableStateOf("") }
+    var number by remember { mutableStateOf("") }
 
     userRepository.getUser(
         userID = userID,
@@ -81,7 +72,6 @@ fun ProfileInfo(navController: NavController, userRepository: UserRepository) {
         number = data.number
         password = data.password
     }
-
 
     Scaffold {
         Box {
@@ -162,9 +152,6 @@ fun ProfileInfo(navController: NavController, userRepository: UserRepository) {
                             )
                         }
                     )
-
-
-
 
                     Spacer(modifier = Modifier.padding(bottom = 27.dp))
 
@@ -251,7 +238,6 @@ fun ProfileInfo(navController: NavController, userRepository: UserRepository) {
                                     fontSize = 16.sp
                                 )
                             }
-
                         }
                     }
                 }
@@ -276,7 +262,6 @@ private fun ShowProfileImage(modifier: Modifier = Modifier) {
             modifier = modifier.size(100.dp),
             contentScale = ContentScale.Crop
         )
-
     }
 }
 

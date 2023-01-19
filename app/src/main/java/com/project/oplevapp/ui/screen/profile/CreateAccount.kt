@@ -60,29 +60,18 @@ fun CreateProgress(
     var password by rememberSaveable { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
     var number by remember { mutableStateOf("") }
-    var passwordVisible by rememberSaveable {
-        mutableStateOf(false)
-    }
-    var confirmPassword by remember {
-        mutableStateOf("")
-    }
+    var passwordVisible by rememberSaveable { mutableStateOf(false) }
+    var confirmPassword by remember { mutableStateOf("") }
+    var check by remember { mutableStateOf(false) }
+    var openDialog by remember { mutableStateOf(false) }
+    var identicalPassword by remember { mutableStateOf(true) }
+    var isDialog by remember { mutableStateOf(false) }
 
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
-    var isDialog by remember { mutableStateOf(false) }
+
     if (isDialog)
         ProgressIndicator()
-
-    var check by remember {
-        mutableStateOf(false)
-    }
-    var openDialog by remember {
-        mutableStateOf(false)
-    }
-    var identicalPassword by remember {
-        mutableStateOf(true)
-    }
-
 
     Scaffold {
         Box {
@@ -250,7 +239,6 @@ fun CreateProgress(
                                 },
                             )
                         }
-
                     }
                 }
                 //Tjekker hvis password er det samme som confirmpassword
@@ -315,27 +303,6 @@ fun CreateProgress(
     }
 }
 
-    @Composable
-    fun OpretButton() {
-        Button(
-            onClick = {},
-            shape = RoundedCornerShape(60),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color(5,54,103)),
-            modifier = Modifier
-                .height(38.dp)
-                .width(130.dp)
-        ) {
-            Row {
-                Text(
-                    text = "Opret",
-                    color = Color.White,
-                    fontSize = 12.sp,
-                    modifier = Modifier.padding()
-                )
-
-            }
-        }
-    }
 
 
 
