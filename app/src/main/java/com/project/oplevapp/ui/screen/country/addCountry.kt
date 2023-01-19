@@ -1,6 +1,7 @@
 package com.project.oplevapp.ui.screen.country
 
 
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -30,7 +31,6 @@ import com.project.oplevapp.ui.shared.components.WhitePreviousButton
 
 
 @Composable
-
 fun AddCountry(navController: NavController, countryRepository: CountryRepository) {
     Scaffold {
 
@@ -53,6 +53,7 @@ fun AddCountry(navController: NavController, countryRepository: CountryRepositor
         }
     }
 }
+
 
 
     @Composable
@@ -92,6 +93,7 @@ fun AddCountry(navController: NavController, countryRepository: CountryRepositor
                //CountryName
 
                var country by remember { mutableStateOf("") }
+
                MyTextField(
                    text = country,
                    textSize = 15,
@@ -106,6 +108,7 @@ fun AddCountry(navController: NavController, countryRepository: CountryRepositor
                    Color.Gray,
                    vectorPainter = painterResource(id = R.drawable.ic_baseline_near_me_24)
                )
+
 
                Spacer(modifier = Modifier.size(20.dp))
 
@@ -146,7 +149,7 @@ fun AddCountry(navController: NavController, countryRepository: CountryRepositor
 
                Spacer(modifier = Modifier.size(20.dp))
 
-               //CityName
+               //DateArrival
                var dateArrival by remember { mutableStateOf("") }
                MyTextField(
                    text = dateArrival,
@@ -161,10 +164,11 @@ fun AddCountry(navController: NavController, countryRepository: CountryRepositor
                    Color.LightGray,
                    Color.Gray,
                    vectorPainter = painterResource(id = R.drawable.ic_baseline_schedule_24)
-                   //vectorPainter = Icons.Rounded.Search
+
                )
                Spacer(modifier = Modifier.size(15.dp))
 
+               // ImageUrl
                var imageUrl by remember { mutableStateOf("") }
                MyTextField(
                    text = imageUrl,
@@ -179,10 +183,11 @@ fun AddCountry(navController: NavController, countryRepository: CountryRepositor
                    Color.LightGray,
                    Color.Gray,
                    vectorPainter = painterResource(id = R.drawable.ic_baseline_schedule_24)
-                   //vectorPainter = Icons.Rounded.Search
+
                )
                Spacer(modifier = Modifier.size(15.dp))
 
+               //Information about trip
                var info by remember { mutableStateOf("") }
                MyTextField(
                    text = info,
@@ -197,7 +202,7 @@ fun AddCountry(navController: NavController, countryRepository: CountryRepositor
                    Color.LightGray,
                    Color.Gray,
                    vectorPainter = painterResource(id = R.drawable.ic_baseline_schedule_24)
-                   //vectorPainter = Icons.Rounded.Search
+
                )
                Spacer(modifier = Modifier.size(15.dp))
 
