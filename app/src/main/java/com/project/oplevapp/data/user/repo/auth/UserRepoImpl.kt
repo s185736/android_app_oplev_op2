@@ -1,4 +1,4 @@
-package com.project.oplevapp.data.user.repo
+package com.project.oplevapp.data.user.repo.auth
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
@@ -23,7 +23,7 @@ class UserRepoImpl @Inject constructor(
             user.password!!
         ).addOnCompleteListener {
             if(it.isSuccessful){
-                trySend(ResultState.Success("Du har nu oprettet en bruger."))
+                trySend(ResultState.Success("Du har nu oprettet en profil."))
                 Log.d("main", "current user id: ${authDB.currentUser?.uid}")
             }
         }.addOnFailureListener {
@@ -40,7 +40,7 @@ class UserRepoImpl @Inject constructor(
             user.email!!,
             user.password!!
         ).addOnSuccessListener {
-            trySend(ResultState.Success("Du er nu logget på."))
+            trySend(ResultState.Success("Du er nu logget ind."))
             UpdateUserUI(true)
             Log.d("main", "current user id: ${authDB.currentUser?.uid}")
         }.addOnFailureListener {

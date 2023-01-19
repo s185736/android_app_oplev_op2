@@ -2,7 +2,6 @@
 /*Source: https://www.geeksforgeeks.org/mvvm-model-view-viewmodel-architecture-pattern-in-android*/
 package com.project.oplevapp.ui.screen.idea_portal.actions.idea
 
-import android.annotation.SuppressLint
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.compose.ui.graphics.toArgb
@@ -12,10 +11,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.platform.LocalContext
 import com.project.oplevapp.data.IdeaRepository
-import com.project.oplevapp.data.user.UserRepository
-import com.project.oplevapp.model.NotesInfo
 import com.project.oplevapp.ui.screen.idea_portal.actions.MainActions
 import com.project.oplevapp.ui.screen.idea_portal.actions.MessageField
 import kotlinx.coroutines.Job

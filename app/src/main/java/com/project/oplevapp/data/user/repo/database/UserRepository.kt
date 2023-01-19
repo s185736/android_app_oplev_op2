@@ -1,4 +1,4 @@
-package com.project.oplevapp.data.user
+package com.project.oplevapp.data.user.repo.database
 
 import android.app.Activity
 import android.content.ContentValues
@@ -15,6 +15,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import com.project.oplevapp.data.user.User
+import com.project.oplevapp.data.user.UserData
 import com.project.oplevapp.nav.Screen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -34,18 +36,11 @@ class UserRepository(): ViewModel() {
             if (userData.userID != null) {
                 db.document(userData.userID).set(userData)
                     .addOnSuccessListener {
-                        Toast.makeText(context, "Bruger tilføjet til database", Toast.LENGTH_SHORT)
+                        Toast.makeText(context, "Profilen er tilføjet til databasen", Toast.LENGTH_SHORT)
                             .show()
                     }
             } else {
-                db.add(userData)
-                    .addOnSuccessListener {
-                        Toast.makeText(
-                            context,
-                            "Bruger tilføjet til database",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                Toast.makeText(context, "Profilen kunne ikke tilføjes til databasen", Toast.LENGTH_SHORT)
             }
         }
         catch (e: Exception) {

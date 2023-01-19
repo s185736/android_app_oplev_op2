@@ -19,7 +19,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -35,9 +34,8 @@ import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.R
 import com.project.oplevapp.data.user.utils.ResultState
 import com.project.oplevapp.data.user.User
-import com.project.oplevapp.data.user.UserData
-import com.project.oplevapp.data.user.UserRepository
-import com.project.oplevapp.data.user.ui.UserViewModel
+import com.project.oplevapp.data.user.repo.database.UserRepository
+import com.project.oplevapp.data.user.UserViewModel
 
 import com.project.oplevapp.data.user.utils.showMsg
 import com.project.oplevapp.nav.Screen

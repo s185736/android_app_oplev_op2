@@ -1,9 +1,6 @@
 /*Source: https://firebase.google.com/docs/auth/android/manage-users*/
 package com.project.oplevapp.ui.screen.profile
 
-import android.content.ContentValues
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -34,12 +31,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.R
 import com.project.oplevapp.data.user.UserData
-import com.project.oplevapp.data.user.UserRepository
-import com.project.oplevapp.nav.Screen
+import com.project.oplevapp.data.user.repo.database.UserRepository
 import com.project.oplevapp.ui.shared.components.MyTextField
 import com.project.oplevapp.ui.shared.components.PasswordVisibilityField
 import com.project.oplevapp.ui.shared.components.UneditableTextField

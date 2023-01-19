@@ -26,16 +26,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.R
 import com.project.oplevapp.data.user.utils.ResultState
 import com.project.oplevapp.data.user.User
 import com.project.oplevapp.data.user.UserData
-import com.project.oplevapp.data.user.UserRepository
-import com.project.oplevapp.data.user.repo.UserRepoImpl
-import com.project.oplevapp.data.user.ui.UserViewModel
+import com.project.oplevapp.data.user.repo.database.UserRepository
+import com.project.oplevapp.data.user.UserViewModel
 import com.project.oplevapp.data.user.utils.showMsg
 import com.project.oplevapp.nav.Screen
 import com.project.oplevapp.ui.shared.components.MyTextField
@@ -46,7 +44,7 @@ import kotlinx.coroutines.launch
 //Der kan tastes mail og adgangskode, hvor den så opretter til firebase.
 
 @Composable
-fun CreateAccount(  viewModel: UserViewModel = hiltViewModel(), navController: NavController, userRepository: UserRepository) {
+fun CreateAccount(viewModel: UserViewModel = hiltViewModel(), navController: NavController, userRepository: UserRepository) {
     LazyColumn() {
         item {
             CreateProgress(navController = navController, userRepository = userRepository)        }

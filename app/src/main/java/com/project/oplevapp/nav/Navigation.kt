@@ -9,7 +9,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -20,12 +19,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.project.oplevapp.ui.screen.country.ShareTrip
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.data.CountryRepository
-import com.project.oplevapp.data.user.UserRepository
+import com.project.oplevapp.data.user.repo.database.UserRepository
 import com.project.oplevapp.data.NotesRepository
-import com.project.oplevapp.data.user.UserData
 import com.project.oplevapp.model.Country
 import com.project.oplevapp.ui.screen.*
 import com.project.oplevapp.ui.screen.profile.LoginPage
