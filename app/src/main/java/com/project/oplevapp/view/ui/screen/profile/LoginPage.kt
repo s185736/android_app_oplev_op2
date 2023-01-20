@@ -19,6 +19,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -198,7 +199,7 @@ fun LoginPage(
                             }
                         },
                     ) {
-                        Text("Log Ind")
+                        Text("Log ind")
                     }
                     //Dette skaffer UID fra den nuværende bruger.
                     Log.i("main", uid)
@@ -211,6 +212,11 @@ fun LoginPage(
             }
         }
     }
+}
+
+@Composable
+fun LoginPreview(){
+
 }
 
 

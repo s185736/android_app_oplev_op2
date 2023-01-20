@@ -42,11 +42,6 @@ fun LandingPage(navController: NavController) {
                 contentScale = ContentScale.Crop
             )
 
-
-
-
-
-
             Column(
                 Modifier
                     .padding(horizontal = 32.dp, vertical = 48.dp)
@@ -95,7 +90,7 @@ fun LandingPage(navController: NavController) {
                         )
                     ) {
                         Text(
-                            "Log Ind",
+                            "Login side",
                             modifier = Modifier.padding(horizontal = 40.dp, vertical = 4.dp),
                             fontSize = 15.sp,
                             fontWeight = FontWeight.SemiBold
@@ -111,10 +106,6 @@ fun LandingPage(navController: NavController) {
                     )
 
                 }
-
-
-
-
             }
         }
     }
