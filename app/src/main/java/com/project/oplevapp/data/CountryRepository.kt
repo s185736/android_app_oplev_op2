@@ -5,7 +5,6 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
-import androidx.navigation.NavController
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.model.Country
@@ -39,25 +38,7 @@ fun saveCountry(
         }
    }
 
-    fun deleteData(
-        id: String,
-        context: Context,
-    ) = CoroutineScope(Dispatchers.IO).launch{
 
-        var db = Firebase.firestore
-            .collection("countries")
-            .document(id)
-
-        try {
-            db.delete()
-                .addOnSuccessListener {
-                    Toast.makeText(context, "Successfully deleted data", Toast.LENGTH_SHORT).show()
-                }
-        }catch (e: Exception){
-            Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
-        }
-
-    }
 
 
 
