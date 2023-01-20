@@ -10,7 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class NotesRepository(): ViewModel() {
+class NotesRepository : ViewModel() {
 
     fun saveNotes(
         notes: NotesInfo,

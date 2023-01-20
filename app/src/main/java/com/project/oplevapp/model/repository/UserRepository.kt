@@ -20,7 +20,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class UserRepository(): ViewModel() {
+class UserRepository : ViewModel() {
     val db = FirebaseFirestore.getInstance()
     val userState = mutableStateOf(User())
 
@@ -98,7 +98,7 @@ class UserRepository(): ViewModel() {
                     Log.d(TAG, "User account deleted.")
                 }
             }
-        System.out.println("Successfully deleted user.");
+        System.out.println("Successfully deleted user.")
         navController.navigate(Screen.LandingPage.route)
         Toast.makeText(context, "Din bruger er nu slettet fra databasen.", Toast.LENGTH_SHORT).show()
     }

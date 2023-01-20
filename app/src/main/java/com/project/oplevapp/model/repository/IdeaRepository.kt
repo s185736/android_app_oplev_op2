@@ -15,7 +15,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class IdeaRepository(): ViewModel() {
+class IdeaRepository : ViewModel() {
 
     fun saveIdea(idea: Idea, context: Context) = CoroutineScope(Dispatchers.IO).launch {
         var db = Firebase.firestore.collection("ideaPortal")

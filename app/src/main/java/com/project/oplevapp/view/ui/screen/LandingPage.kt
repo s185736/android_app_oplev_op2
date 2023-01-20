@@ -24,8 +24,7 @@ import com.project.oplevapp.view.ui.nav.Screen
 @Composable
 fun LandingPage(navController: NavController) {
     Scaffold {
-        Box (
-        ){
+        Box {
             Image(
                 painter= painterResource(id = R.drawable.blue1),
                 contentDescription = "Background Image",

@@ -44,7 +44,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun CreateAccount(viewModel: UserViewModel = hiltViewModel(), navController: NavController, userRepository: UserRepository) {
-    LazyColumn() {
+    LazyColumn {
         item {
             CreateProgress(navController = navController, userRepository = userRepository)        }
     }

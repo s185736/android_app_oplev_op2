@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -43,7 +44,7 @@ import com.project.oplevapp.view.ui.theme.LightRed
 
 @Composable
 fun Profile( navController: NavController, userRepository: UserRepository) {
-    LazyColumn() {//modifier = Modifier.heightIn(100.dp, 48.dp)) {
+    LazyColumn {//modifier = Modifier.heightIn(100.dp, 48.dp)) {
         item {
             ProfileInfo(navController = navController, userRepository = userRepository)
         }
@@ -213,7 +214,8 @@ fun ProfileInfo(navController: NavController, userRepository: UserRepository) {
                                 shape = RoundedCornerShape(60),
                                 modifier = Modifier
                                     .height(45.dp)
-                                    .width(189.dp),
+                                    .width(189.dp)
+                                    .testTag("updateButton"),
                                 onClick = {
                                     val userData = UserData(
                                         userID = Firebase.auth.currentUser?.uid.toString(),

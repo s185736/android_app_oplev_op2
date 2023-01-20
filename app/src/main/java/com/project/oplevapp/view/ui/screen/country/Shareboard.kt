@@ -22,7 +22,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.project.oplevapp.model.data.Country
 import com.project.oplevapp.view.ui.nav.Screen
 
-val AppBarExpendedHeight = 400.dp;
+val AppBarExpendedHeight = 400.dp
 
 @Composable
 fun Shareboard(country: Country, navController: NavController) {

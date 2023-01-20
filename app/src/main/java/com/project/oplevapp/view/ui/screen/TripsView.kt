@@ -25,7 +25,7 @@ private fun TripsUI(tripInfo: TripInfo){
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ){
-        Column() {
+        Column {
             Text(text = "Destination: ${tripInfo.name}",
             fontSize = 24.sp)
             Image(painter = painterResource(id = tripInfo.image), contentDescription = "")

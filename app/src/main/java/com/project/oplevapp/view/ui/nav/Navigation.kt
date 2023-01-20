@@ -83,7 +83,7 @@ fun MainNavHost() {
                 }
             }
 
-            composable(Screen.Login.route) { LoginPage(userRepository, navController) }
+            composable(Screen.Login.route) { LoginPage(navController) }
             composable(Screen.Note.route) {
                 WriteNote(
                     navController = navController,

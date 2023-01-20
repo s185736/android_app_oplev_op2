@@ -50,7 +50,6 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun LoginPage(
-    userRepository: UserRepository,
     navController: NavController,
     viewModel: UserViewModel = hiltViewModel()
     ) {
