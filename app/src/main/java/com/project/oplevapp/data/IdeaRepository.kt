@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 
 class IdeaRepository(): ViewModel() {
 
-    fun saveIdea(idea: Idea) = CoroutineScope(Dispatchers.IO).launch {
+    fun saveIdea(idea: Idea, context: Context) = CoroutineScope(Dispatchers.IO).launch {
         var db = Firebase.firestore.collection("ideaPortal")
 
         //db.collection("cities").set(city)
@@ -27,17 +27,17 @@ class IdeaRepository(): ViewModel() {
             if (idea.id != null) {
                 db.document(idea.id.toString()).set(idea)
                     .addOnSuccessListener {
-                     //   Toast.makeText(context, "Successfully saved.", Toast.LENGTH_SHORT).show()
+                     Toast.makeText(context, "Successfully saved.", Toast.LENGTH_SHORT).show()
                     }
             } else {
                 db.add(idea)
                     .addOnSuccessListener {
-                       // Toast.makeText(context, "Successfully saved.", Toast.LENGTH_SHORT).show()
+                       Toast.makeText(context, "Successfully saved.", Toast.LENGTH_SHORT).show()
                     }
             }
 
         } catch (e: Exception) {
-            //Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
         }
     }
 

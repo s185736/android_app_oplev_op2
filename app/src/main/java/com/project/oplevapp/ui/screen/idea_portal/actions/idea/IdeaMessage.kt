@@ -20,16 +20,7 @@ data class Idea(
         val ideaSuggestionText: String?,
         val ideaTimeCreated: Long,
         val ideaColorStatus: Int,
-        @PrimaryKey val id: Int ?= null) : Parcelable {
-            constructor(parcel: Parcel) : this(
-            parcel.readString(),
-            parcel.readString(),
-            parcel.readLong(),
-            parcel.readInt(),
-            parcel.readValue(Int::class.java.classLoader) as? Int
-            )
-
-
+        @PrimaryKey val id: Int ?= null){
 
     /*Colors that can be chosen for created idea.
     * Purpose: To make it look colorful and different..*/
@@ -40,16 +31,5 @@ data class Idea(
                 SquareColorTwo,
                 SquareColorThree
             )
-    }
-
-    /*Automatically generated..*/
-    override fun describeContents(): Int = 0
-    /*Automatically generated..*/
-    override fun writeToParcel(dest: Parcel, flags: Int) {
-        dest.writeString(ideaTitle)
-        dest.writeString(ideaSuggestionText)
-        dest.writeLong(ideaTimeCreated)
-        dest.writeInt(ideaColorStatus)
-        dest.writeValue(id)
     }
 }
