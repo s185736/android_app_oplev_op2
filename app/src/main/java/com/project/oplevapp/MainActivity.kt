@@ -8,7 +8,6 @@ import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.project.oplevapp.nav.MainNavHost
-import com.project.oplevapp.ui.screen.profile.CreateAccount
 import com.project.oplevapp.ui.theme.OplevAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 

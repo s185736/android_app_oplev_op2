@@ -1,6 +1,8 @@
 package com.project.oplevapp.ui.screen.idea_portal.actions.idea
 
+import android.content.ContentValues
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.*
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -15,8 +17,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,14 +30,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.R
 import com.project.oplevapp.nav.Screen
+import com.project.oplevapp.ui.screen.idea_portal.actions.MainActions
 import com.project.oplevapp.ui.screen.idea_portal.actions.idea.IdeaActions.Restore
 import com.project.oplevapp.ui.screen.idea_portal.components.PortalSlots
 import com.project.oplevapp.ui.theme.LightRed
 import com.project.oplevapp.ui.theme.OplevDarkBlue
 import com.project.oplevapp.ui.theme.WhiteBackground
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -45,7 +50,14 @@ import kotlinx.coroutines.launch
 fun PortalScreen(
     navController: NavController,
     viewModel: ViewModel = hiltViewModel()
-) {
+)  {
+    var db = Firebase.firestore.collection("ideaPortal")
+    var ideas = remember {
+        mutableStateListOf<Idea>()
+    }
+    var isLoading by remember {
+        mutableStateOf(true)
+    }
     val vmState: IdeaStatus = viewModel.state.value
     val foldState: ScaffoldState = rememberScaffoldState()
     val coroutine: CoroutineScope = rememberCoroutineScope()
@@ -102,6 +114,51 @@ fun PortalScreen(
                 Spacer(modifier = Modifier.height(10.dp))
                 Column(modifier = Modifier.fillMaxSize()) {
 
+
+               /* Column(
+                    modifier = Modifier.fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    CircularProgressIndicator()
+
+
+                    try {
+                        db.addSnapshotListener { snapshot, e ->
+                            if (snapshot != null) {
+                                for (document in snapshot) {
+
+                                    Log.d(ContentValues.TAG, "${document.id} => ${document.data}")
+                                    val id = document.id
+                                    val ideaTitle = document.data["title"] as String
+                                    val ideaSuggestionText = document.data["text"] as String
+                                    val ideaTimeCreated = document.data["time"] as Long
+                                    val ideaColorStatus = document.data["color"] as Int
+                                    CoroutineScope(Dispatchers.IO).launch {
+                                        ideas.add(//mainActions.addIdea(
+                                            Idea(
+                                                id = id.toInt(),
+                                                ideaTitle = ideaTitle,
+                                                ideaSuggestionText = ideaSuggestionText,
+                                                ideaTimeCreated = ideaTimeCreated,
+                                                ideaColorStatus = ideaColorStatus
+                                            )
+                                        )
+                                    }
+
+                                }
+                                isLoading = false
+                            } else {
+                                if (e != null) {
+                                    println(e.message)
+                                    Log.w(ContentValues.TAG, "Error getting documents.", e)
+                                }
+                            }
+                        }
+                    } catch (e: Exception) {
+                        Log.w(ContentValues.TAG, "Error getting documents.", e)
+                    }
+                }*/
                     /*Using Grids for the cells,
                     and structuring the screen, we've set 1 ideas in one line.*/
                     LazyVerticalGrid(

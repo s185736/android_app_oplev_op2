@@ -2,8 +2,15 @@
 /*Source: https://www.geeksforgeeks.org/mvvm-model-view-viewmodel-architecture-pattern-in-android*/
 package com.project.oplevapp.ui.screen.idea_portal.actions.idea
 
+import android.annotation.SuppressLint
+import android.content.ContentValues
 import android.os.Parcel
 import android.os.Parcelable
+import android.util.Log
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -11,7 +18,14 @@ import androidx.lifecycle.viewModelScope
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.project.oplevapp.data.IdeaRepository
+import com.project.oplevapp.data.user.UserRepository
+import com.project.oplevapp.model.NotesInfo
 import com.project.oplevapp.ui.screen.idea_portal.actions.MainActions
 import com.project.oplevapp.ui.screen.idea_portal.actions.MessageField
 import kotlinx.coroutines.Job
@@ -81,6 +95,7 @@ class ModifyViewModel @Inject constructor(
     private val ideaSharedFlow = MutableSharedFlow<UserInterfaceAction>()
     private var getIdeaID: Int? = null
     val ideaRepository = IdeaRepository()
+    var db = Firebase.firestore.collection("ideaPortalen")
 
     private val ideaTitleField = mutableStateOf(
 
@@ -89,9 +104,9 @@ class ModifyViewModel @Inject constructor(
     private val ideaMessageField = mutableStateOf(
         MessageField(slot = "Hvad har du i tankerne?")
     )
-     val ideaTitle: State<MessageField> = ideaTitleField
-     val ideaMessage: State<MessageField> = ideaMessageField
-     val ideaColor: State<Int> = ideaColorBackground
+    val ideaTitle: State<MessageField> = ideaTitleField
+    val ideaMessage: State<MessageField> = ideaMessageField
+    val ideaColor: State<Int> = ideaColorBackground
     val ideaFlow = ideaSharedFlow.asSharedFlow()
 
     val ideaSave = Idea(
@@ -104,7 +119,8 @@ class ModifyViewModel @Inject constructor(
 
     constructor(parcel: Parcel) : this(
         TODO("mainActions"),
-        TODO("savedStates")) {
+        TODO("savedStates")
+    ) {
         getIdeaID = parcel.readValue(Int::class.java.classLoader) as? Int
     }
 
@@ -133,7 +149,7 @@ class ModifyViewModel @Inject constructor(
     }
 
     fun onAction(action: com.project.oplevapp.ui.screen.idea_portal.actions.IdeaActions) {
-        when(action) {
+        when (action) {
             is com.project.oplevapp.ui.screen.idea_portal.actions.IdeaActions.TitleTyped -> {
                 ideaTitleField.value = ideaTitle.value.copy(
                     message = action.titleTyped
@@ -172,9 +188,9 @@ class ModifyViewModel @Inject constructor(
                             )
                         )
                         ideaSharedFlow.emit(UserInterfaceAction.SaveObject)
-                        ideaRepository.saveIdea(ideaSave)
+                        //ideaRepository.saveIdea(ideaSave, content)
 
-                    } catch(e: IdeaException) {
+                    } catch (e: IdeaException) {
                         ideaSharedFlow.emit(
                             UserInterfaceAction.ShowSnackBar(
                                 message = e.message ?: "Ideen kunne ikke gemmmes."
@@ -183,7 +199,6 @@ class ModifyViewModel @Inject constructor(
                     }
                 }
             }
-            else -> {}
         }
     }
 

@@ -40,29 +40,4 @@ data class MainActions(
     val getIdea: LoadIdea,
     val getIdeaMessages: LoadIdeaMessages,
     val delIdea: DeleteIdea
-) : Parcelable {
-    constructor(parcel: Parcel) : this(
-        TODO("addIdea"),
-        TODO("getIdea"),
-        TODO("getIdeaMessages"),
-        TODO("delIdea")) {
-    }
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<MainActions> {
-        override fun createFromParcel(parcel: Parcel): MainActions {
-            return MainActions(parcel)
-        }
-
-        override fun newArray(size: Int): Array<MainActions?> {
-            return arrayOfNulls(size)
-        }
-    }
-}
+)
