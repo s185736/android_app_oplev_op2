@@ -78,7 +78,7 @@ fun LandingPage(navController: NavController) {
 
                     Spacer(modifier = Modifier.padding(bottom = 27.dp))
                     Button(
-                        onClick = { navController.navigate(Screen.Login.route) },
+                        onClick = { navController.navigate(Screen.TripList.route) },
                         shape = RoundedCornerShape(percent = 50),
                         modifier = Modifier.border(
                             width = 1.dp,

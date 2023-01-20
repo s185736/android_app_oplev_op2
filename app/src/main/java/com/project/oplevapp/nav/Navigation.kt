@@ -2,6 +2,7 @@ package com.project.oplevapp.nav
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import com.project.oplevapp.ui.screen.*
 import com.project.oplevapp.ui.screen.profile.LoginPage
@@ -12,6 +13,7 @@ import com.project.oplevapp.ui.screen.profile.Profile
 import com.project.oplevapp.ui.screen.profile.ResetPassword
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -38,81 +40,90 @@ fun MainNavHost() {
     )
 
     Scaffold(
-        bottomBar = { BottomBar(navController = navController, navState = navState) },
-        content = {
-            NavHost( navController = navController, startDestination = Screen.LandingPage.route,) {
-                composable(Screen.Profile.route) {
-                    Profile(
-                        navController = navController,
-                        userRepository = userRepository
-                    )
+        bottomBar = { BottomBar(navController = navController, navState = navState) }
+    ) { innerPadding ->
+        NavHost(
+            navController = navController,
+            startDestination = Screen.LandingPage.route,
+            Modifier.padding(innerPadding)
+        ) {
+            composable(Screen.Profile.route) {
+                Profile(
+                    navController = navController,
+                    userRepository = userRepository
+                )
+            }
+            composable(Screen.ResetPassword.route) { ResetPassword(navController = navController) }
+            composable(Screen.CountriesList.route) { CountriesList(navController) }
+            composable(Screen.Country.route) {
+                //receiving data
+                val country =
+                    navController.previousBackStackEntry?.savedStateHandle?.get<Country>("country")
+                if (country != null) {
+                    CountryPage(country = country, navController = navController)
+                    println("Details page loaded successfully")
+                } else {
+                    println("No data in country")
                 }
-                composable(Screen.ResetPassword.route) { ResetPassword(navController = navController) }
-                composable(Screen.CountriesList.route) { CountriesList(navController) }
-                composable(Screen.Country.route) {
-                    //receiving data
-                    val country =
-                        navController.previousBackStackEntry?.savedStateHandle?.get<Country>("country")
-                    if (country != null) {
-                        CountryPage(country = country, navController = navController)
-                        println("Details page loaded successfully")
-                    } else {
-                        println("No data in country")
-                    }
-                }
+            }
 
-                composable(Screen.EditCountry.route) {
-                    //receiving data
-                    val country =
-                        navController.previousBackStackEntry?.savedStateHandle?.get<Country>("country")
-                    if (country != null) {
-                        EditCountry(
-                            country = country,
-                            navController = navController,
-                            countryRepository = countryRepository
-                        )
-                        println("Edit page loaded successfully")
-                    } else {
-                        println("No data in country")
-                    }
-                }
-
-                composable(Screen.Login.route){ LoginPage(userRepository, navController) }
-                composable(Screen.Note.route){ writeNotes(navController = navController, notesRepository ) }
-                composable(Screen.AddCountry.route){ AddCountry(navController, countryRepository) }
-
-                composable(Screen.LandingPage.route) { LandingPage(navController) }
-
-                composable(Screen.TripList.route) {
-                    TripListScreen(
+            composable(Screen.EditCountry.route) {
+                //receiving data
+                val country =
+                    navController.previousBackStackEntry?.savedStateHandle?.get<Country>("country")
+                if (country != null) {
+                    EditCountry(
+                        country = country,
                         navController = navController,
                         countryRepository = countryRepository
                     )
+                    println("Edit page loaded successfully")
+                } else {
+                    println("No data in country")
                 }
-                composable(Screen.CreateAccount.route) {
-                    CreateAccount(navController = navController, userRepository = userRepository)
-                }
-                composable(Screen.IdeaScreen.route) { PortalScreen(navController = navController) }
-                composable(
-                    route = Screen.ModifyInIdeaMessageScreen.route + "?ideaId={ideaId}&ideaColor={ideaColor}",
-                    arguments = listOf(
-                        navArgument(name = "ideaId") {
-                            type = NavType.IntType
-                            defaultValue = -1
-                        },
-                        navArgument(name = "ideaColor") {
-                            type = NavType.IntType
-                            defaultValue = -1
-                        },
-                    )
-                ) {
-                    val color = it.arguments?.getInt("ideaColor") ?: -1
-                    ModifyPortal(navController = navController, ideaColor = color)
-                }
-
-
-                composable(Screen.TripShare.route){ ShareTrip(navController) }
             }
+
+            composable(Screen.Login.route) { LoginPage(userRepository, navController) }
+            composable(Screen.Note.route) {
+                writeNotes(
+                    navController = navController,
+                    notesRepository
+                )
+            }
+            composable(Screen.AddCountry.route) { AddCountry(navController, countryRepository) }
+
+            composable(Screen.LandingPage.route) { LandingPage(navController) }
+
+            composable(Screen.TripList.route) {
+                TripListScreen(
+                    navController = navController,
+                    countryRepository = countryRepository
+                )
+            }
+            composable(Screen.CreateAccount.route) {
+                CreateAccount(navController = navController, userRepository = userRepository)
+            }
+            composable(Screen.IdeaScreen.route) { PortalScreen(navController = navController) }
+            composable(
+                route = Screen.ModifyInIdeaMessageScreen.route + "?ideaId={ideaId}&ideaColor={ideaColor}",
+                arguments = listOf(
+                    navArgument(name = "ideaId") {
+                        type = NavType.IntType
+                        defaultValue = -1
+                    },
+                    navArgument(name = "ideaColor") {
+                        type = NavType.IntType
+                        defaultValue = -1
+                    },
+                )
+            ) {
+                val color = it.arguments?.getInt("ideaColor") ?: -1
+                ModifyPortal(navController = navController, ideaColor = color)
+            }
+
+
+            composable(Screen.TripShare.route) { ShareTrip(navController) }
         }
-    )
+    }
+
 }
