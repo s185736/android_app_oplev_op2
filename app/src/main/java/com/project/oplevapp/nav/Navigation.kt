@@ -19,7 +19,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.project.oplevapp.data.CountryRepository
 import com.project.oplevapp.data.NotesRepository
-import com.project.oplevapp.data.user.UserRepository
+import com.project.oplevapp.data.user.repo.database.UserRepository
 import com.project.oplevapp.model.Country
 import com.project.oplevapp.ui.screen.country.*
 
