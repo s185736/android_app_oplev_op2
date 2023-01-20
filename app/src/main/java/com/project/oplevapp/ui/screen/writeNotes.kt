@@ -36,7 +36,7 @@ fun writeNotes(navController: NavController, notesRepository: NotesRepository) {
     var noteWriting by remember { mutableStateOf("") }
 
     var isLoading by remember {
-        mutableStateOf(true)
+        mutableStateOf(false)
     }
 
         NoteHeader()
@@ -108,7 +108,7 @@ fun writeNotes(navController: NavController, notesRepository: NotesRepository) {
                                     notesId = id
                                     noteWriting = notes
                                 }
-                                isLoading = false
+                                isLoading = true
 
                             } else {
                                 if (e != null) {
