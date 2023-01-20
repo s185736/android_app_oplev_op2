@@ -85,7 +85,7 @@ fun LoginPage(
                         shape = RoundedCornerShape(27.dp)
                     )
                     .clip(RoundedCornerShape(50.dp))
-                    .padding(top = 200.dp, start = 20.dp, end = 20.dp),
+                    .padding(top = 50.dp, start = 20.dp, end = 20.dp),
                 backgroundColor = Color(red = 255, green = 255, blue = 255)
             ) {
                 Column(
