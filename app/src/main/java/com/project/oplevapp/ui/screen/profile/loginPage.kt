@@ -58,8 +58,8 @@ fun LoginPage(
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
 
-    var email by remember { mutableStateOf("") }
-    var password by rememberSaveable { mutableStateOf("") }
+    var email by remember { mutableStateOf("dtu@dtu.dk") }
+    var password by rememberSaveable { mutableStateOf("dtu123") }
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
     var isDialog by remember { mutableStateOf(false) }
 
